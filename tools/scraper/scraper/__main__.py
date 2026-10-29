@@ -71,7 +71,9 @@ def _executar_gtfs(args: argparse.Namespace) -> int:
         print(f"[config] timetables faltando em data/raw para: {', '.join(faltando)}")
         return 2
 
-    tab = montar_tabelas(entrada)
+    tab = montar_tabelas(
+        entrada, semob_geojson_dir=config.raw_dir() / "semob_geojson"
+    )
     achados = validar_tabelas(tab)
     erros = [n for n in tab.notas + achados if n.severidade == "erro"]
 

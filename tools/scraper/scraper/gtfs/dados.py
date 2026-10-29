@@ -22,6 +22,7 @@ from .operadoras import (
     tabela_agency,
 )
 from .polyline import decodificar_polyline
+from .shapes_semob import substituir_shapes_semob
 
 DIAS_GTFS = ("seg", "ter", "qua", "qui", "sex", "sab", "dom")
 DIAS_COLUNAS = ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
@@ -528,7 +529,9 @@ def _montar_trips_e_stop_times(
         )
 
 
-def montar_tabelas(entrada: Entrada) -> Tabelas:
+def montar_tabelas(
+    entrada: Entrada, semob_geojson_dir: Path | None = None
+) -> Tabelas:
     """Constrói todas as tabelas GTFS + quadro de notas (nada inventado em silêncio)."""
     tab = Tabelas()
     operadoras = operadoras_de(entrada.metadados_semob)
@@ -564,6 +567,9 @@ def montar_tabelas(entrada: Entrada) -> Tabelas:
     stops_tabeladas = _montar_stops(entrada, tab)
     _montar_calendar(entrada, tab)
     shapes_mapa = _montar_shapes(entrada, tab)
+    # Item 6: traçado oficial SEMOB substitui o do painel nas linhas alvo
+    # (pasta congelada data/raw/semob_geojson; None = feature off em testes).
+    substituir_shapes_semob(entrada, tab, shapes_mapa, pasta=semob_geojson_dir)
     _montar_trips_e_stop_times(entrada, tab, stops_tabeladas, shapes_mapa)
 
     datas_inicio = [r["start_date"] for r in tab.calendar]

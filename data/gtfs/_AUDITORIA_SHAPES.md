@@ -93,3 +93,53 @@ do nosso shape; escolhemos sempre o nosso shape de menor erro médio.
 - Melhor linha: 0002 (11.6 m)
 - Pior linha: 0520 (316.9 m)
 - Linhas com erro médio < 30 m: 52/75
+
+## Item 6 — o traçado oficial substitui o do painel? Análise de 2026-10-29
+
+A troca SÓ acontece quando o traçado oficial não deixa MAIS paradas a mais
+de 100 m do que deixa a polyline do painel (comparação com ambos os traçados
+reamostrados a 40 m, distância parada→traçado). Resultado com os geojson de
+2026-10-29: **nenhuma substituição aprovada** — o traçado do painel cobre
+todas as paradas de todas as linhas auditadas (0 paradas longe), enquanto o
+oficial deixa até 47 paradas longe (E155, pior caso 4,4 km): o geojson oficial
+está desatualizado em relação ao serviço em operação (mesmo sintoma do dado de
+operadora). Números completos em `docs/item6_shapes_semob.csv`. Quando a SEMOB
+atualizar os itinerários, basta re-coletar (`coleta_shapes_semob.py`) e regenerar:
+a política aplica as trocas que sobreviverem à verificação de coerência.
+
+| Linha | Erro médio (m) | Paradas >100 m c/ oficial | Paradas >100 m c/ painel | Decisão |
+| --- | ---: | ---: | ---: | --- |
+| 0106 | 46.8 | 8/84 | 0/84 | mantido o traçado do painel (oficial desatualizado) |
+| 0109 | 109.3 | 11/42 | 0/42 | mantido o traçado do painel (oficial desatualizado) |
+| 0115 | 68.0 | — | — | mantido o traçado do painel (primeira parada a 1442 m dos extremos oficiais) |
+| 0115 | 68.0 | 13/57 | 0/57 | mantido o traçado do painel (oficial desatualizado) |
+| 0304 | 92.3 | — | — | mantido o traçado do painel (primeira parada a 1202 m dos extremos oficiais) |
+| 0307 | 37.1 | 17/79 | 0/79 | mantido o traçado do painel (oficial desatualizado) |
+| 0307 | 37.1 | 21/83 | 0/83 | mantido o traçado do painel (oficial desatualizado) |
+| 0500 | 30.2 | 12/67 | 0/67 | mantido o traçado do painel (oficial desatualizado) |
+| 0502 | 46.9 | 15/105 | 0/105 | mantido o traçado do painel (oficial desatualizado) |
+| 0502 | 46.9 | 17/109 | 0/109 | mantido o traçado do painel (oficial desatualizado) |
+| 0503 | 33.4 | 8/58 | 0/58 | mantido o traçado do painel (oficial desatualizado) |
+| 0507 | 34.4 | — | — | mantido o traçado do painel (primeira parada a 1210 m dos extremos oficiais) |
+| 0512 | 33.1 | 13/56 | 0/56 | mantido o traçado do painel (oficial desatualizado) |
+| 0517 | 64.6 | 12/117 | 0/117 | mantido o traçado do painel (oficial desatualizado) |
+| 0520 | 316.9 | — | — | mantido o traçado do painel (primeira parada a 3111 m dos extremos oficiais) |
+| 0522 | 43.4 | 5/56 | 0/56 | mantido o traçado do painel (oficial desatualizado) |
+| 1500 | 30.3 | 2/139 | 0/139 | mantido o traçado do painel (oficial desatualizado) |
+| 1500 | 30.3 | 6/143 | 0/143 | mantido o traçado do painel (oficial desatualizado) |
+| 1500 | 30.3 | 10/147 | 0/147 | mantido o traçado do painel (oficial desatualizado) |
+| 1510 | 41.1 | — | — | mantido o traçado do painel (primeira parada a 1196 m dos extremos oficiais) |
+| 1519 | 31.9 | 27/105 | 0/105 | mantido o traçado do painel (oficial desatualizado) |
+| 1519 | 31.9 | 28/106 | 0/106 | mantido o traçado do painel (oficial desatualizado) |
+| 5100 | 52.8 | 16/138 | 0/138 | mantido o traçado do painel (oficial desatualizado) |
+| 5100 | 52.8 | 22/140 | 0/140 | mantido o traçado do painel (oficial desatualizado) |
+| 5100 | 52.8 | 26/144 | 0/144 | mantido o traçado do painel (oficial desatualizado) |
+| 5100 | 52.8 | 16/138 | 0/138 | mantido o traçado do painel (oficial desatualizado) |
+| 5110 | 41.9 | 10/101 | 0/101 | mantido o traçado do painel (oficial desatualizado) |
+| 5210 | 30.9 | 28/92 | 0/92 | mantido o traçado do painel (oficial desatualizado) |
+| E155 | 32.3 | 47/116 | 0/116 | mantido o traçado do painel (oficial desatualizado) |
+| E551 | 33.0 | 46/116 | 0/116 | mantido o traçado do painel (oficial desatualizado) |
+| E901 | 44.9 | 13/53 | 0/53 | mantido o traçado do painel (oficial desatualizado) |
+| E901 | 44.9 | 18/83 | 0/83 | mantido o traçado do painel (oficial desatualizado) |
+| E901 | 44.9 | 5/37 | 0/37 | mantido o traçado do painel (oficial desatualizado) |
+| I004 | 162.4 | 10/29 | 0/29 | mantido o traçado do painel (oficial desatualizado) |
