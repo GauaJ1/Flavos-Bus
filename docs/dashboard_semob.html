@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flavos Bus · painel SEMOB × feed</title>
+<style>
+
+:root {
+  --bg: #f6f8fb; --superficie: #ffffff;
+  --tinta: #152641; --tinta2: #4b5b70;
+  --borda: #d8e0ea; --suave: #e8edf3;
+  --superficie2: #eef2f8;
+  --tinta-invertida: #ffffff;
+  --ok: #0f766e; --alerta: #c2410c;
+  --destaque: #1d4ed8; --amb: #b45309;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1220; --superficie: #111a2b;
+    --tinta: #e8eef7; --tinta2: #9fb0c5;
+    --borda: #27354c; --suave: #1d2a40;
+    --superficie2: #18233a;
+    --tinta-invertida: #0b1220;
+    --ok: #34d399; --alerta: #fb923c; --destaque: #7ca9ff; --amb: #fbbf24;
+  }
+}
+@media (prefers-reduced-motion: no-preference) { :target { scroll-behavior: smooth; } }
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--tinta);
+  font-family: "Fira Sans", "Segoe UI", system-ui, sans-serif;
+  font-size: 15px; line-height: 1.55;
+}
+.mono { font-family: "Fira Code", "Cascadia Mono", Consolas, monospace; }
+header.topo {
+  background: linear-gradient(180deg, var(--superficie) 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--borda); padding: 28px 20px 18px;
+}
+header.topo .miolo, main, footer .miolo { max-width: 1080px; margin: 0 auto; }
+h1 { font-size: 26px; letter-spacing: -.2px; margin: 0 0 4px; }
+.sub { color: var(--tinta2); margin: 0; }
+.sub b { color: var(--tinta); font-weight: 600; }
+main { padding: 26px 20px 8px; display: grid; gap: 26px; }
+section > h2 {
+  font-size: 18px; margin: 0 0 4px; letter-spacing: -.1px;
+}
+section > p.nota { margin: 0 0 14px; color: var(--tinta2); font-size: 13.5px; }
+section { scroll-margin-top: 16px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.kpi {
+  background: var(--superficie); border: 1px solid var(--borda);
+  border-radius: 10px; padding: 14px 16px;
+}
+.kpi .num { font-size: 30px; font-weight: 700; letter-spacing: -1px; line-height: 1.1; }
+.kpi .rot { font-size: 13px; color: var(--tinta2); margin-top: 2px; }
+.kpi .det { font-size: 12px; color: var(--tinta2); opacity: .85; margin-top: 6px; }
+.kpi.atencao .num { color: var(--alerta); }
+.kpi.bom .num { color: var(--ok); }
+.pipe { width: 100%; height: auto; color: var(--tinta); display: block; }
+.pipe .n { fill: var(--superficie2); stroke: var(--borda); stroke-width: 1.2; }
+.pipe .painel { stroke: var(--destaque); stroke-width: 1.8; }
+.pipe .semob { stroke: var(--ok); stroke-width: 1.8; }
+.pipe .val { stroke: var(--ok); }
+.pipe .monitor { stroke: var(--amb); stroke-width: 1.8; }
+.pipe text { font-family: "Fira Sans", "Segoe UI", sans-serif; font-size: 13.5px; fill: var(--tinta); }
+.pipe text.s { font-size: 11.5px; fill: var(--tinta2); }
+.pipe .arq { stroke: var(--tinta2); stroke-width: 1.4; fill: none; opacity: .8; }
+.pipe .leg { font-size: 12px; }
+.grade2 { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; align-items: start; }
+@media (max-width: 880px) { .grade2 { grid-template-columns: 1fr; } }
+.cartao {
+  background: var(--superficie); border: 1px solid var(--borda);
+  border-radius: 10px; padding: 16px 18px;
+}
+.cartao h2 { margin: 0 0 2px; font-size: 16px; }
+.cartao .nota { font-size: 12.5px; color: var(--tinta2); margin: 0 0 12px; }
+svg.graf { width: 100%; height: auto; }
+svg.graf text { font-size: 12px; fill: var(--tinta); }
+svg.graf text.ax { fill: var(--tinta2); font-size: 11.5px; }
+svg.graf text.nv { font-weight: 600; fill: var(--tinta); font-size: 12.5px; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--suave); }
+thead th {
+  text-align: left; color: var(--tinta2); font-weight: 600; font-size: 12px;
+  text-transform: none; border-bottom: 1px solid var(--borda);
+}
+tbody th[scope="row"] { text-align: left; font-weight: 600; }
+tr.destaque td, tr.destaque th {
+  background: color-mix(in oklab, var(--destaque) 14%, transparent);
+}
+.chip {
+  display: inline-block; border-radius: 999px; padding: 1px 10px; font-size: 12px;
+  font-weight: 600; background: var(--superficie2); border: 1px solid var(--borda);
+}
+.chip.ok { color: var(--ok); border-color: color-mix(in oklab, var(--ok) 45%, var(--borda)); }
+.chip.alerta { color: var(--alerta); border-color: color-mix(in oklab, var(--alerta) 45%, var(--borda)); }
+.casos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+article.caso { background: var(--superficie2); border-radius: 8px; padding: 12px 14px; }
+article.caso h3 { margin: 0 0 6px; font-size: 14px; }
+p.mini { margin: 8px 0 2px; color: var(--tinta2); font-size: 11.5px; }
+p.cod {
+  margin: 0; font-size: 12px; word-break: break-word; color: var(--tinta);
+  background: var(--superficie); border-radius: 6px; padding: 6px 8px;
+  border: 1px solid var(--suave);
+}
+.bloco509 {
+  border: 1.6px solid var(--destaque); border-radius: 12px;
+  padding: 18px 20px; background: var(--superficie); position: relative;
+}
+.bloco509 h2 { margin: 0; font-size: 17px; }
+.bloco509 .tag509 {
+  position: absolute; top: -11px; left: 18px; background: var(--destaque);
+  color: var(--tinta-invertida); font-size: 11.5px; font-weight: 700;
+  border-radius: 999px; padding: 2px 12px; letter-spacing: .2px;
+}
+.col509 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+@media (max-width: 820px) { .col509 { grid-template-columns: 1fr; } }
+.dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font-size: 13.5px; margin: 10px 0 0; }
+.dl dt { color: var(--tinta2); }
+.dl dd { margin: 0; font-weight: 600; }
+footer { padding: 22px 20px 40px; color: var(--tinta2); font-size: 12.5px; border-top: 1px solid var(--borda); margin-top: 26px; }
+footer a, header a { color: var(--destaque); }
+.esconde-cel { max-width: 260px; }
+@media (max-width: 700px) { .esconde-cel { display: none; } }
+:focus-visible { outline: 2px solid var(--destaque); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="miolo">
+    <h1>Flavos Bus · dados oficiais SEMOB-JP × feed</h1>
+    <p class="sub">Monitoramento contínuo do ecossistema: <b>84 linhas</b> de ônibus de João Pessoa
+    publicado em <time>29/10/2026 07:11</time> · fontes: geojson/quadro oficial da SEMOB-JP e painel Mobilibus</p>
+  </div>
+</header>
+<main>
+  <section aria-labelledby="t-pipe">
+    <h2 id="t-pipe">O caminho do dado, do painel ao app</h2>
+    <p class="nota">Duas fontes públicas independentes alimentam o feed; nada é digitado à mão.</p>
+    
+<svg viewBox="0 0 1080 148" role="img" aria-label="Pipeline: coleta Bus2 e geojson SEMOB geram o GTFS Flavos Bus, validado pelo validador MobilityData e monitorado contra as fontes oficiais" class="pipe">
+  <defs>
+    <marker id="st" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="currentColor" opacity=".55"/></marker>
+  </defs>
+  <g class="fluxo">
+    <rect x="8" y="34" rx="12" width="130" height="80" class="n painel"/>
+    <text x="16" y="56">Coleta</text>
+    <text x="16" y="74" class="s">painel Mobilibus</text>
+    <text x="16" y="92" class="s">84/84 linhas · AES</text>
+    <rect x="8" y="34" rx="12" width="130" height="80" class="sombra"/>
+    <rect x="158" y="34" rx="12" width="130" height="80" class="n semob"/>
+    <text x="166" y="56">GeoJSON</text>
+    <text x="166" y="74" class="s">site SEMOB-JP</text>
+    <text x="166" y="92" class="s">77 linhas com traçado</text>
+    <rect x="308" y="34" rx="12" width="130" height="80" class="n artefato"/>
+    <text x="316" y="56">GTFS</text>
+    <text x="316" y="74" class="s">gerador próprio</text>
+    <text x="316" y="92" class="s">shapes · 8 agency</text>
+    <rect x="458" y="34" rx="12" width="130" height="80" class="n val"/>
+    <text x="466" y="56">Validação</text>
+    <text x="466" y="74" class="s">MobilityData</text>
+    <text x="466" y="92" class="s">0 erros · 1 aviso</text>
+    <rect x="608" y="34" rx="12" width="130" height="80" class="n monitor"/>
+    <text x="616" y="56">Monitoramento</text>
+    <text x="616" y="74" class="s">defasagem + divergência</text>
+    <text x="616" y="92" class="s">0509 ao vivo: OK</text>
+    <rect x="758" y="34" rx="12" width="130" height="80" class="n app"/>
+    <text x="766" y="56">App</text>
+    <text x="766" y="74" class="s">Flavos Bus (RN)</text>
+    <text x="766" y="92" class="s">GTFS estático</text>
+    <path d="M139 74 h16" class="arq" marker-end="url(#st)"/>
+    <path d="M289 74 h16" class="arq" marker-end="url(#st)"/>
+    <path d="M439 74 h16" class="arq" marker-end="url(#st)"/>
+    <path d="M589 74 h16" class="arq" marker-end="url(#st)"/>
+    <path d="M739 74 h16" class="arq" marker-end="url(#st)"/>
+    <path d="M308 118 h390 v-16" class="arq ret" marker-end="url(#st)"/>
+    <text x="900" y="58" class="leg">dados de 29/10/2026</text>
+    <text x="900" y="76" class="leg s">fontes públicas</text>
+    <text x="900" y="94" class="leg s">nenhum dado inventado</text>
+  </g>
+</svg>
+  </section>
+
+  <section class="kpis" aria-label="Indicadores gerais">
+    <div class="kpi"><div class="num">84</div><div class="rot">linhas no feed</div>
+      <div class="det">8 operadoras declaradas no agency.txt</div></div>
+    <div class="kpi atencao"><div class="num">67</div>
+      <div class="rot">linhas divergem do quadro oficial</div>
+      <div class="det">16 conferem · 1 sem quadro</div></div>
+    <div class="kpi bom"><div class="num">20</div>
+      <div class="rot">traçados oficiais frescos</div>
+      <div class="det">≤ 1 ano · aceitáveis: 0</div></div>
+    <div class="kpi atencao"><div class="num">26</div>
+      <div class="rot">traçados defasados</div>
+      <div class="det">&gt; 4 anos · sem data: 14</div></div>
+    <div class="kpi"><div class="num">7</div>
+      <div class="rot">sem geojson publicado</div>
+      <div class="det">0116 · 0120 · 0604 · 9901 · CBTU · I015 · T003</div></div>
+  </section>
+
+  <div class="bloco509" id="linha-509">
+    <span class="tag509">LINHA DE VALIDAÇÃO CONTÍNUA</span>
+    <div class="col509">
+      <div>
+        <h2>0509 · João Agripino</h2>
+        <dl class="dl">
+          <dt>Horários feed × quadro oficial (úteis)</dt>
+            <dd>20 × 20 — confere viagem a viagem</dd>
+          <dt>Sábado</dt>
+            <dd>6 × 6</dd>
+          <dt>Traçado oficial</dt>
+            <dd class="mono">ATUALIZACA 2018-10-15; 2018-10-15</dd>
+          <dt>Idade mín. do traçado</dt>
+            <dd>8.04 anos — <b>defasado</b></dd>
+          <dt>Operadora declarada</dt>
+            <dd>MARCOS DA SILVA (dado declarativo, não confirmação atual)</dd>
+          <dt>Paradas distintas no feed</dt><dd>54</dd>
+          <dt>Tempo real</dt><dd>não publicado (painel sem RT · endpoint GPS com erro 500)</dd>
+        </dl>
+      </div>
+      <div class="cartao">
+        <h2>Rodadas ao vivo</h2>
+        <p class="nota">Integridade + horários × painel fresco + captura de veículos; a MISSÃO exige OK após cada mudança.</p>
+        <table class="mono">
+          <thead><tr><th>Quando</th><th>Rodada</th><th>Resultado</th><th>Veículos</th></tr></thead>
+          <tbody>
+<tr><td>2026-10-29 06:49</td><td>baseline</td><td><span class="chip ok">OK</span></td><td>0</td><td class="esconde-cel">sem RT no painel</td></tr><tr><td>2026-10-29 06:56</td><td>pos-item4</td><td><span class="chip ok">OK</span></td><td>0</td><td class="esconde-cel">sem RT no painel</td></tr><tr><td>2026-10-29 07:04</td><td>pos-item5</td><td><span class="chip ok">OK</span></td><td>0</td><td class="esconde-cel">sem RT no painel</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <section aria-labelledby="t-defa">
+    <h2 id="t-defa">Defasagem dos traçados oficiais</h2>
+    <p class="nota">Idade do campo ATUALIZACA por linha (77 linhas com geojson). Critério de referência: 4 anos.</p>
+    <div class="grade2">
+      <div class="cartao">
+        <h2>Traçados por status</h2>
+        <svg class="graf" viewBox="0 0 720 200" role="img" aria-label="Barras: traçados por status de atualização">
+          <text x="0" y="30" class="ax">Traçado fresco (≤ 1 ano)</text><rect x="230" y="14" width="400.0" height="20" rx="4" fill="#15803d"/><text x="638.0" y="30" class="nv">20</text><text x="0" y="76" class="ax">Aceitável (1–4 anos)</text><rect x="230" y="60" width="0.0" height="20" rx="4" fill="#a16207"/><text x="238.0" y="76" class="nv">0</text><text x="0" y="122" class="ax">Defasado (&gt; 4 anos)</text><rect x="230" y="106" width="520.0" height="20" rx="4" fill="#c2410c"/><text x="758.0" y="122" class="nv">26</text><text x="0" y="168" class="ax">Sem data de atualização</text><rect x="230" y="152" width="280.0" height="20" rx="4" fill="#64748b"/><text x="518.0" y="168" class="nv">14</text>
+        </svg>
+      </div>
+      <div class="cartao">
+        <h2>Histograma de idades</h2>
+        <svg class="graf" viewBox="0 0 520 170" role="img" aria-label="Histograma da idade mínima dos traçados">
+          <rect x="40" y="20.0" width="54" height="120.0" rx="4" fill="#1d4ed8"/><text x="67" y="14.0" class="nv" text-anchor="middle">20</text><text x="67" y="156" class="ax" text-anchor="middle">≤ 1 ano</text><rect x="114" y="122.0" width="54" height="18.0" rx="4" fill="#1d4ed8"/><text x="141" y="116.0" class="nv" text-anchor="middle">3</text><text x="141" y="156" class="ax" text-anchor="middle">1–2</text><rect x="188" y="56.0" width="54" height="84.0" rx="4" fill="#1d4ed8"/><text x="215" y="50.0" class="nv" text-anchor="middle">14</text><text x="215" y="156" class="ax" text-anchor="middle">2–4</text><rect x="262" y="104.0" width="54" height="36.0" rx="4" fill="#1d4ed8"/><text x="289" y="98.0" class="nv" text-anchor="middle">6</text><text x="289" y="156" class="ax" text-anchor="middle">4–6</text><rect x="336" y="56.0" width="54" height="84.0" rx="4" fill="#1d4ed8"/><text x="363" y="50.0" class="nv" text-anchor="middle">14</text><text x="363" y="156" class="ax" text-anchor="middle">6–8</text><rect x="410" y="104.0" width="54" height="36.0" rx="4" fill="#1d4ed8"/><text x="437" y="98.0" class="nv" text-anchor="middle">6</text><text x="437" y="156" class="ax" text-anchor="middle">&gt; 8 anos</text><rect x="484" y="56.0" width="54" height="84.0" rx="4" fill="#64748b"/><text x="511" y="50.0" class="nv" text-anchor="middle">14</text><text x="511" y="156" class="ax" text-anchor="middle">sem data</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-div">
+    <h2 id="t-div">Divergência de viagens (úteis): feed × quadro oficial</h2>
+    <p class="nota">12 maiores diferenças de contagem. A divergência dominante é de <b>versão de tabela</b>
+    (horários deslocados), não de quantidade — ver exemplos abaixo.</p>
+    <div class="grade2">
+      <div class="cartao">
+        <table class="mono">
+          <thead><tr><th>Linha</th><th>Feed</th><th>Oficial</th><th>Δ</th></tr></thead>
+          <tbody>
+<tr class=""><th scope="row">0120</th><td>33</td><td>61</td><td>-28</td></tr>
+<tr class=""><th scope="row">E550</th><td>35</td><td>16</td><td>+19</td></tr>
+<tr class=""><th scope="row">0600</th><td>60</td><td>43</td><td>+17</td></tr>
+<tr class=""><th scope="row">1001</th><td>45</td><td>30</td><td>+15</td></tr>
+<tr class=""><th scope="row">0510</th><td>63</td><td>49</td><td>+14</td></tr>
+<tr class=""><th scope="row">0601</th><td>62</td><td>49</td><td>+13</td></tr>
+<tr class=""><th scope="row">0204</th><td>54</td><td>42</td><td>+12</td></tr>
+<tr class=""><th scope="row">0307</th><td>24</td><td>12</td><td>+12</td></tr>
+<tr class=""><th scope="row">0504</th><td>89</td><td>78</td><td>+11</td></tr>
+<tr class=""><th scope="row">1500</th><td>71</td><td>60</td><td>+11</td></tr>
+<tr class=""><th scope="row">0701</th><td>61</td><td>51</td><td>+10</td></tr>
+<tr class=""><th scope="row">9901</th><td>45</td><td>35</td><td>+10</td></tr></tbody>
+        </table>
+      </div>
+      <div class="casos" aria-label="Exemplos de horários divergentes">
+        <article class="caso"><h3>Linha 0104</h3><p class="mini">só no feed</p><p class="cod">06:08; 06:16; 06:24; 06:32; 06:48; 15:00; 15:15; 15:30; 17:00; 17:15; 17:30; 22:20</p><p class="mini">só no quadro oficial</p><p class="cod">04:40; 06:10; 06:20; 06:30; 06:50; 15:05; 15:25; 17:05; 17:25; 22:30</p></article>
+<article class="caso"><h3>Linha 0510</h3><p class="mini">só no feed</p><p class="cod">05:15; 05:20; 05:40; 05:50; 06:05; 06:17; 06:20; 06:29; 06:41; 06:53; 07:05; 07:15; 07:25; 07:35; 07:45; 09:20; 09:40; 10:00; 10:20; 12:20; 12:40; 13:00; 13:20; 14:20; 14:40; 15:15; 15:30; 15:45; 16:12; 16:24; 16:36; 16:48; 18:20; 18:40; 19:10; 19:40; 20:20; 22:00</p><p class="mini">só no quadro oficial</p><p class="cod">06:15; 06:45; 07:00; 07:12; 07:24; 07:36; 07:48; 09:25; 09:50; 10:15; 12:25; 12:50; 13:15; 14:30; 15:12; 15:24; 15:36; 15:48; 16:15; 16:30; 16:45; 18:30; 19:00; 20:00; 22:10</p></article>
+<article class="caso"><h3>Linha 0106</h3><p class="mini">só no feed</p><p class="cod">05:10; 05:35; 08:20; 09:00; 09:50; 10:40; 11:30; 12:20; 13:00; 13:30; 14:00; 14:30; 16:40</p><p class="mini">só no quadro oficial</p><p class="cod">05:00; 05:30; 08:35; 09:30; 10:25; 11:20; 12:15; 13:10; 14:05; 16:30; 17:00; 22:10</p></article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="miolo">
+    Gerado automaticamente a partir de <code>docs/monitoramento_semob.csv</code>,
+    <code>docs/divergencias_semob.csv</code> e <code>tests/live_509/LOG.md</code> —
+    regenerar com <code>python tools/scraper/gera_dashboard.py</code>. Projeto Flavos Bus ·
+    dados públicos de João Pessoa/PB · nenhum dado pessoal é coletado ou exibido.
+  </div>
+</footer>
+</body>
+</html>
