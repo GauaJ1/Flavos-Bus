@@ -13,6 +13,8 @@ config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, "node_modules"),
   path.resolve(workspaceRoot, "node_modules"),
 ];
-config.resolver.assetExts.push("sqlite");
+// .sqlite: o banco embutido (o app é offline). .wasm: expo-sqlite na web de
+// depuração carrega wa-sqlite.wasm (doc expo-sqlite, suporte web).
+config.resolver.assetExts.push("sqlite", "wasm");
 
 module.exports = config;

@@ -1,73 +1,111 @@
-// Tela de verificação do scaffold (Tarefa 2): confirma que o app está lendo
-// o flavos.sqlite offline (contagem de linhas) e a data do dado. As telas de
-// verdade (buscar linhas, detalhe) entram nas tarefas 3 e 4.
+// Tela "Buscar linhas" (Tarefa 3): busca por número/nome lendo routes do
+// flavos.sqlite, 100% offline. Resposta imediata (SQL local); estados
+// obrigatórios cobertos: banco carregando, banco ausente/erro, sem resultado.
+// Linhas do MVP (doc do projeto: lista inicial) vêm antes no resultado.
+import { useRouter } from "expo-router";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { buscarLinhas, type Linha } from "@flavos/shared";
+import { LINHAS_MVP } from "@/dados/linhas_mvp";
 import { useDados } from "@/db/provedor_dados";
+import { espaco, useTema, type Tema } from "@/tema/theme";
+import { AvisoTeorico } from "@/ui/aviso_teorico";
+import { CampoBusca } from "@/ui/campo_busca";
+import { CartaoLinha } from "@/ui/cartao_linha";
+import { Carregando, EstadoErro, EstadoVazio } from "@/ui/estados";
 
-export default function Inicio() {
+export default function BuscarLinhas() {
+  const tema = useTema();
   const estado = useDados();
+  const router = useRouter();
+  const [texto, setTexto] = useState("");
+  const [linhas, setLinhas] = useState<Linha[] | null>(null);
+
+  useEffect(() => {
+    if (estado.fase !== "pronto") return;
+    let vivo = true;
+    void buscarLinhas(estado.fonte, texto).then((resultado) => {
+      if (vivo) setLinhas(ordemMvp(resultado));
+    });
+    return () => {
+      vivo = false;
+    };
+  }, [estado, texto]);
+
+  if (estado.fase === "carregando") {
+    return (
+      <Tela>
+        <AvisoTeorico />
+        <Carregando rotulo="Abrindo banco offline…" />
+      </Tela>
+    );
+  }
+
+  if (estado.fase === "erro") {
+    return (
+      <Tela>
+        <AvisoTeorico />
+        <EstadoErro
+          titulo="Banco de dados não abriu"
+          detalhe={`O app é offline e lê o flavos.sqlite embutido. Detalhe: ${estado.mensagem}`}
+        />
+      </Tela>
+    );
+  }
+
+  const semResultado = linhas !== null && texto.trim().length > 0 && linhas.length === 0;
 
   return (
-    <ScrollView style={estilos.fundo} contentContainerStyle={estilos.conteudo}>
-      <Text style={estilos.titulo}>Flavos Bus</Text>
-      <Text style={estilos.aviso}>
-        Horários teóricos (programados), podem diferir do ônibus na rua.
-      </Text>
+    <Tela>
+      <AvisoTeorico />
+      <View style={estilosDe(tema).cabecalho}>
+        <CampoBusca valor={texto} onChangeText={setTexto} />
+        <Text style={estilosDe(tema).meta} numberOfLines={1}>
+          {linhas === null ? "buscando…" : `${linhas.length} linha(s) · dado do feed ${estado.feed.versao}`}
+        </Text>
+      </View>
 
-      {estado.fase === "carregando" && <Text style={estilos.texto}>Abrindo banco offline…</Text>}
-
-      {estado.fase === "erro" && (
-        <View style={estilos.erroBox}>
-          <Text style={estilos.erroTitulo}>Não consegui abrir o banco offline</Text>
-          <Text style={estilos.texto}>{estado.mensagem}</Text>
-        </View>
+      {semResultado && (
+        <EstadoVazio
+          titulo="Nenhuma linha com esse nome"
+          explicacao="Tenta só o número (ex.: 509) ou parte do nome do bairro."
+        />
       )}
 
-      {estado.fase === "pronto" && (
-        <View style={estilos.cartao}>
-          <Text style={estilos.numero}>{estado.linhas}</Text>
-          <Text style={estilos.rotulo}>linhas carregadas offline</Text>
-          <Text style={estilos.meta}>
-            feed {estado.feed.versao || "sem versão"} · gerado em{" "}
-            {estado.feed.geradoEm || "—"}
-          </Text>
-        </View>
+      {!semResultado && linhas === null && <Carregando rotulo="Buscando…" />}
+
+      {linhas !== null && (
+        <ScrollView>
+          {linhas.map((linha) => (
+            <CartaoLinha
+              key={linha.id}
+              linha={linha}
+              aoAbrir={(l) => router.push({ pathname: "/linha/[id]", params: { id: l.id } })}
+            />
+          ))}
+        </ScrollView>
       )}
-    </ScrollView>
+    </Tela>
   );
 }
 
-// Contraste AA nos dois temas (cor base da identidade Eco Wave: azul profundo
-// com acento âmbar); áreas de toque e leitura sob sol forte (doc seção 8).
-const escuro = false;
+function ordemMvp(linhas: Linha[]): Linha[] {
+  const ranking = new Map(LINHAS_MVP.map((id, indice) => [id, indice]));
+  return [...linhas].sort(
+    (a, b) => (ranking.get(a.id) ?? 10_000) - (ranking.get(b.id) ?? 10_000) ||
+      a.numero.localeCompare(b.numero),
+  );
+}
 
-const estilos = StyleSheet.create({
-  fundo: { flex: 1, backgroundColor: escuro ? "#0B1220" : "#F4F6FB" },
-  conteudo: { padding: 24, gap: 16, paddingTop: 72 },
-  titulo: { fontSize: 30, fontWeight: "800", color: escuro ? "#F4F6FB" : "#0B1220" },
-  aviso: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: "#3D2E00",
-    backgroundColor: "#FFD666",
-    borderRadius: 12,
-    padding: 12,
-  },
-  texto: { fontSize: 16, color: escuro ? "#C9D3E8" : "#20293D" },
-  erroBox: {
-    backgroundColor: "#3A1010",
-    borderRadius: 12,
-    padding: 16,
-    gap: 8,
-  },
-  erroTitulo: { fontSize: 16, fontWeight: "700", color: "#FFD0D0" },
-  cartao: {
-    backgroundColor: escuro ? "#141E33" : "#FFFFFF",
-    borderRadius: 16,
-    padding: 20,
-    gap: 6,
-  },
-  numero: { fontSize: 44, fontWeight: "800", color: "#1E40AF" },
-  rotulo: { fontSize: 16, color: escuro ? "#C9D3E8" : "#20293D" },
-  meta: { fontSize: 12, color: "#5B6478" },
-});
+function Tela({ children }: { children: React.ReactNode }) {
+  const tema = useTema();
+  return <View style={estilosDe(tema).tela}>{children}</View>;
+}
+
+function estilosDe(tema: Tema) {
+  return StyleSheet.create({
+    tela: { flex: 1, backgroundColor: tema.papel },
+    cabecalho: { padding: espaco.base, gap: espaco.s },
+    meta: { color: tema.tinta2, fontSize: 12 },
+  });
+}
