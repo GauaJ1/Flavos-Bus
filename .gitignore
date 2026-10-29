@@ -40,3 +40,6 @@ apps/mobile/.expo-export-android/
 # artefatos de diagnóstico da sessão de testes (mapa de ids, logs)
 apps/mobile/.tmp/
 tools/scraper/.tmp/
+# skills de terceiros instaladas localmente + artefatos de medição de marca
+# (o lockfile skills-lock.json É versionado; o conteúdo de .claude não)
+.claude/
