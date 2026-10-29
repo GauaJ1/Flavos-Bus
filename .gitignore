@@ -14,6 +14,11 @@ data/raw/*
 # Feed gerado pesa dezenas de MB; versionamos só o relatório da geração
 data/gtfs/*
 !data/gtfs/_RELATORIO.md
+# Metadados oficiais por linha (operadora/tipo/km do geojson da SEMOB): pequenos
+# e são entrada do gerador — sem eles o feed cai para agência única.
+!data/gtfs/_SEMOB_METADADOS.json
+# Auditoria de traçados contra o GeoJSON oficial da SEMOB
+!data/gtfs/_AUDITORIA_SHAPES.md
 
 # Logs e SO
 *.log

@@ -1,0 +1,1851 @@
+{
+ "fonte": "https://servicos.semobjp.pb.gov.br/linhas-de-onibus/",
+ "endpoint": "/linhas-de-onibus/<linha>/itinerario/geojson",
+ "coletado_em": "2026-10-28T23:43:07-0300",
+ "linhas": {
+  "0002": {
+   "route_id": "995934",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 3.554244,
+     "segeo": "2024",
+     "atualizacao": "2024-08-02T00:00:00.000Z",
+     "nome": "ROGER",
+     "codigo": "0002",
+     "n_pontos": 173
+    },
+    "VOLTA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 5.30475,
+     "segeo": "2024",
+     "atualizacao": "2024-08-02T00:00:00.000Z",
+     "nome": "ROGER",
+     "codigo": "0002",
+     "n_pontos": 152
+    }
+   }
+  },
+  "0003": {
+   "route_id": "42001",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 8.10361265242,
+     "segeo": "2019",
+     "atualizacao": "2019-04-09T00:00:00.000Z",
+     "nome": "JAGUARIBE",
+     "codigo": "003",
+     "n_pontos": 191
+    },
+    "VOLTA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 5.51396530077,
+     "segeo": "2019",
+     "atualizacao": "2019-04-09T00:00:00.000Z",
+     "nome": "JAGUARIBE",
+     "codigo": "003",
+     "n_pontos": 148
+    }
+   }
+  },
+  "0101": {
+   "route_id": "42057",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 15.4822400262,
+     "segeo": "2018",
+     "atualizacao": "2018-08-30T00:00:00.000Z",
+     "nome": "GROTAO - COLINAS DO SUL",
+     "codigo": "101A",
+     "n_pontos": 822
+    },
+    "VOLTA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 13.5663819342,
+     "segeo": "2018",
+     "atualizacao": "2018-08-30T00:00:00.000Z",
+     "nome": "GROTAO - COLINAS DO SUL",
+     "codigo": "101A",
+     "n_pontos": 671
+    }
+   }
+  },
+  "0102": {
+   "route_id": "42058",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 18.113116,
+     "segeo": "2024",
+     "atualizacao": "2024-08-19T00:00:00.000Z",
+     "nome": "ESPLANADA - JOAO PAULO II",
+     "codigo": "102",
+     "n_pontos": 440
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 16.420914,
+     "segeo": "2024",
+     "atualizacao": "2024-08-19T00:00:00.000Z",
+     "nome": "ESPLANADA - JOAO PAULO II",
+     "codigo": "102",
+     "n_pontos": 471
+    }
+   }
+  },
+  "0103": {
+   "route_id": "42010",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 21.4354589491,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "GRAMAME",
+     "codigo": "103",
+     "n_pontos": 287
+    },
+    "VOLTA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 20.5052574464,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "GRAMAME",
+     "codigo": "103",
+     "n_pontos": 286
+    }
+   }
+  },
+  "0104": {
+   "route_id": "42011",
+   "sentidos": {
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 15.2537621577,
+     "segeo": "2019",
+     "atualizacao": "2019-08-19T00:00:00.000Z",
+     "nome": "BAIRRO DAS INDUSTRIAS",
+     "codigo": "104 - BDI - VIA FEIRA",
+     "n_pontos": 220
+    },
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 16.2073277715,
+     "segeo": "2019",
+     "atualizacao": "2019-08-19T00:00:00.000Z",
+     "nome": "BAIRRO DAS INDUSTRIAS",
+     "codigo": "104 - BDI - VIA FEIRA",
+     "n_pontos": 174
+    }
+   }
+  },
+  "0105": {
+   "route_id": "42012",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 8.9338232226,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "CIDADE DOS FUNCIONARIOS",
+     "codigo": "105",
+     "n_pontos": 301
+    },
+    "VOLTA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 7.4624249931,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "CIDADE DOS FUNCIONARIOS",
+     "codigo": "105",
+     "n_pontos": 280
+    }
+   }
+  },
+  "0106": {
+   "route_id": "42059",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 16.7295675124,
+     "segeo": "2018",
+     "atualizacao": "2018-12-12T00:00:00.000Z",
+     "nome": "GEISEL - VIA CRUZ DAS ARMAS",
+     "codigo": "106",
+     "n_pontos": 253
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 14.7335109953,
+     "segeo": "2018",
+     "atualizacao": "2018-12-12T00:00:00.000Z",
+     "nome": "GEISEL - VIA CRUZ DAS ARMAS",
+     "codigo": "106",
+     "n_pontos": 170
+    }
+   }
+  },
+  "0107": {
+   "route_id": "42060",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 19.314344,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "JOSE AMERICO",
+     "codigo": "107",
+     "n_pontos": 722
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 17.464899,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "JOSE AMERICO",
+     "codigo": "107",
+     "n_pontos": 518
+    }
+   }
+  },
+  "0108": {
+   "route_id": "42013",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 11.103661,
+     "segeo": "2026",
+     "atualizacao": "2026-02-28T00:00:00.000Z",
+     "nome": "ALTO DO MATEUS",
+     "codigo": "108",
+     "n_pontos": 212
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 10.048555,
+     "segeo": "2026",
+     "atualizacao": "2026-02-28T00:00:00.000Z",
+     "nome": "ALTO DO MATEUS",
+     "codigo": "108",
+     "n_pontos": 164
+    }
+   }
+  },
+  "0109": {
+   "route_id": "42014",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 6.66438815357,
+     "segeo": "2020",
+     "atualizacao": "2020-10-30T00:00:00.000Z",
+     "nome": "RUA DO RIO",
+     "codigo": "109",
+     "n_pontos": 177
+    },
+    "VOLTA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 6.27963958968,
+     "segeo": "2020",
+     "atualizacao": "2020-10-30T00:00:00.000Z",
+     "nome": "RUA DO RIO",
+     "codigo": "109",
+     "n_pontos": 146
+    }
+   }
+  },
+  "0110": {
+   "route_id": "42015",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 10.3052904881,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "JARDIM PLANALTO",
+     "codigo": "110",
+     "n_pontos": 127
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 8.02687387093,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "JARDIM PLANALTO",
+     "codigo": "110",
+     "n_pontos": 93
+    }
+   }
+  },
+  "0115": {
+   "route_id": "42017",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 25.336078,
+     "segeo": "2026",
+     "atualizacao": "2026-02-10T00:00:00.000Z",
+     "nome": "DISTRITO",
+     "codigo": "115",
+     "n_pontos": 234
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 18.782943,
+     "segeo": "2026",
+     "atualizacao": "2026-02-10T00:00:00.000Z",
+     "nome": "DISTRITO",
+     "codigo": "115",
+     "n_pontos": 198
+    }
+   }
+  },
+  "0118": {
+   "route_id": "42019",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 27.280209,
+     "segeo": "2026",
+     "atualizacao": "2026-02-10T00:00:00.000Z",
+     "nome": "PARATIBE",
+     "codigo": "118",
+     "n_pontos": 483
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 25.029172,
+     "segeo": "2026",
+     "atualizacao": "2026-02-10T00:00:00.000Z",
+     "nome": "PARATIBE",
+     "codigo": "118",
+     "n_pontos": 317
+    }
+   }
+  },
+  "0123": {
+   "route_id": "42016",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 18.5274186577,
+     "segeo": "2020",
+     "atualizacao": "2020-08-17T00:00:00.000Z",
+     "nome": "COLINAS DO SUL - PERIMETRAL",
+     "codigo": "0123",
+     "n_pontos": 211
+    },
+    "VOLTA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 18.6808017716,
+     "segeo": "2020",
+     "atualizacao": "2020-08-17T00:00:00.000Z",
+     "nome": "COLINAS DO SUL - PERIMETRAL",
+     "codigo": "0123",
+     "n_pontos": 196
+    }
+   }
+  },
+  "0202": {
+   "route_id": "42062",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 12.792615,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "ERNESTO GEISEL",
+     "codigo": "202",
+     "n_pontos": 165
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 11.60276,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "ERNESTO GEISEL",
+     "codigo": "202",
+     "n_pontos": 146
+    }
+   }
+  },
+  "0203": {
+   "route_id": "376163",
+   "sentidos": {
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 18.746706,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "MANGABEIRA",
+     "codigo": "203",
+     "n_pontos": 141
+    },
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 20.126988,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "MANGABEIRA",
+     "codigo": "203",
+     "n_pontos": 183
+    }
+   }
+  },
+  "0204": {
+   "route_id": "42063",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 12.3584326301,
+     "segeo": "2019",
+     "atualizacao": "2019-04-09T00:00:00.000Z",
+     "nome": "CRISTO",
+     "codigo": "204",
+     "n_pontos": 260
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 10.2610789624,
+     "segeo": "2019",
+     "atualizacao": "2019-04-09T00:00:00.000Z",
+     "nome": "CRISTO",
+     "codigo": "204",
+     "n_pontos": 172
+    }
+   }
+  },
+  "0207": {
+   "route_id": "42064",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 18.445309,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "PENHA",
+     "codigo": "207",
+     "n_pontos": 367
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 23.227105,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "PENHA",
+     "codigo": "207",
+     "n_pontos": 351
+    }
+   }
+  },
+  "0208": {
+   "route_id": "42065",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 12.6214984828,
+     "segeo": "2019",
+     "atualizacao": "2019-04-09T00:00:00.000Z",
+     "nome": "CRISTO",
+     "codigo": "208",
+     "n_pontos": 492
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 10.5848701811,
+     "segeo": "2019",
+     "atualizacao": "2019-04-09T00:00:00.000Z",
+     "nome": "CRISTO",
+     "codigo": "208",
+     "n_pontos": 393
+    }
+   }
+  },
+  "0229": {
+   "route_id": "374410",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 18.155147,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "MANGABEIRA VII / RANGEL",
+     "codigo": "0229",
+     "n_pontos": 135
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 16.463826,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "MANGABEIRA VII / RANGEL",
+     "codigo": "0229",
+     "n_pontos": 83
+    }
+   }
+  },
+  "0301": {
+   "route_id": "42066",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 13.8545783634,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "MANGABEIRA - PEDRO II",
+     "codigo": "301",
+     "n_pontos": 334
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 12.5481223994,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "MANGABEIRA - PEDRO II",
+     "codigo": "301",
+     "n_pontos": 231
+    }
+   }
+  },
+  "0302": {
+   "route_id": "42067",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 18.093200949,
+     "segeo": "2017",
+     "atualizacao": "2017-02-17T00:00:00.000Z",
+     "nome": "CIDADE VERDE",
+     "codigo": "302",
+     "n_pontos": 450
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 16.4385858054,
+     "segeo": "2017",
+     "atualizacao": "2017-02-17T00:00:00.000Z",
+     "nome": "CIDADE VERDE",
+     "codigo": "302",
+     "n_pontos": 382
+    }
+   }
+  },
+  "0303": {
+   "route_id": "42068",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 17.334247,
+     "segeo": "2021",
+     "atualizacao": "2020-10-20T00:00:00.000Z",
+     "nome": "MANGABEIRA - PEDRO II",
+     "codigo": "303",
+     "n_pontos": 599
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 15.734044,
+     "segeo": "2021",
+     "atualizacao": "2020-10-20T00:00:00.000Z",
+     "nome": "MANGABEIRA - PEDRO II",
+     "codigo": "303",
+     "n_pontos": 314
+    }
+   }
+  },
+  "0304": {
+   "route_id": "42069",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 20.656223,
+     "segeo": "2026",
+     "atualizacao": "2026-09-29T00:00:00.000Z",
+     "nome": "BANCARIOS/CASTELO BRANCO - PEDRO II",
+     "codigo": "304",
+     "n_pontos": 304
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 20.372304,
+     "segeo": "2026",
+     "atualizacao": "2026-09-29T00:00:00.000Z",
+     "nome": "BANCARIOS/CASTELO BRANCO - PEDRO II",
+     "codigo": "304",
+     "n_pontos": 267
+    }
+   }
+  },
+  "0307": {
+   "route_id": "997067",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 13.364802,
+     "segeo": "2025",
+     "atualizacao": "2024-09-12T00:00:00.000Z",
+     "nome": "PENHA/PEDRO II",
+     "codigo": "0307",
+     "n_pontos": 137
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 15.883411,
+     "segeo": "2025",
+     "atualizacao": "2024-09-12T00:00:00.000Z",
+     "nome": "PENHA/PEDRO II",
+     "codigo": "0307",
+     "n_pontos": 166
+    }
+   }
+  },
+  "0401": {
+   "route_id": "42021",
+   "sentidos": {
+    "IDA": {
+     "empresa": "NAVEGANTES",
+     "tipo": "RADIAL",
+     "extensao_km": 10.835478,
+     "segeo": "2024",
+     "atualizacao": "2024/08/28",
+     "nome": "ALTIPLANO",
+     "codigo": "401",
+     "n_pontos": 278
+    },
+    "VOLTA": {
+     "empresa": "NAVEGANTES",
+     "tipo": "RADIAL",
+     "extensao_km": 10.698673,
+     "segeo": "2024",
+     "atualizacao": "2024/08/28",
+     "nome": "ALTIPLANO",
+     "codigo": "401",
+     "n_pontos": 198
+    }
+   }
+  },
+  "0402": {
+   "route_id": "42070",
+   "sentidos": {
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 8.6065229166,
+     "segeo": "2022",
+     "atualizacao": "2022-08-22T00:00:00.000Z",
+     "nome": "TORRE",
+     "codigo": "402",
+     "n_pontos": 313
+    },
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 9.3455210134,
+     "segeo": "2022",
+     "atualizacao": "2022-08-22T00:00:00.000Z",
+     "nome": "TORRE",
+     "codigo": "402",
+     "n_pontos": 312
+    }
+   }
+  },
+  "0500": {
+   "route_id": "374419",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 13.012475,
+     "segeo": "2021",
+     "atualizacao": "2021-05-13T00:00:00.000Z",
+     "nome": "TAMBAU - RUY CARNEIRO",
+     "codigo": "500",
+     "n_pontos": 390
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 12.219798,
+     "segeo": "2021",
+     "atualizacao": "2021-05-13T00:00:00.000Z",
+     "nome": "TAMBAU - RUY CARNEIRO",
+     "codigo": "500",
+     "n_pontos": 278
+    }
+   }
+  },
+  "0502": {
+   "route_id": "42022",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 21.869117,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "GEISEL - EPITACIO",
+     "codigo": "502",
+     "n_pontos": 663
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 23.889911,
+     "segeo": "2026",
+     "atualizacao": "2026-04-09T00:00:00.000Z",
+     "nome": "GEISEL - EPITACIO",
+     "codigo": "502",
+     "n_pontos": 594
+    }
+   }
+  },
+  "0503": {
+   "route_id": "42023",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 9.46039737651,
+     "segeo": "2019",
+     "atualizacao": "2019-01-21T00:00:00.000Z",
+     "nome": "TREZE DE MAIO",
+     "codigo": "503",
+     "n_pontos": 312
+    },
+    "VOLTA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 10.1686346951,
+     "segeo": "2023",
+     "atualizacao": "2023-06-26T00:00:00.000Z",
+     "nome": "TREZE DE MAIO",
+     "codigo": "503",
+     "n_pontos": 198
+    }
+   }
+  },
+  "0504": {
+   "route_id": "42024",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MANDACARUENSE",
+     "tipo": "RADIAL",
+     "extensao_km": 8.74307012502,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "MANDACARU/PRINCIPAL",
+     "codigo": "504",
+     "n_pontos": 172
+    },
+    "VOLTA": {
+     "empresa": "MANDACARUENSE",
+     "tipo": "RADIAL",
+     "extensao_km": 10.2477804489,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "MANDACARU//PRINCIPAL",
+     "codigo": "504",
+     "n_pontos": 125
+    }
+   }
+  },
+  "0506": {
+   "route_id": "42026",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 11.2457339138,
+     "segeo": "2018",
+     "atualizacao": "2018-08-22T00:00:00.000Z",
+     "nome": "BAIRRO DOS ESTADOS",
+     "codigo": "506",
+     "n_pontos": 283
+    },
+    "VOLTA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 10.8899562546,
+     "segeo": "2018",
+     "atualizacao": "2018-08-22T00:00:00.000Z",
+     "nome": "BAIRRO DOS ESTADOS",
+     "codigo": "506",
+     "n_pontos": 132
+    }
+   }
+  },
+  "0507": {
+   "route_id": "42027",
+   "sentidos": {
+    "IDA": {
+     "empresa": "NAVEGANTES",
+     "tipo": "RADIAL",
+     "extensao_km": 10.94004,
+     "segeo": "2026",
+     "atualizacao": "2026-01-08T00:00:00.000Z",
+     "nome": "CABO BRANCO",
+     "codigo": "507",
+     "n_pontos": 265
+    },
+    "VOLTA": {
+     "empresa": "NAVEGANTES",
+     "tipo": "RADIAL",
+     "extensao_km": 12.642972,
+     "segeo": "2026",
+     "atualizacao": "2026-01-08T00:00:00.000Z",
+     "nome": "CABO BRANCO",
+     "codigo": "507",
+     "n_pontos": 311
+    }
+   }
+  },
+  "0508": {
+   "route_id": "42028",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 25.24759,
+     "segeo": "2024",
+     "atualizacao": "2024-02-21T00:00:00.000Z",
+     "nome": "CABO BRANCO - PENHA",
+     "codigo": "508",
+     "n_pontos": 698
+    },
+    "VOLTA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 22.150885,
+     "segeo": "2024",
+     "atualizacao": "2024-02-21T00:00:00.000Z",
+     "nome": "CABO BRANCO - PENHA",
+     "codigo": "508",
+     "n_pontos": 489
+    }
+   }
+  },
+  "0509": {
+   "route_id": "42029",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 10.235516,
+     "segeo": "2018",
+     "atualizacao": "2018-10-15T00:00:00.000Z",
+     "nome": "JOAO AGRIPINO",
+     "codigo": "509",
+     "n_pontos": 275
+    },
+    "VOLTA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 9.197985,
+     "segeo": "2018",
+     "atualizacao": "2018-10-15T00:00:00.000Z",
+     "nome": "JOAO AGRIPINO",
+     "codigo": "509",
+     "n_pontos": 213
+    }
+   }
+  },
+  "0510": {
+   "route_id": "42071",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 17.095890256,
+     "segeo": "2021",
+     "atualizacao": "2021-05-13T00:00:00.000Z",
+     "nome": "TAMBAU - VIA TAMANDARE",
+     "codigo": "510",
+     "n_pontos": 477
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 15.9171949829,
+     "segeo": "2021",
+     "atualizacao": "2021-05-13T00:00:00.000Z",
+     "nome": "TAMBAU - VIA TAMANDARE",
+     "codigo": "510",
+     "n_pontos": 385
+    }
+   }
+  },
+  "0512": {
+   "route_id": "42030",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 10.018405123,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "BAIRRO SAO JOSE",
+     "codigo": "512",
+     "n_pontos": 322
+    },
+    "VOLTA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 10.0780264467,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "BAIRRO SAO JOSE",
+     "codigo": "512",
+     "n_pontos": 197
+    }
+   }
+  },
+  "0517": {
+   "route_id": "42074",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 20.113423,
+     "segeo": "2024",
+     "atualizacao": "2024-02-20T00:00:00.000Z",
+     "nome": "MANGABEIRA CIDADE VERDE EPITACIO",
+     "codigo": "517",
+     "n_pontos": 328
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 20.477511,
+     "segeo": "2024",
+     "atualizacao": "2024-02-20T00:00:00.000Z",
+     "nome": "MANGABEIRA CIDADE VERDE EPITACIO",
+     "codigo": "517",
+     "n_pontos": 315
+    }
+   }
+  },
+  "0518": {
+   "route_id": "281123",
+   "sentidos": {
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 18.6802169383,
+     "segeo": "2020",
+     "atualizacao": "2020-11-05T00:00:00.000Z",
+     "nome": "BANCARIOS - EPITACIO",
+     "codigo": "518",
+     "n_pontos": 452
+    },
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 19.0339801739,
+     "segeo": "2020",
+     "atualizacao": "2020-11-05T00:00:00.000Z",
+     "nome": "BANCARIOS - EPITACIO",
+     "codigo": "518",
+     "n_pontos": 548
+    }
+   }
+  },
+  "0520": {
+   "route_id": "42032",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 20.22078,
+     "segeo": "2023",
+     "atualizacao": "2023-08-30T00:00:00.000Z",
+     "nome": "ALTIPLANO - EPITACIO",
+     "codigo": "520",
+     "n_pontos": 319
+    },
+    "VOLTA": {
+     "empresa": "MARCOS DA SILVA",
+     "tipo": "RADIAL",
+     "extensao_km": 21.584828,
+     "segeo": "2023",
+     "atualizacao": "2023-08-30T00:00:00.000Z",
+     "nome": "ALTIPLANO - EPITACIO",
+     "codigo": "520",
+     "n_pontos": 327
+    }
+   }
+  },
+  "0521": {
+   "route_id": "42075",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 14.95281,
+     "segeo": "2023",
+     "atualizacao": "2023-09-26T00:00:00.000Z",
+     "nome": "MANAIRA/ BESSA",
+     "codigo": "521",
+     "n_pontos": 481
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 16.034325,
+     "segeo": "2023",
+     "atualizacao": "2023-12-12T00:00:00.000Z",
+     "nome": "MANAIRA/ BESSA",
+     "codigo": "521",
+     "n_pontos": 434
+    }
+   }
+  },
+  "0522": {
+   "route_id": "42076",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 14.1462336737,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "RENASCER - CARREFOUR",
+     "codigo": "522",
+     "n_pontos": 463
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 13.6601026611,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "RENASCER - CARREFOUR",
+     "codigo": "522",
+     "n_pontos": 415
+    }
+   }
+  },
+  "0523": {
+   "route_id": "375908",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 24.483064,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "COLINAS DO SUL/EPITACIO",
+     "codigo": "523",
+     "n_pontos": 456
+    },
+    "VOLTA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "RADIAL",
+     "extensao_km": 22.486317,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "COLINAS DO SUL/EPITACIO",
+     "codigo": "523",
+     "n_pontos": 441
+    }
+   }
+  },
+  "0527": {
+   "route_id": "511294",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 10.4526805508,
+     "segeo": null,
+     "atualizacao": null,
+     "nome": "CASTELO BRANCO",
+     "codigo": "527",
+     "n_pontos": 327
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 11.0553793437,
+     "segeo": null,
+     "atualizacao": null,
+     "nome": "CASTELO BRANCO",
+     "codigo": "527",
+     "n_pontos": 304
+    }
+   }
+  },
+  "0530": {
+   "route_id": "281121",
+   "sentidos": {
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 20.7312140845,
+     "segeo": "2020",
+     "atualizacao": "2020-10-20T00:00:00.000Z",
+     "nome": "CIDADE VERDE - EPITACIO",
+     "codigo": "530",
+     "n_pontos": 232
+    },
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 20.4280372908,
+     "segeo": "2020",
+     "atualizacao": "2020-10-20T00:00:00.000Z",
+     "nome": "CIDADE VERDE - EPITACIO",
+     "codigo": "530",
+     "n_pontos": 247
+    }
+   }
+  },
+  "0600": {
+   "route_id": "42077",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 11.4337541478,
+     "segeo": "2019",
+     "atualizacao": "2019-07-26T00:00:00.000Z",
+     "nome": "BESSA SHOPPING",
+     "codigo": "600",
+     "n_pontos": 512
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 11.0009932493,
+     "segeo": "2019",
+     "atualizacao": "2019-07-26T00:00:00.000Z",
+     "nome": "BESSA SHOPPING",
+     "codigo": "600",
+     "n_pontos": 403
+    }
+   }
+  },
+  "0601": {
+   "route_id": "42078",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 14.0941516496,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "BESSA",
+     "codigo": "601",
+     "n_pontos": 313
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 13.0799732023,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "BESSA",
+     "codigo": "601",
+     "n_pontos": 515
+    }
+   }
+  },
+  "0602": {
+   "route_id": "42033",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MANDACARUENSE",
+     "tipo": "RADIAL",
+     "extensao_km": 13.941433,
+     "segeo": "2025",
+     "atualizacao": "2025-08-14T00:00:00.000Z",
+     "nome": "ILHA DO BISPO",
+     "codigo": "602",
+     "n_pontos": 546
+    },
+    "VOLTA": {
+     "empresa": "MANDACARUENSE",
+     "tipo": "RADIAL",
+     "extensao_km": 12.353183,
+     "segeo": "2020",
+     "atualizacao": "2020-01-31T00:00:00.000Z",
+     "nome": "ILHA DO BISPO",
+     "codigo": "602",
+     "n_pontos": 371
+    }
+   }
+  },
+  "0701": {
+   "route_id": "42035",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 7.45071731368,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "ALTO DO MATEUS ACESSO OESTE",
+     "codigo": "701",
+     "n_pontos": 342
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 10.3217275098,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "ALTO DO MATEUS ACESSO OESTE",
+     "codigo": "701",
+     "n_pontos": 298
+    }
+   }
+  },
+  "0702": {
+   "route_id": "42036",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 6.9715770598,
+     "segeo": "2017",
+     "atualizacao": "2017-03-22T00:00:00.000Z",
+     "nome": "ALTO DO MATEUS",
+     "codigo": "702",
+     "n_pontos": 252
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 9.7701359691,
+     "segeo": "2017",
+     "atualizacao": "2017-03-22T00:00:00.000Z",
+     "nome": "ALTO DO MATEUS",
+     "codigo": "702",
+     "n_pontos": 308
+    }
+   }
+  },
+  "1001": {
+   "route_id": "42038",
+   "sentidos": {
+    "IDA": {
+     "empresa": "MANDACARUENSE",
+     "tipo": "DIAMETRAL",
+     "extensao_km": 23.507206,
+     "segeo": "2019",
+     "atualizacao": "2019-08-15T00:00:00.000Z",
+     "nome": "BAIRRO DAS INDUSTRIAS - MANDACARU",
+     "codigo": "1001 - EM04",
+     "n_pontos": 527
+    },
+    "VOLTA": {
+     "empresa": "MANDACARUENSE",
+     "tipo": "DIAMETRAL",
+     "extensao_km": 24.87204,
+     "segeo": "2019",
+     "atualizacao": "2019-08-15T00:00:00.000Z",
+     "nome": "BAIRRO DAS INDUSTRIAS - MANDACARU",
+     "codigo": "1001 - EM04",
+     "n_pontos": 559
+    }
+   }
+  },
+  "1500": {
+   "route_id": "42080",
+   "sentidos": {
+    "CIRCULAR": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "CIRCULAR",
+     "extensao_km": 47.8386931746,
+     "segeo": "2020",
+     "atualizacao": "2020-10-09T00:00:00.000Z",
+     "nome": "CIRCULAR",
+     "codigo": "1500",
+     "n_pontos": 1339
+    }
+   }
+  },
+  "1510": {
+   "route_id": "42039",
+   "sentidos": {
+    "CIRCULAR": {
+     "empresa": "SANTA MARIA",
+     "tipo": "CIRCULAR",
+     "extensao_km": 34.891178,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "CIRCULAR - CENTRO ADM. MUNICIPAL",
+     "codigo": "1510 - CENTRO ADM. MUNICIPAL",
+     "n_pontos": 960
+    }
+   }
+  },
+  "1519": {
+   "route_id": "42040",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 19.74548,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "VALENTINA CRUZ DAS ARMAS",
+     "codigo": "1519",
+     "n_pontos": 539
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 20.335675,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "VALENTINA CRUZ DAS ARMAS",
+     "codigo": "1519",
+     "n_pontos": 618
+    }
+   }
+  },
+  "2300": {
+   "route_id": "42041",
+   "sentidos": {
+    "CIRCULAR": {
+     "empresa": "SAO JORGE",
+     "tipo": "CIRCULAR",
+     "extensao_km": 34.054571,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "CIRCULAR",
+     "codigo": "2300",
+     "n_pontos": 1570
+    }
+   }
+  },
+  "2515": {
+   "route_id": "42085",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 14.4013466669,
+     "segeo": "2021",
+     "atualizacao": "2017-02-17T00:00:00.000Z",
+     "nome": "MANGABEIRA",
+     "codigo": "2515",
+     "n_pontos": 314
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 17.5376264999,
+     "segeo": "2021",
+     "atualizacao": "2017-02-17T00:00:00.000Z",
+     "nome": "MANGABEIRA",
+     "codigo": "2515",
+     "n_pontos": 349
+    }
+   }
+  },
+  "3200": {
+   "route_id": "42086",
+   "sentidos": {
+    "CIRCULAR": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "CIRCULAR",
+     "extensao_km": 32.567518,
+     "segeo": "2026",
+     "atualizacao": "2026-09-29T00:00:00.000Z",
+     "nome": "CIRCULAR - MANGABEIRA/VARADOURO",
+     "codigo": "3200",
+     "n_pontos": 1010
+    }
+   }
+  },
+  "5100": {
+   "route_id": "42091",
+   "sentidos": {
+    "CIRCULAR": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "CIRCULAR",
+     "extensao_km": 48.1120801613,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "CIRCULAR",
+     "codigo": "5100",
+     "n_pontos": 1838
+    }
+   }
+  },
+  "5110": {
+   "route_id": "42043",
+   "sentidos": {
+    "CIRCULAR": {
+     "empresa": "SANTA MARIA",
+     "tipo": "CIRCULAR",
+     "extensao_km": 34.07166,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "CIRCULAR - CENTRO ADM. MUNICIPAL",
+     "codigo": "5110 - CENTRO ADM. MUNICIPAL",
+     "n_pontos": 1507
+    }
+   }
+  },
+  "5120": {
+   "route_id": "42044",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 22.941224,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "VALENTINA EPITACIO",
+     "codigo": "5120",
+     "n_pontos": 608
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "RADIAL",
+     "extensao_km": 19.510559,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "VALENTINA EPITACIO",
+     "codigo": "5120",
+     "n_pontos": 638
+    }
+   }
+  },
+  "5210": {
+   "route_id": "42095",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 17.898016,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "MANGABEIRA",
+     "codigo": "5210",
+     "n_pontos": 635
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 14.570588,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "MANGABEIRA",
+     "codigo": "5210",
+     "n_pontos": 578
+    }
+   }
+  },
+  "5600": {
+   "route_id": "42098",
+   "sentidos": {
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 16.5963585925,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "MANGABEIRA - SHOPPING",
+     "codigo": "5600",
+     "n_pontos": 587
+    },
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 17.2461041921,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "MANGABEIRA - SHOPPING",
+     "codigo": "5600",
+     "n_pontos": 511
+    }
+   }
+  },
+  "5603": {
+   "route_id": "42099",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 20.8719204008,
+     "segeo": "2020",
+     "atualizacao": "2020-10-08T00:00:00.000Z",
+     "nome": "MANGABEIRA VII",
+     "codigo": "5603",
+     "n_pontos": 885
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 21.130551759,
+     "segeo": "2020",
+     "atualizacao": "2020-10-08T00:00:00.000Z",
+     "nome": "MANGABEIRA VII",
+     "codigo": "5603",
+     "n_pontos": 577
+    }
+   }
+  },
+  "5605": {
+   "route_id": "42100",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 19.3727785544,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "MANGABEIRA - SHOPPING",
+     "codigo": "5605",
+     "n_pontos": 732
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 18.6341884597,
+     "segeo": "",
+     "atualizacao": "1899-12-30T00:00:00.000Z",
+     "nome": "MANGABEIRA - SHOPPING",
+     "codigo": "5605",
+     "n_pontos": 673
+    }
+   }
+  },
+  "E155": {
+   "route_id": "611991",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 19.196315,
+     "segeo": "2023",
+     "atualizacao": "2023-12-21T00:00:00.000Z",
+     "nome": "ZONA SUL/CRUZ DAS ARMAS",
+     "codigo": "E155",
+     "n_pontos": 205
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 24.025443,
+     "segeo": "2023",
+     "atualizacao": "2023-12-21T00:00:00.000Z",
+     "nome": "ZONA SUL/CRUZ DAS ARMAS",
+     "codigo": "E155",
+     "n_pontos": 202
+    }
+   }
+  },
+  "E202": {
+   "route_id": "997071",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 12.847534,
+     "segeo": "2025",
+     "atualizacao": "2025-05-20T00:00:00.000Z",
+     "nome": "GEISEL",
+     "codigo": "E202",
+     "n_pontos": 185
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 13.267853,
+     "segeo": "2025",
+     "atualizacao": "2025-05-20T00:00:00.000Z",
+     "nome": "GEISEL",
+     "codigo": "E202",
+     "n_pontos": 143
+    }
+   }
+  },
+  "E229": {
+   "route_id": "997072",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 16.136904,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "CIDADE VERDE/RANGEL",
+     "codigo": "E229",
+     "n_pontos": 108
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 15.896364,
+     "segeo": "2026",
+     "atualizacao": "2026-04-11T00:00:00.000Z",
+     "nome": "CIDADE VERDE/RANGEL",
+     "codigo": "E229",
+     "n_pontos": 138
+    }
+   }
+  },
+  "E301": {
+   "route_id": "997073",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 11.785972,
+     "segeo": "2026",
+     "atualizacao": "2026-09-29T00:00:00.000Z",
+     "nome": "MANGABEIRA/PEDRO II",
+     "codigo": "E301",
+     "n_pontos": 110
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 12.114481,
+     "segeo": "2026",
+     "atualizacao": "2026-09-29T00:00:00.000Z",
+     "nome": "MANGABEIRA/PEDRO II",
+     "codigo": "E301",
+     "n_pontos": 121
+    }
+   }
+  },
+  "E550": {
+   "route_id": "611992",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 10.68953,
+     "segeo": "2023",
+     "atualizacao": "2023-12-21T00:00:00.000Z",
+     "nome": "PARQUE DA CIDADE",
+     "codigo": "E550",
+     "n_pontos": 105
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 12.054821,
+     "segeo": "2023",
+     "atualizacao": "2023-12-21T00:00:00.000Z",
+     "nome": "PARQUE DA CIDADE",
+     "codigo": "E550",
+     "n_pontos": 149
+    }
+   }
+  },
+  "E551": {
+   "route_id": "611993",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 25.222473,
+     "segeo": "2023",
+     "atualizacao": "2023-12-27T00:00:00.000Z",
+     "nome": "ZONA SUL/EPITÁCIO",
+     "codigo": "E551",
+     "n_pontos": 319
+    },
+    "VOLTA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "RADIAL",
+     "extensao_km": 20.327382,
+     "segeo": "2023",
+     "atualizacao": "2023-12-27T00:00:00.000Z",
+     "nome": "ZONA SUL/EPITÁCIO",
+     "codigo": "E551",
+     "n_pontos": 200
+    }
+   }
+  },
+  "E600": {
+   "route_id": "611994",
+   "sentidos": {
+    "IDA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 8.916646,
+     "segeo": "2024",
+     "atualizacao": "2024-02-01T00:00:00.000Z",
+     "nome": "PARQUE PARAHYBA/TANCREDO NEVES",
+     "codigo": "E600",
+     "n_pontos": 186
+    },
+    "VOLTA": {
+     "empresa": "REUNIDAS",
+     "tipo": "RADIAL",
+     "extensao_km": 10.408585,
+     "segeo": "2024",
+     "atualizacao": "2024-02-01T00:00:00.000Z",
+     "nome": "PARQUE PARAHYBA/TANCREDO NEVES",
+     "codigo": "E600",
+     "n_pontos": 135
+    }
+   }
+  },
+  "E901": {
+   "route_id": "997074",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 13.591094,
+     "segeo": "2025",
+     "atualizacao": "2025-06-16T00:00:00.000Z",
+     "nome": "MANGABEIRA-VALENTINA",
+     "codigo": "E901",
+     "n_pontos": 108
+    },
+    "VOLTA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 12.699338,
+     "segeo": "2025",
+     "atualizacao": "2025-06-16T00:00:00.000Z",
+     "nome": "MANGABEIRA-VALENTINA",
+     "codigo": "E901",
+     "n_pontos": 162
+    }
+   }
+  },
+  "I004": {
+   "route_id": "42002",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "INTEGRACAO",
+     "extensao_km": 7.60926160317,
+     "segeo": "2020",
+     "atualizacao": "2020-10-20T00:00:00.000Z",
+     "nome": "VALENTINA PRAIA DO SOL",
+     "codigo": "I004",
+     "n_pontos": 288
+    },
+    "VOLTA": {
+     "empresa": "SAO JORGE",
+     "tipo": "INTEGRACAO",
+     "extensao_km": 5.31252304752,
+     "segeo": "2020",
+     "atualizacao": "2020-10-20T00:00:00.000Z",
+     "nome": "VALENTINA PRAIA DO SOL",
+     "codigo": "I004",
+     "n_pontos": 258
+    }
+   }
+  },
+  "I008": {
+   "route_id": "42006",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SAO JORGE",
+     "tipo": "INTEGRACAO",
+     "extensao_km": 11.677204,
+     "segeo": "2023",
+     "atualizacao": "2023-08-07T00:00:00.000Z",
+     "nome": "VALENTINA - MANGABEIRA",
+     "codigo": "I008",
+     "n_pontos": 186
+    }
+   }
+  },
+  "T001": {
+   "route_id": "42048",
+   "sentidos": {
+    "IDA": {
+     "empresa": "SANTA MARIA",
+     "tipo": "TRANSVERSAL",
+     "extensao_km": 42.3956096476,
+     "segeo": "2020",
+     "atualizacao": "2020-10-02T00:00:00.000Z",
+     "nome": "BEIRA MAR/ZONA SUL",
+     "codigo": "T001",
+     "n_pontos": 802
+    }
+   }
+  },
+  "T002": {
+   "route_id": "42000",
+   "sentidos": {
+    "IDA": {
+     "empresa": "TRANSNACIONAL",
+     "tipo": "CIRCULAR",
+     "extensao_km": 38.9666468917,
+     "segeo": "2020",
+     "atualizacao": "2020-11-09T00:00:00.000Z",
+     "nome": "EPITACIO PESSOA - ZONA OESTE",
+     "codigo": "T002",
+     "n_pontos": 532
+    }
+   }
+  }
+ },
+ "sem_geojson": [
+  "0116",
+  "0120",
+  "0604",
+  "9901",
+  "CBTU",
+  "I015",
+  "T003"
+ ]
+}

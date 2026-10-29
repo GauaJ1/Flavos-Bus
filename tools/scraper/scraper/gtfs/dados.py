@@ -14,6 +14,13 @@ from typing import Any
 from ..cache import KIND_LISTA, KIND_TIMETABLE, caminho_do_arquivo
 from ..cryptojs import decifrar_objeto
 from ..sources.bus2 import FRASE_PUBLICA
+from .operadoras import (
+    SEM_OPERADORA,
+    agency_id_de,
+    descricao_rota,
+    operadoras_de,
+    tabela_agency,
+)
 from .polyline import decodificar_polyline
 
 DIAS_GTFS = ("seg", "ter", "qua", "qui", "sex", "sab", "dom")
@@ -140,6 +147,8 @@ class Entrada:
     timetables: dict[str, list[dict[str, Any]]]  # rsn → lista de viagens
     feed_hash: str  # hash do projeto publicado pelo painel (get-project)
     data_geracao: str  # YYYY-MM-DD para feed_version
+    metadados_semob: dict[str, Any] = field(default_factory=dict)
+    """Empresa/tipo/km por linha, do geojson público da SEMOB (pode faltar)."""
 
     @property
     def faltando(self) -> list[str]:
@@ -165,18 +174,38 @@ def carregar_entrada(
         timetables[rsn] = decifrar_objeto(str(envelope["data"]), FRASE_PUBLICA)
     if data_geracao is None:
         data_geracao = datetime.now(UTC).strftime("%Y-%m-%d")
+    metadados = _ler_metadados_semob()
     return Entrada(
         rotas=[dict(r) for r in rotas],
         timetables=timetables,
         feed_hash=feed_hash,
         data_geracao=data_geracao,
+        metadados_semob=metadados,
     )
+
+
+def _ler_metadados_semob() -> dict[str, Any]:
+    """Lê data/gtfs/_SEMOB_METADADOS.json (operadora/tipo/km por linha).
+
+    Ausente não é erro: o feed cai no modo agência única e registra a nota.
+    """
+    from ..config import gtfs_dir  # noqa: PLC0415
+
+    caminho = gtfs_dir() / "_SEMOB_METADADOS.json"
+    if not caminho.is_file():
+        return {}
+    try:
+        dados = json.loads(caminho.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return dados if isinstance(dados, dict) else {}
 
 
 # ── montagem ───────────────────────────────────────────────────────────────────
 
 
-def _montar_routes(entrada: Entrada, tab: Tabelas) -> None:
+def _montar_routes(entrada: Entrada, tab: Tabelas, operadoras: dict[str, str]) -> None:
+    sem_operadora: list[str] = []
     for rota in entrada.rotas:
         rsn = str(rota.get("rsn"))
         longa = _nome_longa(rota)
@@ -186,16 +215,54 @@ def _montar_routes(entrada: Entrada, tab: Tabelas) -> None:
                 "LINHA_SEM_NOME_LONGO",
                 f"linha {rsn} sem nome longo conhecido; o campo fica vazio",
             )
+        agency_id = agency_id_de(rsn, operadoras)
+        if agency_id == SEM_OPERADORA:
+            sem_operadora.append(rsn)
         tab.routes.append(
             {
                 "route_id": str(rota.get("rid")),
-                "agency_id": ID_AGENCY,
+                "agency_id": agency_id,
                 "route_short_name": rsn,
                 "route_long_name": longa,
+                "route_desc": descricao_rota(entrada.metadados_semob, rsn),
                 "route_type": "3",  # fonte não marca modal; ônibus é o caso das 84 linhas
                 "route_color": _cor_hex(rota.get("rc"), tab, rsn, "rc"),
                 "route_text_color": _cor_hex(rota.get("rtc"), tab, rsn, "rtc"),
             }
+        )
+    if sem_operadora:
+        sem_tracado = [
+            s for s in sem_operadora
+            if not (entrada.metadados_semob.get("linhas") or {}).get(s)
+        ]
+        antigas = [s for s in sem_operadora if s not in sem_tracado]
+        partes = []
+        if sem_tracado:
+            partes.append(
+                f"sem traçado publicado ({len(sem_tracado)}): {', '.join(sem_tracado)}"
+            )
+        if antigas:
+            partes.append(
+                f"traçado antigo demais para afirmar operadora ({len(antigas)}): "
+                f"{', '.join(antigas)}"
+            )
+        tab.nota(
+            "aviso",
+            "OPERADORA_NAO_PUBLICADA",
+            f"{len(sem_operadora)} linha(s) ficaram em agency_id {SEM_OPERADORA} — "
+            + "; ".join(partes)
+            + ". Nenhuma operadora foi inferida.",
+        )
+        tab.nota(
+            "aviso",
+            "OPERADORA_DADO_ANTIGO",
+            "O campo EMPRESA vem junto do traçado do geojson da SEMOB, cujo ATUALIZACA "
+            "pode ser antigo (35% dos registros com 4+ anos, 18% sem data na medição de "
+            "2026-10). Relatos indicam que operadoras mudaram (a MANDACARUENSE teria "
+            "deixado de operar), então NÃO tratamos EMPRESA como confirmação atual: "
+            "agency_id só recebe operadora de traçado com até 4 anos, e todo route_desc "
+            "declara o ano do dado ('operadora declarada 2019: ...'). Para operadora "
+            "confirmada hoje é preciso fonte operacional da SEMOB.",
         )
     tab.nota(
         "informacao",
@@ -464,23 +531,36 @@ def _montar_trips_e_stop_times(
 def montar_tabelas(entrada: Entrada) -> Tabelas:
     """Constrói todas as tabelas GTFS + quadro de notas (nada inventado em silêncio)."""
     tab = Tabelas()
-    tab.agency.append(
-        {
-            "agency_id": ID_AGENCY,
-            "agency_name": "SEMOB - Superintedência Executiva de Mobilidade Urbana",
-            "agency_url": URL_AGENCY,
-            "agency_timezone": FUSO,
-            "agency_lang": LANG,
-        }
-    )
-    tab.nota(
-        "informacao",
-        "AGENCY_FONTE",
-        "Nome, fuso (America/Sao_Paulo) e idioma (pt-BR) vêm da resposta get-project do painel "
-        "(a grafia 'Superintedência' é a da fonte); agency_url é a página institucional da "
-        "prefeitura — decisão do projeto, pois o painel não publica URL da agência.",
-    )
-    _montar_routes(entrada, tab)
+    operadoras = operadoras_de(entrada.metadados_semob)
+    if operadoras:
+        tab.agency.extend(
+            tabela_agency(operadoras, [str(r.get("rsn")) for r in entrada.rotas])
+        )
+        tab.nota(
+            "informacao",
+            "AGENCY_SEMOB",
+            "agency.txt tem as operadoras publicadas pela SEMOB no campo EMPRESA dos "
+            "geojson de itinerário (endpoint /linhas-de-onibus/<linha>/itinerario/geojson); "
+            "agency_url aponta para essa página, pois a SEMOB não publica site das empresas. "
+            "Grafia preservada (maiúsculas, sem acento).",
+        )
+    else:
+        tab.agency.append(
+            {
+                "agency_id": ID_AGENCY,
+                "agency_name": "SEMOB - Superintedência Executiva de Mobilidade Urbana",
+                "agency_url": URL_AGENCY,
+                "agency_timezone": FUSO,
+                "agency_lang": LANG,
+            }
+        )
+        tab.nota(
+            "aviso",
+            "AGENCY_UNICA",
+            "metadados da SEMOB ausentes (data/gtfs/_SEMOB_METADADOS.json): feed voltou à "
+            "agência única. Rode tools/scraper/coleta_metadados_semob.py para restaurar.",
+        )
+    _montar_routes(entrada, tab, operadoras)
     stops_tabeladas = _montar_stops(entrada, tab)
     _montar_calendar(entrada, tab)
     shapes_mapa = _montar_shapes(entrada, tab)
