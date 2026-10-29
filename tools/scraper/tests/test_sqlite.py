@@ -18,9 +18,9 @@ FEED_MINIMO = {
         "TESTE,Org Teste,https://exemplo.test,America/Sao_Paulo,pt-BR\n"
     ),
     "routes.txt": (
-        "route_id,agency_id,route_short_name,route_long_name,route_type\n"
-        "42029,TESTE,0509,João Agripino | operadora declarada 2019: TESTE,3\n"
-        "42030,TESTE,0510,Cruz das Almas,3\n"
+        "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type\n"
+        "42029,TESTE,0509,João Agripino,Radial | operadora declarada 2019: TESTE,3\n"
+        "42030,TESTE,0510,Cruz das Almas,,3\n"
     ),
     "stops.txt": (
         "stop_id,stop_code,stop_name,stop_lat,stop_lon\n"
@@ -110,7 +110,9 @@ def test_consulta_exemplo_509_tem_horarios(db: sqlite3.Connection) -> None:
 
 
 def test_operadora_com_data_disponivel_para_a_tela(db: sqlite3.Connection) -> None:
-    longa = db.execute(
-        "SELECT long_name FROM routes WHERE short_name = '0509'"
-    ).fetchone()[0]
-    assert "operadora declarada 2019" in longa
+    # a operadora vive no route_desc (coluna descricao); o long_name é só nome
+    linha = db.execute(
+        "SELECT long_name, descricao FROM routes WHERE short_name = '0509'"
+    ).fetchone()
+    assert linha[0] == "João Agripino"
+    assert "operadora declarada 2019" in linha[1]

@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS routes (
     long_name  TEXT NOT NULL DEFAULT '',
     type       INTEGER NOT NULL,
     color      TEXT NOT NULL DEFAULT '',
-    text_color TEXT NOT NULL DEFAULT ''
+    text_color TEXT NOT NULL DEFAULT '',
+    descricao  TEXT NOT NULL DEFAULT ''
 );
 CREATE INDEX IF NOT EXISTS idx_routes_short ON routes(short_name);
 CREATE TABLE IF NOT EXISTS stops (
@@ -101,9 +102,17 @@ def _inteiro(valor: str, padrao: int | None = None) -> int | None:
 
 
 def montar_db(caminho_db: Path, pasta_gtfs: Path) -> dict[str, int]:
-    """Cria/recria o SQLite a partir dos .txt do feed; devolve contagens."""
+    """Cria/recria o SQLite a partir dos .txt do feed; devolve contagens.
+
+    O banco é 100% derivado do feed (a fonte de verdade): soltamos as tabelas
+    a cada geração para que o schema acompanhe o código sem migrar nada.
+    """
     conn = sqlite3.connect(caminho_db)
     try:
+        for tabela in ("meta", "agencies", "routes", "stops", "calendar", "shapes",
+                       "trips", "stop_times"):
+            conn.execute(f"DROP TABLE IF EXISTS {tabela}")  # noqa: S608 — nomes internos fixos
+        conn.commit()
         conn.executescript(SCHEMA)
         for tabela in ("meta", "agencies", "routes", "stops", "calendar", "shapes", "trips",
                        "stop_times"):
@@ -127,10 +136,10 @@ def montar_db(caminho_db: Path, pasta_gtfs: Path) -> dict[str, int]:
             ],
         )
         conn.executemany(
-            "INSERT INTO routes VALUES (?,?,?,?,?,?)",
+            "INSERT INTO routes VALUES (?,?,?,?,?,?,?)",
             [
                 (r["route_id"], r["route_short_name"], r["route_long_name"], int(r["route_type"]),
-                 r.get("route_color", ""), r.get("route_text_color", ""))
+                 r.get("route_color", ""), r.get("route_text_color", ""), r.get("route_desc", ""))
                 for r in ler_tabela(pasta_gtfs, "routes")
             ],
         )

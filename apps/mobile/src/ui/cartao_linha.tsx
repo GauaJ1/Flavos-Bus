@@ -38,9 +38,11 @@ export function CartaoLinha({
   );
 }
 
-/** Nada de dado inventado: mostramos só o que o feed declara. */
+/** Nada de dado inventado: mostramos o que o feed declara DEPOIS do nome
+ * (tipo, quilometragem e a operadora como está declarada, com o ano). */
 function resumoHonesto(linha: Linha): string {
-  return linha.descricao;
+  const restante = linha.descricao.split(" | ").slice(1).join(" | ");
+  return restante.length > 0 ? restante : linha.descricao;
 }
 
 function estilosDe(tema: Tema) {

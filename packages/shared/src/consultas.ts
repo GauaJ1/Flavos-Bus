@@ -44,15 +44,19 @@ export async function buscarLinhas(fonte: FonteDados, texto: string): Promise<Li
     route_id: string;
     short_name: string;
     long_name: string;
+    descricao: string;
   }>(
-    `SELECT route_id, short_name, long_name
+    `SELECT route_id, short_name, long_name,
+            COALESCE(NULLIF(descricao, ''), long_name) AS descricao
      FROM routes
      WHERE lower(short_name) LIKE ? OR lower(long_name) LIKE ?
      ORDER BY short_name
      LIMIT 100`,
     [padrao, padrao],
   );
-  return linhas.map((r) => normalizarLinha(r.route_id, r.short_name, r.long_name));
+  return linhas.map((r) =>
+    normalizarLinha(r.route_id, r.short_name, r.long_name, r.descricao),
+  );
 }
 
 export async function todasAsLinhas(fonte: FonteDados): Promise<Linha[]> {
@@ -60,32 +64,65 @@ export async function todasAsLinhas(fonte: FonteDados): Promise<Linha[]> {
     route_id: string;
     short_name: string;
     long_name: string;
-  }>("SELECT route_id, short_name, long_name FROM routes ORDER BY short_name");
-  return linhas.map((r) => normalizarLinha(r.route_id, r.short_name, r.long_name));
+    descricao: string;
+  }>(
+    `SELECT route_id, short_name, long_name,
+            COALESCE(NULLIF(descricao, ''), long_name) AS descricao
+     FROM routes ORDER BY short_name`,
+  );
+  return linhas.map((r) =>
+    normalizarLinha(r.route_id, r.short_name, r.long_name, r.descricao),
+  );
 }
 
-function normalizarLinha(id: string, numero: string, nomeLongo: string): Linha {
+function normalizarLinha(
+  id: string,
+  numero: string,
+  nomeLongo: string,
+  descricaoCompleta: string,
+): Linha {
   return {
     id,
     numero,
     // o nome curto vem antes do primeiro separador do route_long_name
     nome: nomeLongo.split(" | ")[0] ?? nomeLongo,
-    descricao: nomeLongo,
+    // o que os insumos da SEMOB declaram (tipo, km e "operadora declarada
+    // ANO: X") vive no route_desc; se não existir, o long_name é tudo que há
+    descricao: descricaoCompleta.length > 0 ? descricaoCompleta : nomeLongo,
   };
 }
 
 /** Busca a linha pelo route_id (deep link / detalhe). */
 export async function linhaPorId(fonte: FonteDados, routeId: string): Promise<Linha | null> {
-  const r = await fonte.unic<{ route_id: string; short_name: string; long_name: string }>(
-    "SELECT route_id, short_name, long_name FROM routes WHERE route_id = ?",
+  const r = await fonte.unic<{
+    route_id: string;
+    short_name: string;
+    long_name: string;
+    descricao: string;
+  }>(
+    `SELECT route_id, short_name, long_name,
+            COALESCE(NULLIF(descricao, ''), long_name) AS descricao
+     FROM routes WHERE route_id = ?`,
     [routeId],
   );
-  return r ? normalizarLinha(r.route_id, r.short_name, r.long_name) : null;
+  return r ? normalizarLinha(r.route_id, r.short_name, r.long_name, r.descricao) : null;
 }
 
-/** Coluna do calendar correspondente ao tipo de dia da data local. */
+/** Coluna do calendar correspondente ao tipo de dia (colunas do GTFS são
+ * monday..sunday — o rótulo do usuário é separado da coluna de consulta). */
+const COLUNAS_CALENDAR: Record<TipoDia, "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"> = {
+  segunda: "monday",
+  terca: "tuesday",
+  quarta: "wednesday",
+  quinta: "thursday",
+  sexta: "friday",
+  sabado: "saturday",
+  domingo: "sunday",
+};
+
+/** Tipo de dia da data local (rótulo/índice do chip). */
 export function colunaDoDia(data: Date): TipoDia {
-  const colunas: readonly TipoDia[] = [
+  const dias: readonly TipoDia[] = [
     "domingo",
     "segunda",
     "terca",
@@ -94,7 +131,7 @@ export function colunaDoDia(data: Date): TipoDia {
     "sexta",
     "sabado",
   ];
-  return colunas[data.getDay()] ?? "segunda";
+  return dias[data.getDay()] ?? "segunda";
 }
 
 /**
@@ -125,7 +162,7 @@ export async function horariosDaLinha(
      JOIN routes AS r ON r.route_id = t.route_id
      JOIN calendar AS c ON c.service_id = t.service_id
      WHERE t.route_id = ?
-       AND c."${tipoDia}" = 1
+       AND c."${COLUNAS_CALENDAR[tipoDia]}" = 1
        AND c.start_date <= ? AND c.end_date >= ?
      ORDER BY t.direction ASC, departure ASC`,
     [routeId, colunaDataIso, colunaDataIso],

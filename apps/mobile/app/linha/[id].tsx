@@ -113,7 +113,10 @@ export default function DetalheLinha() {
   const numero = linhaInfo?.numero ?? "";
   const nome = linhaInfo?.nome ?? "";
   const descricao = linhaInfo?.descricao ?? "";
-  const operadora = /operadora declarada (\d{4}): ([^|]+)/.exec(descricao)?.slice(1, 3).join(": ") ?? "";
+  const mOperadora = /operadora declarada (\d{4}): ([^|]+)/.exec(descricao);
+  const operadora = mOperadora
+    ? `Operadora declarada ${mOperadora[1]}: ${mOperadora[2].trim()}`
+    : "";
 
   const sentidoChaves = Object.keys(quadro).sort();
   const diaHoje = colunaDoDia(new Date());
