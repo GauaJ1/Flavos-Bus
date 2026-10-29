@@ -135,7 +135,7 @@ def montar_db(caminho_db: Path, pasta_gtfs: Path) -> dict[str, int]:
             ],
         )
         conn.executemany(
-            "INSERT INTO stops VALUES (?,?,?,?,?,?)",
+            "INSERT INTO stops VALUES (?,?,?,?,?)",
             [
                 (r["stop_id"], r.get("stop_code", ""), r["stop_name"], float(r["stop_lat"]),
                  float(r["stop_lon"]))

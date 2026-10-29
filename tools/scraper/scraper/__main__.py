@@ -4,6 +4,7 @@
     python -m scraper collect --all [--force]
     python -m scraper report
     python -m scraper gtfs [--feed-hash HASH] [--saida PASTA]
+    python -m scraper sqlite [--saida PASTA]
 """
 
 from __future__ import annotations
@@ -49,6 +50,17 @@ def build_parser() -> argparse.ArgumentParser:
         type=str,
         default="",
         help="hash do projeto (get-project.feed_hash) incluído no feed_version",
+    )
+
+    sqlite_cmd = sub.add_parser(
+        "sqlite",
+        help="Fase 3 (MVP): empacota o feed em flavos.sqlite (o app lê esse .db)",
+    )
+    sqlite_cmd.add_argument(
+        "--saida",
+        type=str,
+        default="",
+        help="pasta do feed a ler; o flavos.sqlite é gravado nela (padrão: data/gtfs)",
     )
     return parser
 
@@ -106,6 +118,23 @@ def _executar_gtfs(args: argparse.Namespace) -> int:
     return 0
 
 
+def _executar_sqlite(args: argparse.Namespace) -> int:
+    """Fase 3 (MVP): empacota o feed GTFS em flavos.sqlite para o app offline."""
+    from .gtfs_sqlite import montar_db
+
+    pasta = Path(args.saida) if args.saida else config.gtfs_dir()
+    if not (pasta / "routes.txt").is_file():
+        print(f"[erro] feed não encontrado em {pasta}; rode `python -m scraper gtfs` antes")
+        return 2
+    alvo = pasta / "flavos.sqlite"
+    contagens = montar_db(alvo, pasta)
+    executaveis = ", ".join(f"{nome}={contagens[nome]}" for nome in sorted(contagens))
+    print(f"[ok]   {alvo}")
+    print(f"[ok]   tamanho: {alvo.stat().st_size / 1024 / 1024:.1f} MB")
+    print(f"[ok]   contagens: {executaveis}")
+    return 0
+
+
 def _run(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
 
@@ -115,6 +144,9 @@ def _run(argv: list[str] | None = None) -> int:
 
     if args.comando == "gtfs":
         return _executar_gtfs(args)
+
+    if args.comando == "sqlite":
+        return _executar_sqlite(args)
 
     http = HttpClient()
     try:
