@@ -1,0 +1,11 @@
+# Linha E901: traçado divergente do itinerário oficial SEMOB
+
+**Erro médio** do shape do feed vs oficial: **44.9 m** (mediana 13.4 m, p95 277.8 m) na auditoria de 2026-10-28.
+
+**Coerência com o serviço real** (item 6, 2026-10-29): com o traçado oficial, 5 de 37 paradas ficam a mais de 100 m do traçado; com o traçado apurado do painel, nenhuma.
+
+## Evidência
+
+- Auditoria: `data/gtfs/_AUDITORIA_SHAPES.md` (linha E901, erro médio 44.9 m).
+- Tabela do item 6: `docs/item6_shapes_semob.csv` (paradas longe do traçado oficial).
+- Geojson oficial congelado: `data/raw/semob_geojson/E901.json` (data de atualização do itinerário no campo ATUALIZACA, preservada nas notas do feed).
