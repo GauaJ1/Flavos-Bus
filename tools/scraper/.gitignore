@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+# temporários criados por subprocessos no ambiente sandbox (impossíveis de apagar)
+.tmp/
+.tmp-pw/
+probe/
+pytest-cache-files-*/
+# material bruto da fase de reconhecimento (capturas com dados do site)
+captura.jsonl
+captura.STOP
+captura_extras/
+captura_analise.txt
+caca_passphrase.txt
+# coletas reais ficam em ../../data/raw (ignorado na raiz do repositório)

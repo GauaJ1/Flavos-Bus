@@ -1,0 +1,21 @@
+# Dependências e builds
+node_modules/
+.expo/
+dist/
+build/
+
+# Ambiente
+.env
+.env.*
+
+# Dados brutos pesados (doc seção 4: "não versionar o que for pesado")
+data/raw/*
+!data/raw/README.md
+
+# Logs e SO
+*.log
+.DS_Store
+Thumbs.db
+
+# relatórios de diagnóstico de permissões (sessão local)
+.acl-recovery/
