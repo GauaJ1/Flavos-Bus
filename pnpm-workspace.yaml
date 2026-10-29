@@ -1,0 +1,8 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Receita oficial do Expo para monorepos (doc do projeto, seção 3): layout
+# isolado do pnpm deixa dois metros (expo × react-native) e quebra o bundler
+# com "transformFile undefined". O pnpm 11 lê esta config daqui, não do .npmrc.
+nodeLinker: hoisted

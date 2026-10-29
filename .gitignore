@@ -31,3 +31,7 @@ Thumbs.db
 tools/scraper/_sondagem/
 # mini-banco temporário do pytest (recriado a cada execução)
 tools/scraper/pytest-of-Usuario/
+# pacote de dados do app (58 MB; gerado pelo CLI + sync-db)
+apps/mobile/assets/flavos.sqlite
+# export de validação local do bundler
+apps/mobile/.expo-export-test/

@@ -1,0 +1,1 @@
+{"name": "@flavos/shared", "version": "0.1.0", "private": true, "description": "Tipos e consultas do Flavos Bus sobre o flavos.sqlite — sem dependência de plataforma (mesma base para o app e para a web de depuração).", "main": "src/index.ts", "scripts": {"typecheck": "tsc --noEmit"}, "devDependencies": {"typescript": "^5.9.0"}}

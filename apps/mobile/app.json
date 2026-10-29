@@ -1,0 +1,1 @@
+{"expo": {"name": "Flavos Bus", "slug": "flavos-bus", "version": "0.1.0", "scheme": "flavos", "orientation": "portrait", "userInterfaceStyle": "automatic", "assetBundlePatterns": ["assets/*"], "platforms": ["ios", "android", "web"], "plugins": ["expo-router"], "experiments": {"typedRoutes": false}}}

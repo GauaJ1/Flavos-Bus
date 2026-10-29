@@ -1,0 +1,1 @@
+{"name": "flavos-bus-monorepo", "private": true, "description": "Monorepo Flavos Bus: app Expo (apps/mobile), pacotes compartilhados (packages/*). Doc do projeto seção 4.", "scripts": {"start": "pnpm --dir apps/mobile start", "typecheck": "pnpm -r --if-present run typecheck"}}
