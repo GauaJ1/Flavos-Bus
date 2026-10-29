@@ -1,10 +1,10 @@
 {
  "fonte": "https://servicos.semobjp.pb.gov.br/linhas-de-onibus/",
- "endpoint": "/linhas-de-onibus/<linha>/itinerario/geojson",
- "coletado_em": "2026-10-28T23:43:07-0300",
+ "coletado_em": "2026-10-29T06:52:51",
  "linhas": {
   "0002": {
    "route_id": "995934",
+   "sigla_semob": "0002",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -30,6 +30,7 @@
   },
   "0003": {
    "route_id": "42001",
+   "sigla_semob": "0003",
    "sentidos": {
     "IDA": {
      "empresa": "MARCOS DA SILVA",
@@ -55,6 +56,7 @@
   },
   "0101": {
    "route_id": "42057",
+   "sigla_semob": "0101",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -80,6 +82,7 @@
   },
   "0102": {
    "route_id": "42058",
+   "sigla_semob": "0102",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -105,6 +108,7 @@
   },
   "0103": {
    "route_id": "42010",
+   "sigla_semob": "0103",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -130,6 +134,7 @@
   },
   "0104": {
    "route_id": "42011",
+   "sigla_semob": "0104",
    "sentidos": {
     "VOLTA": {
      "empresa": "SAO JORGE",
@@ -155,6 +160,7 @@
   },
   "0105": {
    "route_id": "42012",
+   "sigla_semob": "0105",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -180,6 +186,7 @@
   },
   "0106": {
    "route_id": "42059",
+   "sigla_semob": "0106",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -205,6 +212,7 @@
   },
   "0107": {
    "route_id": "42060",
+   "sigla_semob": "0107",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -230,6 +238,7 @@
   },
   "0108": {
    "route_id": "42013",
+   "sigla_semob": "0108",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -255,6 +264,7 @@
   },
   "0109": {
    "route_id": "42014",
+   "sigla_semob": "0109",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -280,6 +290,7 @@
   },
   "0110": {
    "route_id": "42015",
+   "sigla_semob": "0110",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -305,6 +316,7 @@
   },
   "0115": {
    "route_id": "42017",
+   "sigla_semob": "0115",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -330,6 +342,7 @@
   },
   "0118": {
    "route_id": "42019",
+   "sigla_semob": "0118",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -355,6 +368,7 @@
   },
   "0123": {
    "route_id": "42016",
+   "sigla_semob": "0123",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -380,6 +394,7 @@
   },
   "0202": {
    "route_id": "42062",
+   "sigla_semob": "0202",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -405,6 +420,7 @@
   },
   "0203": {
    "route_id": "376163",
+   "sigla_semob": "0203",
    "sentidos": {
     "VOLTA": {
      "empresa": "TRANSNACIONAL",
@@ -430,6 +446,7 @@
   },
   "0204": {
    "route_id": "42063",
+   "sigla_semob": "0204",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -455,6 +472,7 @@
   },
   "0207": {
    "route_id": "42064",
+   "sigla_semob": "0207",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -480,6 +498,7 @@
   },
   "0208": {
    "route_id": "42065",
+   "sigla_semob": "0208",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -505,6 +524,7 @@
   },
   "0229": {
    "route_id": "374410",
+   "sigla_semob": "0229",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -530,6 +550,7 @@
   },
   "0301": {
    "route_id": "42066",
+   "sigla_semob": "0301",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -555,6 +576,7 @@
   },
   "0302": {
    "route_id": "42067",
+   "sigla_semob": "0302",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -580,6 +602,7 @@
   },
   "0303": {
    "route_id": "42068",
+   "sigla_semob": "0303",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -605,6 +628,7 @@
   },
   "0304": {
    "route_id": "42069",
+   "sigla_semob": "0304",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -630,6 +654,7 @@
   },
   "0307": {
    "route_id": "997067",
+   "sigla_semob": "0307",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -655,6 +680,7 @@
   },
   "0401": {
    "route_id": "42021",
+   "sigla_semob": "0401",
    "sentidos": {
     "IDA": {
      "empresa": "NAVEGANTES",
@@ -680,6 +706,7 @@
   },
   "0402": {
    "route_id": "42070",
+   "sigla_semob": "0402",
    "sentidos": {
     "VOLTA": {
      "empresa": "REUNIDAS",
@@ -705,6 +732,7 @@
   },
   "0500": {
    "route_id": "374419",
+   "sigla_semob": "0500",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -730,6 +758,7 @@
   },
   "0502": {
    "route_id": "42022",
+   "sigla_semob": "0502",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -755,6 +784,7 @@
   },
   "0503": {
    "route_id": "42023",
+   "sigla_semob": "0503",
    "sentidos": {
     "IDA": {
      "empresa": "MARCOS DA SILVA",
@@ -780,6 +810,7 @@
   },
   "0504": {
    "route_id": "42024",
+   "sigla_semob": "0504",
    "sentidos": {
     "IDA": {
      "empresa": "MANDACARUENSE",
@@ -805,6 +836,7 @@
   },
   "0506": {
    "route_id": "42026",
+   "sigla_semob": "0506",
    "sentidos": {
     "IDA": {
      "empresa": "MARCOS DA SILVA",
@@ -830,6 +862,7 @@
   },
   "0507": {
    "route_id": "42027",
+   "sigla_semob": "0507",
    "sentidos": {
     "IDA": {
      "empresa": "NAVEGANTES",
@@ -855,6 +888,7 @@
   },
   "0508": {
    "route_id": "42028",
+   "sigla_semob": "0508",
    "sentidos": {
     "IDA": {
      "empresa": "MARCOS DA SILVA",
@@ -880,6 +914,7 @@
   },
   "0509": {
    "route_id": "42029",
+   "sigla_semob": "0509",
    "sentidos": {
     "IDA": {
      "empresa": "MARCOS DA SILVA",
@@ -905,6 +940,7 @@
   },
   "0510": {
    "route_id": "42071",
+   "sigla_semob": "0510",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -930,6 +966,7 @@
   },
   "0512": {
    "route_id": "42030",
+   "sigla_semob": "0512",
    "sentidos": {
     "IDA": {
      "empresa": "MARCOS DA SILVA",
@@ -955,6 +992,7 @@
   },
   "0517": {
    "route_id": "42074",
+   "sigla_semob": "0517",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -980,6 +1018,7 @@
   },
   "0518": {
    "route_id": "281123",
+   "sigla_semob": "0518",
    "sentidos": {
     "VOLTA": {
      "empresa": "TRANSNACIONAL",
@@ -1005,6 +1044,7 @@
   },
   "0520": {
    "route_id": "42032",
+   "sigla_semob": "0520",
    "sentidos": {
     "IDA": {
      "empresa": "MARCOS DA SILVA",
@@ -1030,6 +1070,7 @@
   },
   "0521": {
    "route_id": "42075",
+   "sigla_semob": "0521",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1055,6 +1096,7 @@
   },
   "0522": {
    "route_id": "42076",
+   "sigla_semob": "0522",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1080,6 +1122,7 @@
   },
   "0523": {
    "route_id": "375908",
+   "sigla_semob": "0523",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -1105,6 +1148,7 @@
   },
   "0527": {
    "route_id": "511294",
+   "sigla_semob": "0527",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -1130,6 +1174,7 @@
   },
   "0530": {
    "route_id": "281121",
+   "sigla_semob": "0530",
    "sentidos": {
     "VOLTA": {
      "empresa": "REUNIDAS",
@@ -1155,6 +1200,7 @@
   },
   "0600": {
    "route_id": "42077",
+   "sigla_semob": "0600",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1180,6 +1226,7 @@
   },
   "0601": {
    "route_id": "42078",
+   "sigla_semob": "0601",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1205,6 +1252,7 @@
   },
   "0602": {
    "route_id": "42033",
+   "sigla_semob": "0602",
    "sentidos": {
     "IDA": {
      "empresa": "MANDACARUENSE",
@@ -1230,6 +1278,7 @@
   },
   "0701": {
    "route_id": "42035",
+   "sigla_semob": "0701",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -1255,6 +1304,7 @@
   },
   "0702": {
    "route_id": "42036",
+   "sigla_semob": "0702",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -1280,6 +1330,7 @@
   },
   "1001": {
    "route_id": "42038",
+   "sigla_semob": "1001M",
    "sentidos": {
     "IDA": {
      "empresa": "MANDACARUENSE",
@@ -1305,6 +1356,7 @@
   },
   "1500": {
    "route_id": "42080",
+   "sigla_semob": "1500",
    "sentidos": {
     "CIRCULAR": {
      "empresa": "TRANSNACIONAL",
@@ -1320,6 +1372,7 @@
   },
   "1510": {
    "route_id": "42039",
+   "sigla_semob": "1510",
    "sentidos": {
     "CIRCULAR": {
      "empresa": "SANTA MARIA",
@@ -1335,6 +1388,7 @@
   },
   "1519": {
    "route_id": "42040",
+   "sigla_semob": "1519",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -1360,6 +1414,7 @@
   },
   "2300": {
    "route_id": "42041",
+   "sigla_semob": "2300",
    "sentidos": {
     "CIRCULAR": {
      "empresa": "SAO JORGE",
@@ -1375,6 +1430,7 @@
   },
   "2515": {
    "route_id": "42085",
+   "sigla_semob": "2515",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1400,6 +1456,7 @@
   },
   "3200": {
    "route_id": "42086",
+   "sigla_semob": "3200",
    "sentidos": {
     "CIRCULAR": {
      "empresa": "TRANSNACIONAL",
@@ -1415,6 +1472,7 @@
   },
   "5100": {
    "route_id": "42091",
+   "sigla_semob": "5100",
    "sentidos": {
     "CIRCULAR": {
      "empresa": "TRANSNACIONAL",
@@ -1430,6 +1488,7 @@
   },
   "5110": {
    "route_id": "42043",
+   "sigla_semob": "5110",
    "sentidos": {
     "CIRCULAR": {
      "empresa": "SANTA MARIA",
@@ -1445,6 +1504,7 @@
   },
   "5120": {
    "route_id": "42044",
+   "sigla_semob": "5120",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -1470,6 +1530,7 @@
   },
   "5210": {
    "route_id": "42095",
+   "sigla_semob": "5210",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1495,6 +1556,7 @@
   },
   "5600": {
    "route_id": "42098",
+   "sigla_semob": "5600",
    "sentidos": {
     "VOLTA": {
      "empresa": "REUNIDAS",
@@ -1520,6 +1582,7 @@
   },
   "5603": {
    "route_id": "42099",
+   "sigla_semob": "5603",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1545,6 +1608,7 @@
   },
   "5605": {
    "route_id": "42100",
+   "sigla_semob": "5605",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1570,6 +1634,7 @@
   },
   "E155": {
    "route_id": "611991",
+   "sigla_semob": "E155",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -1595,6 +1660,7 @@
   },
   "E202": {
    "route_id": "997071",
+   "sigla_semob": "E202",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -1620,6 +1686,7 @@
   },
   "E229": {
    "route_id": "997072",
+   "sigla_semob": "E229",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1645,6 +1712,7 @@
   },
   "E301": {
    "route_id": "997073",
+   "sigla_semob": "E301",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -1670,6 +1738,7 @@
   },
   "E550": {
    "route_id": "611992",
+   "sigla_semob": "E550",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1695,6 +1764,7 @@
   },
   "E551": {
    "route_id": "611993",
+   "sigla_semob": "E551",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
@@ -1720,6 +1790,7 @@
   },
   "E600": {
    "route_id": "611994",
+   "sigla_semob": "E600",
    "sentidos": {
     "IDA": {
      "empresa": "REUNIDAS",
@@ -1745,6 +1816,7 @@
   },
   "E901": {
    "route_id": "997074",
+   "sigla_semob": "E901",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -1770,6 +1842,7 @@
   },
   "I004": {
    "route_id": "42002",
+   "sigla_semob": "I004",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -1795,6 +1868,7 @@
   },
   "I008": {
    "route_id": "42006",
+   "sigla_semob": "I008",
    "sentidos": {
     "IDA": {
      "empresa": "SAO JORGE",
@@ -1810,6 +1884,7 @@
   },
   "T001": {
    "route_id": "42048",
+   "sigla_semob": "T001",
    "sentidos": {
     "IDA": {
      "empresa": "SANTA MARIA",
@@ -1825,6 +1900,7 @@
   },
   "T002": {
    "route_id": "42000",
+   "sigla_semob": "T002",
    "sentidos": {
     "IDA": {
      "empresa": "TRANSNACIONAL",
