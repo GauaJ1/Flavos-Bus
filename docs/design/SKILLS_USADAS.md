@@ -30,3 +30,23 @@ Data: 2026-10-30 · Solicitado: carregar TODAS as skills de design disponíveis 
 ## Regra de conflito aplicada
 
 Quando duas skills divergem, prevalece a **mais específica à tarefa**, com o conflito registrado — como acima (`ui-ux-pro-max` genérica × `frontend-design-anchors` específica → âncora Swiss vence).
+
+## Passo 6 executado (evidências de verdade)
+
+- **Capturas**: `docs/design/telas/{busca,detalhe}_{claro,escuro}.png` — 360×740@2x, Edge do
+  sistema via Playwright (channel `msedge`, sem baixar navegador). Limitação honesta: este
+  agente não tem entrada de imagem, então a conferência pixel a pixel fica para humano;
+  o que se prova aqui é conteúdo.
+- **Runtime**: `apps/mobile/scripts/verifica_web.mjs` — **11/11 checks** (aviso teórico no topo
+  das duas telas; busca por "509" encontra João Agripino; próxima saída; quadro 05:00→17:40;
+  fonte com data; chips de dia; linha SEM operadora oculta o campo; linha COM operadora mostra
+  "Operadora declarada ANO: NOME"; zero pageerror). Relatório:
+  `docs/design/telas/relatorio_runtime.md`.
+- **Contraste**: `apps/mobile/scripts/contraste.mjs` — os 8 pares de tokens passam **≥ 4,5:1
+  nos dois temas** (`docs/design/telas/contraste_tokens.md`).
+- Verificação por tempo fixo foi trocada por espera por conteúdo (espera robusta, não "sleep").
+- **Diagramas** (pedidos como SVG autoral em `docs/design/`): `pipeline.svg` (Bus2+SEMOB →
+  scraper → GTFS validado → flavos.sqlite → app offline, com a caixa tracejada do RT ausente)
+  e `navegacao.svg` (/ → /linha/[id] com aviso permanente, placa, próxima saída, faixa do dia,
+  quadro por dia/sentido e pendências Tarefa 7 marcadas). Cores escolhidas para legibilidade
+  nos dois temas (blocos escuros + texto claro sobre qualquer fundo).

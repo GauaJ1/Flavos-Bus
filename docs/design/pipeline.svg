@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="300" viewBox="0 0 980 300" role="img" aria-label="Pipeline de dados do Flavos Bus: Bus2 e SEMOB viram GTFS validado, que vira flavos.sqlite, que o app abre offline">
+  <defs>
+    <marker id="seta" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#6E7887"/>
+    </marker>
+  </defs>
+  <g font-family="Helvetica,Arial,sans-serif" font-size="13">
+    <!-- Fontes -->
+    <rect x="14" y="40" width="170" height="76" rx="10" fill="#2B3440" stroke="#6E7887"/>
+    <text x="99" y="66" text-anchor="middle" fill="#FFFFFF" font-weight="bold">Bus2 (84/84 linhas)</text>
+    <text x="99" y="84" text-anchor="middle" fill="#C7D0DC" font-size="11">get-lines/get-route-details</text>
+    <text x="99" y="100" text-anchor="middle" fill="#C7D0DC" font-size="11">payload AES decifrado</text>
+
+    <rect x="14" y="180" width="170" height="76" rx="10" fill="#2B3440" stroke="#6E7887"/>
+    <text x="99" y="206" text-anchor="middle" fill="#FFFFFF" font-weight="bold">SEMOB (público)</text>
+    <text x="99" y="224" text-anchor="middle" fill="#C7D0DC" font-size="11">geojson + quadro do painel</text>
+    <text x="99" y="240" text-anchor="middle" fill="#C7D0DC" font-size="11">operadoras, traçados, tipo</text>
+
+    <!-- Coleta -->
+    <rect x="232" y="110" width="180" height="76" rx="10" fill="#2B3440" stroke="#6E7887"/>
+    <text x="322" y="136" text-anchor="middle" fill="#FFFFFF" font-weight="bold">scraper (Fase 1)</text>
+    <text x="322" y="154" text-anchor="middle" fill="#C7D0DC" font-size="11">python -m scraper collect</text>
+    <text x="322" y="170" text-anchor="middle" fill="#C7D0DC" font-size="11">data/raw + testes pytest</text>
+
+    <!-- GTFS -->
+    <rect x="464" y="110" width="200" height="76" rx="10" fill="#2B3440" stroke="#6E7887"/>
+    <text x="564" y="132" text-anchor="middle" fill="#FFFFFF" font-weight="bold">feed GTFS (Fase 2)</text>
+    <text x="564" y="150" text-anchor="middle" fill="#C7D0DC" font-size="11">python -m scraper gtfs</text>
+    <text x="564" y="166" text-anchor="middle" fill="#C7D0DC" font-size="11">validador MobilityData: 1 warning</text>
+    <text x="564" y="182" text-anchor="middle" fill="#C7D0DC" font-size="11">data/gtfs/*.txt + gtfs.zip</text>
+
+    <!-- SQLite -->
+    <rect x="716" y="110" width="200" height="76" rx="10" fill="#2B3440" stroke="#6E7887"/>
+    <text x="816" y="132" text-anchor="middle" fill="#FFFFFF" font-weight="bold">flavos.sqlite (58,1 MB)</text>
+    <text x="816" y="150" text-anchor="middle" fill="#C7D0DC" font-size="11">python -m scraper sqlite</text>
+    <text x="816" y="166" text-anchor="middle" fill="#C7D0DC" font-size="11">84 routes · 5.457 trips · 476k stop_times</text>
+    <text x="816" y="182" text-anchor="middle" fill="#C7D0DC" font-size="11">+= 120 linhas_mvp (ranking frequência)</text>
+
+    <!-- App -->
+    <rect x="946" y="96" width="0" height="0" fill="none"/>
+  </g>
+  <g font-family="Helvetica,Arial,sans-serif" font-size="13">
+    <!-- App (segunda linha, à esquerda do SQLite, completando o fluxo) -->
+    <rect x="716" y="224" width="200" height="60" rx="10" fill="#002FA7"/>
+    <text x="816" y="248" text-anchor="middle" fill="#FFFFFF" font-weight="bold">app (Expo SDK 58)</text>
+    <text x="816" y="266" text-anchor="middle" fill="#DCE6FF" font-size="11">asset → expo-sqlite, offline</text>
+
+    <!-- setas -->
+    <path d="M184 116 L228 122" stroke="#6E7887" stroke-width="2" marker-end="url(#seta)"/>
+    <path d="M184 200 L228 176" stroke="#6E7887" stroke-width="2" marker-end="url(#seta)"/>
+    <path d="M412 148 L460 148" stroke="#6E7887" stroke-width="2" marker-end="url(#seta)"/>
+    <path d="M664 148 L712 148" stroke="#6E7887" stroke-width="2" marker-end="url(#seta)"/>
+    <path d="M816 190 L816 220" stroke="#6E7887" stroke-width="2" marker-end="url(#seta)"/>
+
+    <!-- honestidade: RT ausente -->
+    <rect x="238" y="224" width="222" height="60" rx="10" fill="none" stroke="#6E7887" stroke-dasharray="6 5"/>
+    <text x="349" y="248" text-anchor="middle" fill="#6E7887" font-weight="bold">GTFS-RT: SEMOB não publica</text>
+    <text x="349" y="266" text-anchor="middle" fill="#6E7887" font-size="11">HTTP 500 / veículos [] (prova 29/10) → ofício</text>
+
+    <text x="14" y="292" fill="#6E7887" font-size="11">Leia os blocos na ordem das setas. Fora do fluxo contínuo: dado com data marcada (feed_version) — nunca apresentado como atual no app.</text>
+  </g>
+</svg>
