@@ -1,0 +1,1 @@
+rota=/linha/42029 esquema=dark ok=true erros=[]

@@ -1,0 +1,1 @@
+rota=/ esquema=light ok=true erros=[]
