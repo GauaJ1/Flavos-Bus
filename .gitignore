@@ -27,3 +27,7 @@ Thumbs.db
 
 # relatórios de diagnóstico de permissões (sessão local)
 .acl-recovery/
+# Sondagens arquivadas (higiene 2026-10-29): histórico de investigação fora do repo
+tools/scraper/_sondagem/
+# mini-banco temporário do pytest (recriado a cada execução)
+tools/scraper/pytest-of-Usuario/
