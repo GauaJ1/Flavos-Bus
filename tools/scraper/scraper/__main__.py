@@ -62,6 +62,10 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help="pasta do feed a ler; o flavos.sqlite é gravado nela (padrão: data/gtfs)",
     )
+
+    from .linha_mvp import registrar_no as registrar_linhas_mvp
+
+    registrar_linhas_mvp(sub)
     return parser
 
 
@@ -147,6 +151,11 @@ def _run(argv: list[str] | None = None) -> int:
 
     if args.comando == "sqlite":
         return _executar_sqlite(args)
+
+    if args.comando == "linhas_mvp":
+        from .linha_mvp import executar as executar_linhas_mvp
+
+        return executar_linhas_mvp(args.n)
 
     http = HttpClient()
     try:
