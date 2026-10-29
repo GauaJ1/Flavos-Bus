@@ -3,6 +3,7 @@
     python -m scraper collect --linha 510 [--force]
     python -m scraper collect --all [--force]
     python -m scraper report
+    python -m scraper gtfs [--feed-hash HASH] [--saida PASTA]
 """
 
 from __future__ import annotations
@@ -10,6 +11,7 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+from pathlib import Path
 
 from . import config
 from .http_client import HttpClient
@@ -38,7 +40,68 @@ def build_parser() -> argparse.ArgumentParser:
     collect.add_argument("--force", action="store_true", help="rebaixa mesmo com cache válido")
 
     sub.add_parser("report", help="resumo por linha: completas / parciais / erros")
+
+    gtfs = sub.add_parser("gtfs", help="Fase 2: monta o feed GTFS em data/gtfs/ e valida")
+    gtfs.add_argument("--saida", type=str, default="", help="pasta de saída (padrão: data/gtfs)")
+    gtfs.add_argument(
+        "--feed-hash",
+        dest="feed_hash",
+        type=str,
+        default="",
+        help="hash do projeto (get-project.feed_hash) incluído no feed_version",
+    )
     return parser
+
+
+def _executar_gtfs(args: argparse.Namespace) -> int:
+    """Fase 2: decifra data/raw, monta o feed GTFS, valida e empacota."""
+    from .gtfs import (
+        carregar_entrada,
+        escrever_feed,
+        montar_tabelas,
+        validar_tabelas,
+        zipar_feed,
+    )
+    from .gtfs.relatorio import texto_relatorio
+
+    saida = Path(args.saida) if args.saida else config.gtfs_dir()
+    entrada = carregar_entrada(config.raw_dir(), feed_hash=args.feed_hash)
+    faltando = entrada.faltando
+    if faltando:
+        print(f"[config] timetables faltando em data/raw para: {', '.join(faltando)}")
+        return 2
+
+    tab = montar_tabelas(entrada)
+    achados = validar_tabelas(tab)
+    erros = [n for n in tab.notas + achados if n.severidade == "erro"]
+
+    contagens = {
+        "routes.txt": len(tab.routes),
+        "stops.txt": len(tab.stops),
+        "calendar.txt": len(tab.calendar),
+        "shapes.txt": len(tab.shapes),
+        "trips.txt": len(tab.trips),
+        "stop_times.txt": len(tab.stop_times),
+    }
+    for arquivo, qtd in contagens.items():
+        print(f"  {arquivo}: {qtd}")
+    for nota in tab.notas:
+        print(nota.linha())
+    for achado in achados:
+        print(achado.linha())
+
+    caminhos = escrever_feed(tab, saida)
+    print(f"[ok]   .txt gerados: {', '.join(c.name for c in caminhos)}")
+    relatorio = saida / "_RELATORIO.md"
+    relatorio.write_text(texto_relatorio(tab, achados, entrada.data_geracao), encoding="utf-8")
+    print(f"[ok]   relatório: {relatorio}")
+
+    if erros:
+        print(f"[erro] feed com {len(erros)} erro(s): gtfs.zip NÃO gerado (doc seção 6)")
+        return 2
+    zip_path = zipar_feed(saida, saida / "gtfs.zip")
+    print(f"[ok]   gtfs.zip: {zip_path} ({zip_path.stat().st_size / 1024:.0f} KB)")
+    return 0
 
 
 def _run(argv: list[str] | None = None) -> int:
@@ -47,6 +110,9 @@ def _run(argv: list[str] | None = None) -> int:
     if args.comando == "report":
         print(format_report(build_report(config.raw_dir())))
         return 0
+
+    if args.comando == "gtfs":
+        return _executar_gtfs(args)
 
     http = HttpClient()
     try:

@@ -53,7 +53,8 @@ def main() -> None:
     print(f"viagens (trips): {total_viagens}")
     print(f"paradas únicas (sid distintos): {len(unique_por_id)}")
     print(f"nomes de serviço distintos: {len(servicos_nomes)} -> {sorted(servicos_nomes)[:10]}")
-    print(f"linhas SEM viagens: {len(sem_viagens)}{' (' + ', '.join(sem_viagens) + ')' if sem_viagens else ''}")
+    aviso_sem = f" ({', '.join(sem_viagens)})" if sem_viagens else ""
+    print(f"linhas SEM viagens: {len(sem_viagens)}{aviso_sem}")
     print(f"linhas sem ANY coordenada: {len(sem_coords)}")
     for linha in detalhes:
         print(f"  avisos: {linha}")

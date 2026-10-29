@@ -11,6 +11,9 @@ build/
 # Dados brutos pesados (doc seção 4: "não versionar o que for pesado")
 data/raw/*
 !data/raw/README.md
+# Feed gerado pesa dezenas de MB; versionamos só o relatório da geração
+data/gtfs/*
+!data/gtfs/_RELATORIO.md
 
 # Logs e SO
 *.log

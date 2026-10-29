@@ -29,3 +29,9 @@ def raw_dir() -> Path:
     """Pasta de saída data/raw/ (override por FLAVOS_RAW_DIR para testes)."""
     override = os.environ.get("FLAVOS_RAW_DIR")
     return Path(override) if override else _repo_root() / "data" / "raw"
+
+
+def gtfs_dir() -> Path:
+    """Pasta de saída do feed data/gtfs/ (override por FLAVOS_GTFS_DIR para testes)."""
+    override = os.environ.get("FLAVOS_GTFS_DIR")
+    return Path(override) if override else _repo_root() / "data" / "gtfs"
