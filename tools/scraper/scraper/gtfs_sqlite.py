@@ -9,6 +9,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import sqlite3
+import unicodedata
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -32,7 +33,9 @@ CREATE TABLE IF NOT EXISTS routes (
     type       INTEGER NOT NULL,
     color      TEXT NOT NULL DEFAULT '',
     text_color TEXT NOT NULL DEFAULT '',
-    descricao  TEXT NOT NULL DEFAULT ''
+    descricao  TEXT NOT NULL DEFAULT '',
+    short_norm TEXT NOT NULL DEFAULT '',
+    long_norm  TEXT NOT NULL DEFAULT ''
 );
 CREATE INDEX IF NOT EXISTS idx_routes_short ON routes(short_name);
 CREATE TABLE IF NOT EXISTS stops (
@@ -87,6 +90,13 @@ CREATE INDEX IF NOT EXISTS idx_stop_times_stop ON stop_times(stop_id, departure)
 DIAS = ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
 
 
+def _sem_acento(texto: str) -> str:
+    """Normalização do doc Moovit: busca §ing sem acento/caixa
+    (o passageiro digita 'Tambau', a linha é 'Tambaú')."""
+    decomposto = unicodedata.normalize("NFKD", texto)
+    return decomposto.encode("ascii", "ignore").decode("ascii").lower()
+
+
 def ler_tabela(pasta: Path, nome: str) -> list[dict[str, str]]:
     """Lê um .txt do feed como lista de dicts (todas as colunas como texto)."""
     arquivo = pasta / f"{nome}.txt"
@@ -136,10 +146,11 @@ def montar_db(caminho_db: Path, pasta_gtfs: Path) -> dict[str, int]:
             ],
         )
         conn.executemany(
-            "INSERT INTO routes VALUES (?,?,?,?,?,?,?)",
+            "INSERT INTO routes VALUES (?,?,?,?,?,?,?,?,?)",
             [
                 (r["route_id"], r["route_short_name"], r["route_long_name"], int(r["route_type"]),
-                 r.get("route_color", ""), r.get("route_text_color", ""), r.get("route_desc", ""))
+                 r.get("route_color", ""), r.get("route_text_color", ""), r.get("route_desc", ""),
+                 _sem_acento(r["route_short_name"]), _sem_acento(r["route_long_name"]))
                 for r in ler_tabela(pasta_gtfs, "routes")
             ],
         )

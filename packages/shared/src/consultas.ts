@@ -29,15 +29,17 @@ export async function infoDoFeed(fonte: FonteDados): Promise<InfoFeed> {
 }
 
 /**
- * Busca por número ou nome (doc seção 8: "ex.: 510, Tambaú"), sem acento.
- * lower() do SQLite não remove acento: normalizo o termo, e nomes da fonte
- * vêm sem acento em grande parte (histórico verificado no feed).
+ * Busca por número ou nome (doc seção 8: "ex.: 510, Tambaú").
+ * lower() do SQLite não remove acento; a normalização fica na ingestão
+ * (colunas *_norm geradas pelo gtfs_sqlite) e o termo é normalizado aqui.
  */
 export async function buscarLinhas(fonte: FonteDados, texto: string): Promise<Linha[]> {
   const bruto = texto.trim().toLowerCase();
   if (!bruto) {
     return todasAsLinhas(fonte);
   }
+  // comparo contra as colunas *_norm (sem acento/caixa, geradas na ingestão
+  // pelo _sem_acento): digitando "Tambau" acha "Tambaú" — doc Moovit §2
   const semAcento = bruto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const padrao = `%${semAcento}%`;
   const linhas = await fonte.consulta<{
@@ -49,7 +51,7 @@ export async function buscarLinhas(fonte: FonteDados, texto: string): Promise<Li
     `SELECT route_id, short_name, long_name,
             COALESCE(NULLIF(descricao, ''), long_name) AS descricao
      FROM routes
-     WHERE lower(short_name) LIKE ? OR lower(long_name) LIKE ?
+     WHERE short_norm LIKE ? OR long_norm LIKE ?
      ORDER BY short_name
      LIMIT 100`,
     [padrao, padrao],
