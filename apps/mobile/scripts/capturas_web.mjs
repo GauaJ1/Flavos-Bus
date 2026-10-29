@@ -6,7 +6,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 
-const BASE = "http://127.0.0.1:8081";
+const BASE = process.argv[2] ?? "http://127.0.0.1:8081";
 // apps/mobile/scripts → 3 níveis até a raiz do repo
 const PASTA = new URL("../../../docs/design/telas/", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 

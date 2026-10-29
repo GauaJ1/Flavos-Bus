@@ -1,6 +1,6 @@
 # Testes pós-aprendizado — doc 'Como funciona o Moovit — Anatomia e MVP'
 
-Data: 2026-10-29T18:18:41.721Z · web de depuração (Edge/Playwright) ·
+Data: 2026-10-29T19:26:01.473Z · web de depuração (Edge/Playwright) ·
 rede externa BLOQUEADA por rota Playwright (só o dev server 127.0.0.1:8081 passa).
 
 | Doc (seção) | Check | Resultado |

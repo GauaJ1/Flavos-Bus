@@ -9,7 +9,13 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "sync-db": "node scripts/copiar-sqlite.mjs"
+    "sync-db": "node scripts/copiar-sqlite.mjs",
+    "teste:bateria": "node scripts/suite_exaustiva.mjs",
+    "teste:84": "node scripts/varredura_84.mjs",
+    "teste:acentos": "node scripts/acentos.mjs",
+    "teste:aparelho": "node scripts/aparelho.mjs",
+    "teste:moovit": "node scripts/testes_moovit.mjs",
+    "teste:export": "expo export --platform web --output-dir .expo-export-test --clear && node scripts/servir_export.mjs 8282"
   },
   "dependencies": {
     "@expo/metro-runtime": "~58.0.15",

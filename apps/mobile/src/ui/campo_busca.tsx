@@ -1,7 +1,7 @@
 // Campo de busca (tela Buscar linhas): alto, alvo de toque confortável, com
 // rótulo acessível e resposta imediata ao digitar (busca é SQL local).
 import { StyleSheet, TextInput, View } from "react-native";
-import { espaco, raio, useTema, type Tema } from "@/tema/theme";
+import { espaco, raio, toque, useTema, type Tema } from "@/tema/theme";
 import { IconeBusca } from "./icones";
 import * as React from "react";
 
@@ -45,6 +45,16 @@ function estilosDe(tema: Tema) {
       borderRadius: raio.placa,
       backgroundColor: tema.papel2,
     },
-    campo: { flex: 1, color: tema.tinta, fontSize: 16 },
+    campo: {
+      flex: 1,
+      color: tema.tinta,
+      fontSize: 16,
+      // o alvo de toque é o campo inteiro: sem altura explícita o elemento
+      // nativo/web fica só com a altura do texto (~21px) e o toque encolhe
+      minHeight: toque.minimo,
+      paddingVertical: 0,
+      alignSelf: "stretch",
+      textAlignVertical: "center",
+    },
   });
 }

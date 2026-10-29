@@ -48,6 +48,9 @@ export default function DetalheLinha() {
   const [dia, setDia] = useState<TipoDia>(() => colunaDoDia(new Date()));
   const [tic, setTic] = useState(0);
   const [linhaInfo, setLinhaInfo] = useState<Linha | null>(null);
+  // distingue "ainda consultando" de "consultou e não existe": sem isso a
+  // tela de id inválido ficava presa no carregando
+  const [linhaConsultada, setLinhaConsultada] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setTic((n) => n + 1), 30_000); // atualiza "faltam X min"
@@ -60,7 +63,10 @@ export default function DetalheLinha() {
     if (estado.fase !== "pronto" || !routeId) return;
     let vivo = true;
     void linhaPorId(estado.fonte, routeId).then((l) => {
-      if (vivo) setLinhaInfo(l);
+      if (vivo) {
+        setLinhaInfo(l);
+        setLinhaConsultada(true);
+      }
     });
     return () => {
       vivo = false;
@@ -101,6 +107,21 @@ export default function DetalheLinha() {
       </Tela>
     );
   }
+  // linha não existe no feed: dizer a verdade ANTES de esperar o quadro
+  // (o quadro de um id inexistente é vazio — não há o que consultar)
+  if (linhaConsultada && linhaInfo === null) {
+    return (
+      <Tela>
+        <AvisoTeorico />
+        <EstadoVazio
+          titulo="Linha não encontrada"
+          explicacao={`Nenhuma linha com este identificador no feed (${routeId}). Volte para a busca e escolha pelo número ou pelo nome.`}
+          acaoRotulo="Voltar à busca"
+          acao={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+        />
+      </Tela>
+    );
+  }
   if (quadro === null) {
     return (
       <Tela>
@@ -109,7 +130,6 @@ export default function DetalheLinha() {
       </Tela>
     );
   }
-
   const numero = linhaInfo?.numero ?? "";
   const nome = linhaInfo?.nome ?? "";
   const descricao = linhaInfo?.descricao ?? "";

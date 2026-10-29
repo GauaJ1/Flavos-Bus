@@ -35,3 +35,8 @@ tools/scraper/pytest-of-Usuario/
 apps/mobile/assets/flavos.sqlite
 # export de validação local do bundler
 apps/mobile/.expo-export-test/
+apps/mobile/.expo-export-native/
+apps/mobile/.expo-export-android/
+# artefatos de diagnóstico da sessão de testes (mapa de ids, logs)
+apps/mobile/.tmp/
+tools/scraper/.tmp/
