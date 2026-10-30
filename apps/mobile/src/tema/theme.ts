@@ -22,7 +22,21 @@ export * from "./tokens";
 
 export interface Tema {
   readonly escuro: boolean;
-  // ---- ponte de nomes (valores vêm sempre de tokens.ts) ----
+  // ---- nomes novos (tokens) — usados pelos componentes do redesign ----
+  /** tokens: primary */ readonly primary: string;
+  /** tokens: onPrimary */ readonly onPrimary: string;
+  /** tokens: surface */ readonly surface: string;
+  /** tokens: surfaceAlt */ readonly surfaceAlt: string;
+  /** tokens: border */ readonly border: string;
+  /** tokens: text */ readonly text: string;
+  /** tokens: textMuted */ readonly textMuted: string;
+  /** tokens: verdeMarca */ readonly verdeMarca: string;
+  /** tokens: verdeTexto */ readonly verdeTexto: string;
+  /** tokens: theoretical — RESERVADO ao TheoreticalBadge */ readonly theoretical: string;
+  /** tokens: theoreticalBg — RESERVADO ao TheoreticalBadge */ readonly theoreticalBg: string;
+  /** tokens: danger */ readonly danger: string;
+  /** tokens: dangerBg */ readonly dangerBg: string;
+  // ---- ponte de nomes ANTIGOS (telas que ainda não migraram) ----
   /** tokens: surface */ readonly papel: string;
   /** tokens: surfaceAlt */ readonly papel2: string;
   /** tokens: text */ readonly tinta: string;
@@ -36,35 +50,39 @@ export interface Tema {
   /** tokens: dangerBg */ readonly erroFundo: string;
 }
 
-export const temaClaro: Tema = {
-  escuro: false,
-  papel: cores.claro.surface,
-  papel2: cores.claro.surfaceAlt,
-  tinta: cores.claro.text,
-  tinta2: cores.claro.textMuted,
-  hairline: cores.claro.border,
-  acento: cores.claro.primary,
-  acentoSobre: cores.claro.onPrimary,
-  atencao: cores.claro.theoretical,
-  atencaoFundo: cores.claro.theoreticalBg,
-  erro: cores.claro.danger,
-  erroFundo: cores.claro.dangerBg,
-};
+function montar(escuro: boolean): Tema {
+  const c = escuro ? cores.escuro : cores.claro;
+  return {
+    escuro,
+    primary: c.primary,
+    onPrimary: c.onPrimary,
+    surface: c.surface,
+    surfaceAlt: c.surfaceAlt,
+    border: c.border,
+    text: c.text,
+    textMuted: c.textMuted,
+    verdeMarca: c.verdeMarca,
+    verdeTexto: c.verdeTexto,
+    theoretical: c.theoretical,
+    theoreticalBg: c.theoreticalBg,
+    danger: c.danger,
+    dangerBg: c.dangerBg,
+    papel: c.surface,
+    papel2: c.surfaceAlt,
+    tinta: c.text,
+    tinta2: c.textMuted,
+    hairline: c.border,
+    acento: c.primary,
+    acentoSobre: c.onPrimary,
+    atencao: c.theoretical,
+    atencaoFundo: c.theoreticalBg,
+    erro: c.danger,
+    erroFundo: c.dangerBg,
+  };
+}
 
-export const temaEscuro: Tema = {
-  escuro: true,
-  papel: cores.escuro.surface,
-  papel2: cores.escuro.surfaceAlt,
-  tinta: cores.escuro.text,
-  tinta2: cores.escuro.textMuted,
-  hairline: cores.escuro.border,
-  acento: cores.escuro.primary,
-  acentoSobre: cores.escuro.onPrimary,
-  atencao: cores.escuro.theoretical,
-  atencaoFundo: cores.escuro.theoreticalBg,
-  erro: cores.escuro.danger,
-  erroFundo: cores.escuro.dangerBg,
-};
+export const temaClaro: Tema = montar(false);
+export const temaEscuro: Tema = montar(true);
 
 export function useTema(): Tema {
   const esquema = useColorScheme();
