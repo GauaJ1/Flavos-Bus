@@ -1,0 +1,12 @@
+import { DatabaseSync } from "node:sqlite";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+const dbPath = join(dirname(fileURLToPath(import.meta.url)), "..", "assets", "flavos.sqlite");
+const db = new DatabaseSync(dbPath, { readOnly: true });
+const rows = db.prepare("SELECT short_name, color, text_color FROM routes ORDER BY short_name").all();
+console.log("primeiras:", JSON.stringify(rows.slice(0, 8)));
+const vermelhas = rows.filter((r) => parseInt(r.color.slice(0, 2), 16) > 150 && parseInt(r.color.slice(2, 4), 16) < 90);
+console.log("com fundo vermelho:", JSON.stringify(vermelhas.slice(0, 4)));
+const maisLongos = [...rows].sort((a, b) => b.short_name.length - a.short_name.length);
+console.log("numeros mais longos:", JSON.stringify(maisLongos.slice(0, 4)));
+db.close();
