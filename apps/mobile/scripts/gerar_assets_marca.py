@@ -139,7 +139,14 @@ def reduz(tam=None, raio_alvo=None):
     crop_alfa = alfa[dy0:dy1 + 1, dx0:dx1 + 1]
     rgb = np.asarray(Image.fromarray(crop_rgb.astype(np.uint8), "RGB").resize((w, h), Image.LANCZOS)).astype(float)
     m = np.asarray(Image.fromarray((crop_alfa * 255.0).astype(np.uint8), "L").resize((w, h), Image.LANCZOS)).astype(float) / 255.0
-    # prova (c): nada de névoa — fora da faixa de 2px do contorno, alfa é 0 ou 255
+    # Fidelidade: dentro da máscara do CONTEÚDO do próprio resize, alfa é 1 —
+    # a composição sobre branco fica bit-a-bit = LANCZOS do conteúdo (só o
+    # bump dos brancos internos difere, <=1/canal). Alfa parcial sobra apenas
+    # na franja EXTERNA do contorno (nunca dentro do desenho).
+    conteudo_m, _ = fundo_bordas(rgb, TOL)
+    m[conteudo_m] = 1.0
+    # prova (c): nada de névoa — com o contorno FINAL (após as forças acima),
+    # fora da faixa de 2px do contorno o alfa é 0 ou 255
     cheio = m > 0
     p = np.pad(cheio, 1)
     contorno = cheio & ~(p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:])
@@ -147,12 +154,6 @@ def reduz(tam=None, raio_alvo=None):
     fora = cheio & ~faixa
     m[fora & (m > 0.502)] = 1.0
     m[fora & (m <= 0.502)] = 0.0
-    # Fidelidade: dentro da máscara do CONTEÚDO do próprio resize, alfa é 1 —
-    # a composição sobre branco fica bit-a-bit = LANCZOS do conteúdo (só o
-    # bump dos brancos internos difere, <=1/canal). Alfa parcial sobra apenas
-    # na franja EXTERNA do contorno (nunca dentro do desenho).
-    conteudo_m, _ = fundo_bordas(rgb, TOL)
-    m[conteudo_m] = 1.0
     return rgb, m, (w, h)
 
 def ref_conteudo(w, h):
@@ -194,16 +195,17 @@ viol_a = (ios[fora_ios] != 255.0).any(axis=1)
 print("=== TESTE a) iOS fora da máscara dilatada 3px: violações={} (desvio máx {}) ===".format(
     int(viol_a.sum()), 0 if not viol_a.any() else int((255.0 - ios[fora_ios]).max())))
 
-# splash claro/escuro
-LADO = 640
-rgb_c, alfa_c, (cw, ch) = reduz(460)
+# splash claro/escuro (1024 mesmo, menos serrilhado em tela grande;
+# proporcao mantida: simbolo claro = 71,9% do lado, tile escuro idem)
+LADO = 1024
+rgb_c, alfa_c, (cw, ch) = reduz(int(round(0.7188 * LADO)))
 c_x, c_y = (LADO - cw) // 2, (LADO - ch) // 2
 spl_c = np.zeros((LADO, LADO, 4), np.uint8)
 spl_c[c_y:c_y + ch, c_x:c_x + cw, :3] = rgb_c.astype(np.uint8)
 spl_c[c_y:c_y + ch, c_x:c_x + cw, 3] = (alfa_c * 255).astype(np.uint8)
 Image.fromarray(spl_c, "RGBA").save(BRAND + r"\splash_claro.png")
 
-TILE = 460
+TILE = int(round(0.7188 * LADO))
 rgb_e_sym, a_e_sym, (cwe, che) = reduz(int(0.72 * TILE))  # 72% do tile: folga no raio
 tile_img = Image.new("L", (TILE, TILE), 0)
 ImageDraw.Draw(tile_img).rounded_rectangle([0, 0, TILE - 1, TILE - 1], radius=int(0.22 * TILE), fill=255)
@@ -344,37 +346,65 @@ print("  coords no recorte: lima={} janela={} farol={} separador={} navy={}".for
     reg((p_separador["cx"], p_separador["cy"])) if p_separador else "-", reg(p_navy)))
 
 # ============================ PRANCHA + ZOOM + DIFF =========================
-composto_android = Image.fromarray(np.dstack([fg[..., :3], fg[..., 3]]), "RGBA")
-def mascara(img_src, modo):
-    w, h = img_src.size
+# A PRANCHA antiga descartava o alfa (paste RGBA com mask própria e
+# .convert("RGB")): alfa=0 com RGB residual virava "caixa". Regra agora:
+# SEMPRE alpha_composite em camadas RGBA; nunca converter RGBA -> RGB direto.
+def mascara_loja(img_rgba, modo):
+    """aplica a máscara do LAUNCHER/loja DEPOIS da composição: silhueta
+    (círculo/squircle) sobre o composto, nunca sobre canais crus."""
+    w, h = img_rgba.size
     m = Image.new("L", (w, h), 0)
     if modo == "circulo":
         ImageDraw.Draw(m).ellipse([0, 0, w - 1, h - 1], fill=255)
     else:
         ImageDraw.Draw(m).rounded_rectangle([0, 0, w - 1, h - 1], radius=int(0.18 * w), fill=255)
-    saida = Image.new("RGB", (w, h), (255, 255, 255))
-    saida.paste(img_src, (0, 0), m)
-    return saida
+    out = img_rgba.copy()
+    alfa_antigo = out.getchannel("A")
+    nova = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    nova.paste((0, 0, 0, 255), (0, 0), m)
+    # máscara da loja INTERSECTA o conteúdo (não adiciona fora dele)
+    base = Image.new("RGBA", (w, h), (255, 255, 255, 255))
+    cortado = Image.composite(out, Image.new("RGBA", (w, h), (0, 0, 0, 0)), m)
+    return Image.alpha_composite(base, cortado).convert("RGB")
+
+def sobre(tela, camadas, tam):
+    """composição correta: cada camada RGBA é alpha_composite na ordem."""
+    base = Image.new("RGBA", tam, tuple(tela) + (255,))
+    for c in camadas:
+        c = c.convert("RGBA")
+        if c.size != tam:
+            c = c.resize(tam, Image.LANCZOS)
+        base = Image.alpha_composite(base, c)
+    return base
 
 CH = 560
-prancha = Image.new("RGB", (CH * 5 + 60, CH + 110), (232, 235, 240))
+PRANCH_COLS = 6
+prancha = Image.new("RGB", (CH * PRANCH_COLS + 60, CH + 110), (232, 235, 240))
 dr = ImageDraw.Draw(prancha)
-comp_ios = Image.fromarray(ios.astype(np.uint8), "RGB")
-spl_claro_img = Image.fromarray(spl_c, "RGBA").convert("RGB")
-spl_escuro_img = Image.fromarray(spl_e, "RGBA")
-def celula(idx, tela, conteudo, rotulo):
+TAM_ICON = (CANVAS, CANVAS)
+TAM_SPL = (LADO, LADO)
+fg_img = Image.fromarray(fg, "RGBA")
+bg_adapt = Image.fromarray(np.full((CANVAS, CANVAS, 4), 255, np.uint8), "RGBA")
+escuro_tela = (11, 14, 23)
+c_android_br = sobre((255, 255, 255), [bg_adapt, fg_img], TAM_ICON)
+c_android_esc = sobre(escuro_tela, [bg_adapt, fg_img], TAM_ICON)
+c_ios_mask = mascara_loja(sobre((255, 255, 255), [bg_adapt, fg_img], TAM_ICON), "rounded")
+c_circ = mascara_loja(sobre((255, 255, 255), [bg_adapt, fg_img], TAM_ICON), "circulo")
+spl_e_img = Image.fromarray(spl_e, "RGBA")
+spl_c_img = Image.fromarray(spl_c, "RGBA")
+def celula(idx, tela, imagem_rgb, rotulo):
     x0 = 24 + idx * (CH + 4)
     dr.rectangle([x0, 24, x0 + CH, 24 + CH], fill=tela)
-    c = conteudo.copy()
+    c = imagem_rgb.copy().convert("RGB")
     c.thumbnail((CH - 40, CH - 40))
-    prancha.paste(c, (x0 + (CH - c.size[0]) // 2, 24 + (CH - c.size[1]) // 2),
-                  c if c.mode == "RGBA" else None)
+    prancha.paste(c, (x0 + (CH - c.size[0]) // 2, 24 + (CH - c.size[1]) // 2))
     dr.text((x0 + 8, 26 + CH + 10), rotulo, fill=(20, 20, 30))
-celula(0, (255, 255, 255), mascara(composto_android, "circulo"), "Android circular")
-celula(1, (255, 255, 255), composto_android, "Android quadrado")
-celula(2, (255, 255, 255), mascara(comp_ios, "rounded"), "iOS arredondado (mask loja)")
-celula(3, (11, 14, 23), spl_escuro_img, "splash escuro (#0B0E17)")
-celula(4, (255, 255, 255), spl_claro_img, "splash claro (#FFFFFF)")
+celula(0, (255, 255, 255), c_circ, "Android circular")
+celula(1, (255, 255, 255), c_android_br.convert("RGB"), "Android quadrado")
+celula(2, (255, 255, 255), c_ios_mask, "iOS (mask loja)")
+celula(3, escuro_tela, sobre(escuro_tela, [spl_e_img], TAM_SPL).convert("RGB"), "splash escuro sobre #0B0E17")
+celula(4, (255, 255, 255), sobre((255, 255, 255), [spl_c_img], TAM_SPL).convert("RGB"), "splash claro")
+celula(5, escuro_tela, c_android_esc.convert("RGB"), "Android fundo ESCURO (prova de vazamento)")
 prancha.save(r".claude\prancha_fatia1.png")
 
 # zoom 4x do canto superior esquerdo (região do lima) em cada versão,
