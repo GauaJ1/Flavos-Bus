@@ -20,25 +20,39 @@ branco, curturas apertadas** — como o letreiro frontal do ônibus que a pessoa
 está esperando. É o elemento maior da tela de detalhe e marca cada resultado
 na busca. Nenhum outro elemento compete com ele.
 
-## Tokens (as cores vivem SÓ em theme.ts)
+## Tokens (as cores vivem SÓ em `src/tema/tokens.ts`; `theme.ts` só reexporta)
 
-| Papel | Claro | Escuro |
-|---|---|---|
-| papel (fundo) | `#FFFFFF` | `#000000` |
-| papel-2 (superfície) | `#F7F7F8` | `#101012` |
-| tinta (texto) | `#000000` | `#FFFFFF` |
-| tinta-2 (secundário, AA) | `#54565B` | `#C7C9CE` |
-| hairline (estrutura) | `#E5E5E7` | `#2A2A2E` |
-| acento (Klein Blue) | `#002FA7` | `#7B9DFF` |
-| acento sobre | `#FFFFFF` | `#000000` |
-| ok (semântico) | `#1B7A3D` | `#5FD38D` |
-| atencao (semântico) | `#7A4B00` fundo `#FFEFFE→#FFD666` | `#FFC24B` |
-| erro (semântico) | `#B00020` | `#FF8A98` |
+Atualizado na fatia 1 do redesign (paleta medidA por região da logo — ver
+`tools/scraper/.tmp/corr_verde_regioes.py` e `.claude/paleta_debug.png`).
 
-- A acento tem UMA função por tela (seleção/destaque do momento); estados usam
-  cores semânticas **sempre com texto/palavra junto** — jamais cor sozinha.
-- O AVISO de horários teóricos usa âmbar sistêmico + texto preto (AA), nunca
-  descartável.
+| Papel | Claro | Escuro | Origem/regra |
+|---|---|---|---|
+| primary | `#05337B` (navy do corpo) | `#9DB8F5` | ações, aba ativa, marca |
+| onPrimary | `#FFFFFF` | `#04122E` | sobre primary |
+| surface / surfaceAlt | `#FFFFFF` / `#F5F8FB` | `#0B0E17` / `#141926` | leitura ao sol |
+| border (hairline) | `#DBE3EC` | `#242C3E` | estrutura Swiss |
+| text / textMuted | `#0D1322` / `#46536B` | `#F2F5FA` / `#A8B2C6` | corpo/legenda |
+| verdeMarca | `#4AA63E` | `#4AA63E` | identidade ("Bus"): fill com texto escuro (6.01:1); NUNCA estado semântico |
+| verdeTexto | `#397E2F` | `#4AA63E` | verde como texto/ícone informativo no claro (AA 4.69) |
+| aquaDecorativo | `#01B5C2` | `#01B5C2` | decoração (ondas): nunca informativo sozinho |
+| theoretical* | `#6B4A00` s/ `#FFEFC2` | `#FFD666` s/ `#332600` | RESERVADO ao TheoreticalBadge (grep por fatia) |
+| danger / dangerBg | `#B00020` / `#FCEAED` | `#FF8A98` / `#2E0D12` | estados de erro |
+| logoTile | `#FFFFFF` fixo (imune ao tema) | idem | tile do emblema no escuro; navy/tile = 11.74:1 |
+| success | — não exportado (YAGNI) | idem | MVP sem uso; quando nascer: sempre ícone + palavra, nunca cor sozinha |
+
+- O numeral do LineBadge: SEMPRE ≥ 19px, peso 700 → limiar 3:1 sobre o fundo
+  do feed; < 3:1 troca só o texto para preto/branco (max(preto,branco) ≥ 4.58
+  para qualquer fundo — provado em `test_badge_contraste.py`). No feed atual:
+  E550/E551/E600. Numeral menor que 19px ⇒ limiar volta a 4.5 (nenhum contexto
+  atual usa).
+
+## Lint (decisão PENDENTE do dono, antes da fatia 3)
+
+Não existe ESLint configurado em `apps/mobile` (o gate atual é
+`tsc --noEmit` + pytest/ruff/mypy no scraper + verificação visual D).
+NÃO configurei por conta própria. Alternativas: (a) `eslint` +
+`eslint-config-expo` (flat config, roda no pnpm do monorepo); (b) manter só
+tsc até a v1. Decida antes da fatia 3.
 
 ## Tipografia
 
