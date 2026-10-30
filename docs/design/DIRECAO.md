@@ -54,6 +54,13 @@ NÃO configurei por conta própria. Alternativas: (a) `eslint` +
 `eslint-config-expo` (flat config, roda no pnpm do monorepo); (b) manter só
 tsc até a v1. Decida antes da fatia 3.
 
+## Pendência para ANTES da loja (não implementar agora)
+
+- **Camada monocromática do ícone adaptativo** (Android 13+, `monochrome`
+  no adaptiveIcon): desenho de recorte sólido calculado da marca. Sem isso o
+  Android 13+ mostra o ícone colorido dentro de temas de ícone — aceitável no
+  MVP, bloqueador só para publicação com tema de ícone ativado.
+
 ## Tipografia
 
 | Papel | Família | Uso |
