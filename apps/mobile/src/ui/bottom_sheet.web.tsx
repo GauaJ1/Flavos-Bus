@@ -4,7 +4,7 @@
 // O comportamento com gesto real no celular vive em bottom_sheet.native.tsx.
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { espaco, raio, useTema, type Tema } from "@/tema/theme";
-import { alturasDeEncaixe, ENCAIXES_PADRAO, type PropsBottomSheet } from "./bottom_sheet";
+import { alturasDeEncaixe, ENCAIXES_PADRAO, type PropsBottomSheet } from "./bottom_sheet_tipos";
 import * as React from "react";
 
 export default function BottomSheetWeb({

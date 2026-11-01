@@ -5,7 +5,7 @@
 // toque na alça também cicla (acessível sem gesto).
 import { Animated, PanResponder, Pressable, StyleSheet, View } from "react-native";
 import { espaco, raio, sombra, useTema, type Tema } from "@/tema/theme";
-import { alturasDeEncaixe, ENCAIXES_PADRAO, type PropsBottomSheet } from "./bottom_sheet";
+import { alturasDeEncaixe, ENCAIXES_PADRAO, type PropsBottomSheet } from "./bottom_sheet_tipos";
 import * as React from "react";
 
 export default function BottomSheetNativo({
