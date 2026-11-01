@@ -68,6 +68,8 @@ function estilos(tema: Tema) {
       gap: espaco.s,
     },
     placeholder: { color: tema.textMuted, fontSize: 16 },
-    campoTexto: { flex: 1, color: tema.text, fontSize: 16, paddingVertical: 0 },
+    // o INPUT interno tinha 21px no RNW (o casco tinha 48): o alvo de toque
+    // >= 44 tem que valer para o campo inteiro — checagem objetiva da fatia.
+    campoTexto: { flex: 1, color: tema.text, fontSize: 16, paddingVertical: 0, minHeight: 44 },
   });
 }

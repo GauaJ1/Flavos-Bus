@@ -1,9 +1,9 @@
-// DaySegmented — Útil / Sábado / Domingo. Alvo de toque >= 44 (doc Moovit).
-// Estado ativo NÃO é só cor: fundo invertido + peso maior + sublinhado
-// estrutural (regra "não só cor" — acessível quando todos os pares de cor
-// falham, e no tema escuro igualmente).
+// DaySegmented — controle segmentado de LARGURA TOTAL (doc Moovit §3 + ajuste
+// do dono): container com borda e raio, 3 segmentos de largura IGUAL (flex:1),
+// alvo de toque >= 44; ativo = fundo primary + onPrimary + peso 800 (não é só
+// cor). Na fatia 3 a parte genérica vira o componente Segmented.
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { espaco, fonteNumeros, raio, toque, useTema, type Tema } from "@/tema/theme";
+import { fonteNumeros, toque, useTema, type Tema } from "@/tema/theme";
 import type { TipoDia } from "@flavos/shared";
 import * as React from "react";
 
@@ -63,22 +63,26 @@ export function DaySegmented({
 
 function estilos(tema: Tema) {
   return StyleSheet.create({
+    // o CONTAINER é o controle: borda+raio+.track clara; padding interno de 2
+    // pertence ao controle (não é margem externa de componente).
     trilha: {
       flexDirection: "row",
-      gap: espaco.s,
-    },
-    item: {
-      minHeight: toque.minimo - 4, // 44 (doc Moovit: área de toque)
-      paddingHorizontal: espaco.m + 4,
-      borderRadius: raio.controles,
       borderWidth: 1,
       borderColor: tema.border,
-      backgroundColor: tema.surface,
+      borderRadius: 12,
+      backgroundColor: tema.surfaceAlt,
+      padding: 2,
+    },
+    item: {
+      flex: 1, // 3 segmentos de largura IGUAL
+      minHeight: toque.minimo - 4, // 44 (área de toque >= 44)
+      borderRadius: 10,
       justifyContent: "center",
+      alignItems: "center",
+      margin: 1,
     },
     itemAtivo: {
       backgroundColor: tema.primary, // invertido E peso maior (não é só cor)
-      borderColor: tema.primary,
     },
     texto: { fontSize: 15, color: tema.text, fontWeight: "600" },
     textoAtivo: { color: tema.onPrimary, fontWeight: "800" },

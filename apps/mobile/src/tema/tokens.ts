@@ -2,6 +2,8 @@
 // TOKENS DO FLAVOS BUS — ÚNICA FONTE DE VALORES VISUAIS
 // Nenhuma cor, espaçamento ou sombra fora deste arquivo.
 // `theme.ts` apenas reexporta e mantém a ponte de nomes antigos.
+// Este arquivo NÃO importa react-native (os testes node:test leem os
+// tokens direto; platform-specifics vivem em fontes.ts).
 //
 // Origem das cores: medição por região da logo (paleta_debug.png,
 // .claude/paleta_debug.png): navy do corpo #05337B, navy "Flavos"
@@ -99,9 +101,8 @@ export const raio = { placa: 8, controles: 12, cartao: 16, pill: 999 } as const;
 /** Tipografia: 1 família (system), 4 tamanhos; corpo nunca menor que 13. */
 export const tipografia = { display: 28, titulo: 20, corpo: 16, legenda: 13 } as const;
 
-/** Paper de exibição dos números (placa de destino) — Android tem a
- * grotesca condensada do sistema; iOS usa a system com peso alto. */
-export const fonteNumeros = { fontFamily: "sans-serif-condensed", fontWeight: "700" } as const;
+/** FONTES: movidas para src/tema/fontes.ts (platform-specific — este
+ * arquivo não pode importar react-native: é lido pelos testes node:test). */
 
 /** Elevação: um único nível (BottomSheet). Sem sombras decorativas. */
 export const sombra = {

@@ -61,6 +61,14 @@ tsc até a v1. Decida antes da fatia 3.
   Android 13+ mostra o ícone colorido dentro de temas de ícone — aceitável no
   MVP, bloqueador só para publicação com tema de ícone ativado.
 
+## Pendência para ANTES da fatia 4 (não bloqueia a fatia 3)
+
+- **BottomSheet nativo em aparelho** (`src/ui/bottom_sheet.native.tsx`):
+  o gesto real (PanResponder + Animated core, 3 encaixes) só foi exercitado
+  por captura ESTÁTICA na web; em aparelho ainda não rodou. O dono testa no
+  celular. Se trocar por reanimated/gesture-handler depois, o contrato de
+  props (bottom_sheet_tipos.ts) não muda.
+
 ## Tipografia
 
 | Papel | Família | Uso |

@@ -13,10 +13,10 @@ import {
   toque,
   raio,
   tipografia,
-  fonteNumeros,
   sombra,
   logoTile,
 } from "./tokens";
+export { fonteNumeros } from "./fontes";
 
 export * from "./tokens";
 

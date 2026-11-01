@@ -387,7 +387,9 @@ fg_img = Image.fromarray(fg, "RGBA")
 bg_adapt = Image.fromarray(np.full((CANVAS, CANVAS, 4), 255, np.uint8), "RGBA")
 escuro_tela = (11, 14, 23)
 c_android_br = sobre((255, 255, 255), [bg_adapt, fg_img], TAM_ICON)
-c_android_esc = sobre(escuro_tela, [bg_adapt, fg_img], TAM_ICON)
+# A5: SEM adaptive_background — o foreground SOZINHO sobre o escuro prova
+# vazamento de verdade (onde alfa=0 tem que aparecer o #0B0E17).
+c_android_esc = sobre(escuro_tela, [fg_img], TAM_ICON)
 c_ios_mask = mascara_loja(sobre((255, 255, 255), [bg_adapt, fg_img], TAM_ICON), "rounded")
 c_circ = mascara_loja(sobre((255, 255, 255), [bg_adapt, fg_img], TAM_ICON), "circulo")
 spl_e_img = Image.fromarray(spl_e, "RGBA")
@@ -404,7 +406,7 @@ celula(1, (255, 255, 255), c_android_br.convert("RGB"), "Android quadrado")
 celula(2, (255, 255, 255), c_ios_mask, "iOS (mask loja)")
 celula(3, escuro_tela, sobre(escuro_tela, [spl_e_img], TAM_SPL).convert("RGB"), "splash escuro sobre #0B0E17")
 celula(4, (255, 255, 255), sobre((255, 255, 255), [spl_c_img], TAM_SPL).convert("RGB"), "splash claro")
-celula(5, escuro_tela, c_android_esc.convert("RGB"), "Android fundo ESCURO (prova de vazamento)")
+celula(5, escuro_tela, c_android_esc.convert("RGB"), "foreground SOZINHO sobre #0B0E17 (vazamento?)")
 prancha.save(r".claude\prancha_fatia1.png")
 
 # zoom 4x do canto superior esquerdo (região do lima) em cada versão,

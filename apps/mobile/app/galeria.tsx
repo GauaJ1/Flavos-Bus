@@ -73,7 +73,7 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 1,
       titulo: "LineBadge (regra 3:1 automática — pares REAIS do feed)",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <View style={{ flexDirection: "row", gap: espaco.s, flexWrap: "wrap" }}>
             <LineBadge numero="0002" corDoFeed="0000FF" corTextoDoFeed="FFFFFF" />
             <LineBadge numero="E550" corDoFeed="A1A1A1" corTextoDoFeed="FFFFFF" />
@@ -92,7 +92,7 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 1,
       titulo: "TheoreticalBadge (único usuário das cores theoretical*)",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <TheoreticalBadge atualizadoEm="2026-01-19T03:10:00Z" />
           <TheoreticalBadge atualizadoEm="19/01/2026" />
           <TheoreticalBadge atualizadoEm="dadoimpuro" />
@@ -103,9 +103,9 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 2,
       titulo: "SearchBar (botão e campo)",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <SearchBar variante="botao" aoAbrirBusca={() => undefined} />
-          <SearchBar variante="campo" texto="" aoMudarTexto={() => undefined} />
+          <CampoBuscaDemos />
         </View>
       ),
     },
@@ -113,7 +113,7 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 2,
       titulo: "DaySegmented (3 estados, toque >= 44)",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <LinhaSegmentosSegmento valor="util" />
           <LinhaSegmentosSegmento valor="sabado" />
           <LinhaSegmentosSegmento valor="domingo" />
@@ -124,7 +124,7 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 3,
       titulo: "NextDepartureCard (3 estados, agora fixo = 14:23 Fortaleza)",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <NextDepartureCard horariosOntem={["24:30:00"]} horariosHoje={HORARIOS_229} horariosAmanha={TARDE_B} agora={AGORA_FIXO} />
           <NextDepartureCard horariosOntem={[]} horariosHoje={["05:00:00", "14:00:00"]} horariosAmanha={TARDE_B} agora={AGORA_FIXO} />
           <NextDepartureCard horariosOntem={[]} horariosHoje={[]} horariosAmanha={[]} agora={AGORA_FIXO} />
@@ -135,7 +135,7 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 3,
       titulo: "StopRow (1 linha e 8 linhas com +X)",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <StopRow nome="Terminal Tambaú" distanciaMin={7} linhas={[{ numero: "0002", cor: "0000FF", corTexto: "FFFFFF" }]} />
           <StopRow
             nome="Av. Presidente Vargas, 1234 — Centro (em frente ao nº 2200)"
@@ -158,7 +158,7 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 3,
       titulo: "TimelineStop (6 paradas, atual na 2ª)",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <TimelineStop nome="Terminal Central" horario="14:35" variante="primeira" />
           <TimelineStop nome="Av. João Agripino, 2100" horario="14:41" atual />
           <TimelineStop nome="R. São José, 310" horario="14:46" />
@@ -172,7 +172,7 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 4,
       titulo: "Skeleton (sem animação em loop)",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <Skeleton forma="busca" />
           <Skeleton forma="proxima" />
           <Skeleton forma="stopRow" />
@@ -187,7 +187,7 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
       grupo: 4,
       titulo: "EmptyState",
       corpo: (
-        <View>
+        <View style={{ gap: espaco.base }}>
           <EmptyState icone={MapPin} titulo="Nenhuma parada por aqui" texto="A parada mais próxima pode estar fora da área coberta pelo feed atual." acaoRotulo="Ver linhas" aoAcionar={() => undefined} />
           <EmptyState icone={Clock} titulo="Favoritos vazio" texto="Toque na estrela de uma linha para acompanhá-la aqui." />
         </View>
@@ -212,6 +212,13 @@ function secoesDaGaleria(tema: Tema): readonly { readonly grupo: number; readonl
   ];
 }
 
+
+function CampoBuscaDemos() {
+  // estado REAL: a checagem objetiva (d) digita "abc" e le o valor
+  const [q, setQ] = React.useState("");
+  return <SearchBar variante="campo" texto={q} aoMudarTexto={setQ} />;
+}
+
 function LinhaSegmentosSegmento({ valor }: { readonly valor: SegmentoDia }) {
   const [atual, setAtual] = React.useState<SegmentoDia>(valor);
   return <DaySegmented valor={atual} aoEscolher={setAtual} />;
@@ -227,9 +234,9 @@ function Secao({
   readonly children: React.ReactNode;
 }) {
   return (
-    <View style={{ gap: espaco.m }}>
+    <View style={{ gap: espaco.base }}>
       <Text style={{ color: tema.text, fontSize: 15, fontWeight: "800", letterSpacing: 0.2 }}>{titulo}</Text>
-      <View style={{ gap: espaco.m }}>{children}</View>
+      <View style={{ gap: espaco.base }}>{children}</View>
     </View>
   );
 }
