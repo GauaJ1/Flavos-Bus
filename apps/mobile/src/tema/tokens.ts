@@ -95,7 +95,9 @@ export const papeis: { readonly claro: PaletaM3; readonly escuro: PaletaM3 } = {
     primaryContainer: "#29467A",
     onPrimaryContainer: "#D9E3F3",
     secondary: "#4AA63E",
-    onSecondary: "#12371C",
+    // T20 do token A seria #12371C, mas mediria 4,29:1 sobre o verde aprovado
+    // (reprova AA). Escurecido até 5,35:1 — desvio registrado no DESIGN_SYSTEM §4.2.
+    onSecondary: "#0B2410",
     secondaryContainer: "#22502E",
     onSecondaryContainer: "#C9EAD2",
     // DESVIO DOCUMENTADO (Portão A): o token M3 pede T6; a marca aprovada

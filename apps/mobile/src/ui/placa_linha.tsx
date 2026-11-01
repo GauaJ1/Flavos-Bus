@@ -1,10 +1,11 @@
 // A placa de destino: o gesto memorável da identidade (doc/design/DIRECAO.md).
-// Caixa preta com o número em grotesca condensada enorme — o letreiro do
-// ônibus que a pessoa espera. No tema escuro a caixa fica branca e o número
-// preto (a placa continua "acesa").
+// Caixa invertida (onSurface) com o número em grotesca condensada enorme — o
+// letreiro do ônibus que a pessoa espera. No tema escuro a caixa fica clara e
+// o número escuro (a placa continua "acesa"). Cores dos PAPÉIS M3
+// (onSurface × surface): nenhum hex neste arquivo.
 import { StyleSheet, Text, View } from "react-native";
 import type { TextStyle } from "react-native";
-import { fonteNumeros, raio, useTema, type Tema } from "@/tema/theme";
+import { fonteNumeros, forma, useTema, type Tema } from "@/tema/theme";
 import * as React from "react";
 
 export function PlacaLinha({
@@ -29,14 +30,14 @@ export function PlacaLinha({
 function estilosDe(tema: Tema) {
   return StyleSheet.create({
     placa: {
-      backgroundColor: tema.tinta, // claro: caixa preta · escuro: caixa branca
-      borderRadius: raio.placa,
+      backgroundColor: tema.tinta, // onSurface: claro = caixa escura · escuro = caixa clara
+      borderRadius: forma.pequena,
       paddingHorizontal: 10,
       paddingVertical: 4,
       alignSelf: "flex-start",
     },
     numero: {
-      color: tema.escuro ? "#000000" : "#FFFFFF",
+      color: tema.papel, // surface: par onSurface × surface (contraste >= 17)
       fontVariant: ["tabular-nums"],
     },
   });

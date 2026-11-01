@@ -52,7 +52,7 @@ matiz do próprio papel.
 | primaryContainer | #D9E3F4 (T90) | 90,0 | #29467A (T30) | 30,1 |
 | onPrimaryContainer | #121B2C (T10) | 9,8 | #D9E3F3 (T90) | 89,9 |
 | secondary | #397E2F (fixo) | 47,0 | #4AA63E (fixo) | 60,8 |
-| onSecondary | #FFFFFF (T100) | 100,0 | #12371C (T20) | 19,8 |
+| onSecondary | #FFFFFF (T100) | 100,0 | **#0B2410** (T20→escurecido) | 11,4 |
 | secondaryContainer | #C5ECCF (T90) | 90,0 | #22502E (T30) | 30,1 |
 | onSecondaryContainer | #09200F (T10) | 10,0 | #C9EAD2 (T90) | 89,8 |
 | surface | #FFFFFF (fixo) | 100,0 | #0B0E17 (fixo) | **4,0** |
@@ -97,7 +97,7 @@ primary escuro, error escuro) são naturais da marca e estão listados no `m3_sp
 | onSecondaryContainer × secondaryContainer | 13,28 ✓ | 7,18 ✓ |
 | secondary (rótulo ativo VERDE) × surfaceContainer base | 4,27 ✗ **não usado** | 5,31 ✓ |
 | onSurface (rótulo ativo, token A) × surfaceContainer base | 15,83 ✓ | 14,97 ✓ |
-| onSecondary × secondary | 4,94 ✓ | 8,42 ✓ |
+| onSecondary × secondary | 5,00 ✓ | **5,35 ✓** |
 | onError × error | 7,33 ✓ | 5,86 ✓ |
 | onErrorContainer × errorContainer | 8,09 ✓ | 7,22 ✓ |
 | outline × surface (borda de controle 1dp) | 4,51 ✓ | 6,13 ✓ |

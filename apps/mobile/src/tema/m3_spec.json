@@ -89,7 +89,8 @@
       "onSurfaceVariant": "claro L* 35,1 vs T30; escuro L* 72,4 vs T80 - hexes aprovados mantidos",
       "onPrimary_escuro": "L* 5,9 vs T20 - hex aprovado mantido",
       "primary_escuro": "L* 74,9 vs T80 - hex aprovado mantido",
-      "error_escuro": "L* 70,7 vs T80 - hex aprovado mantido"
+      "error_escuro": "L* 70,7 vs T80 - hex aprovado mantido",
+      "onSecondary_escuro": "T20 seria #12371C, mas mede 4,29:1 sobre o secondary aprovado #4AA63E (reprova AA 4.5); escurecido para #0B2410 = 5,35:1"
     },
     "obs_legados": "background/onBackground e surfaceVariant AINDA existem em color_*.json, mas o guia atual usa surface/onSurface e surfaceContainerHighest; decisao: NAO usar os legados"
   },

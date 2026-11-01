@@ -1,10 +1,12 @@
-// BottomSheet WEB — estático por decisão (doc de movimento: sem usar
-// transição de arrasto na web de depuração): painel ancorado na altura do
-// encaixe atual, com alça CLICÁVEL que cicla peek -> meia -> expandida.
-// O comportamento com gesto real no celular vive em bottom_sheet.native.tsx.
+// BottomSheet WEB — estático por decisão: painel ancorado no encaixe atual,
+// com alça CLICÁVEL que cicla peek -> meia -> expandida. O gesto real no
+// celular vive em bottom_sheet.native.tsx. Visual M3 (Passo 6): container
+// surfaceContainerLow, cantos 28, alça 32×4 onSurfaceVariant, elevação level1.
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { espaco, raio, useTema, type Tema } from "@/tema/theme";
+import { sombra, usePapeis } from "@/tema/theme";
+import { estiloBottomSheet } from "@/tema/estilos_sheet";
 import { alturasDeEncaixe, ENCAIXES_PADRAO, type PropsBottomSheet } from "./bottom_sheet_tipos";
+import { rotuloSelecao } from "@/tema/acessibilidade";
 import * as React from "react";
 
 export default function BottomSheetWeb({
@@ -13,10 +15,11 @@ export default function BottomSheetWeb({
   encaixes = ENCAIXES_PADRAO,
   aoTrocarAltura,
 }: PropsBottomSheet) {
-  const tema = useTema();
+  const { papeis } = usePapeis();
   const [indice, setIndice] = React.useState<0 | 1 | 2>(0);
   const alturas = alturasDeEncaixe(alturaContainer, encaixes);
   const altura = alturas[indice] ?? alturaContainer;
+  const e = estiloBottomSheet(papeis, sombra.sheet);
   function ciclar() {
     const prox: (0 | 1 | 2)[] = [1, 2, 0];
     setIndice((i) => {
@@ -26,38 +29,20 @@ export default function BottomSheetWeb({
     });
   }
   return (
-    <View style={[estilos(tema).painel, { height: altura }]}>
+    <View style={[e.painel, { height: altura }]}>
       <Pressable
         accessibilityRole="adjustable"
-        accessibilityLabel={`Altura do painel: opção ${indice + 1} de 3. Toque para alternar.`}
+        accessibilityLabel={rotuloSelecao(`Altura do painel: opção ${indice + 1} de 3. Toque para alternar.`, false)}
+        accessibilityHint="Cicla entre encaixe baixo, médio e expandido"
         onPress={ciclar}
-        style={estilos(tema).alcaArea}
-        hitSlop={{ top: 8, bottom: 8, left: 40, right: 40 }}
+        style={e.alcaArea}
       >
-        <View style={estilos(tema).alca} />
-        <Text style={estilos(tema).dica}>(web: toque na alça para alternar altura)</Text>
+        <View style={e.alca} />
+        <Text maxFontSizeMultiplier={1.3} style={e.dica}>
+          Toque na alça para alternar a altura
+        </Text>
       </Pressable>
-      <View style={estilos(tema).conteudo}>{children}</View>
+      <View style={e.conteudo}>{children}</View>
     </View>
   );
-}
-
-function estilos(tema: Tema) {
-  return StyleSheet.create({
-    painel: {
-      backgroundColor: tema.surface,
-      borderTopLeftRadius: raio.cartao,
-      borderTopRightRadius: raio.cartao,
-      borderTopWidth: 1,
-      borderTopColor: tema.border,
-      borderLeftWidth: 1,
-      borderRightWidth: 1,
-      borderLeftColor: tema.border,
-      borderRightColor: tema.border,
-    },
-    alcaArea: { alignItems: "center", paddingTop: espaco.s, paddingBottom: 2 },
-    alca: { width: 44, height: 4, borderRadius: 2, backgroundColor: tema.border },
-    dica: { color: tema.textMuted, fontSize: 10, marginTop: 2 },
-    conteudo: { flex: 1, paddingHorizontal: espaco.base, paddingBottom: espaco.m },
-  });
 }

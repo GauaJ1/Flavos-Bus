@@ -1,57 +1,67 @@
-// Botão base: alvo 48+, feedback de toque (escala 0,96 ≤120ms) e rótulo
-// claro de ação — nunca só cor.
-import { Pressable, StyleSheet, Text } from "react-native";
-import type { ViewStyle } from "react-native";
-import { espaco, toque, useTema, type Tema } from "@/tema/theme";
+// Botão Material 3 (Passo 6) — filled / tonal / outlined / text.
+// Altura 40, forma full, labelLarge, ícone 18, alvo de toque 48.
+// Estilo em src/tema/estilos_m3.ts (puro e testado). Sem spinner (excluído
+// no Portão A) e sem hex aqui.
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import type { StyleProp, ViewStyle } from "react-native";
+import type { ReactNode } from "react";
+import { forma, toque } from "@/tema/tokens";
+import { coresDoBotao, estiloBotao, type EstiloBotao } from "@/tema/estilos_m3";
+import { usePapeis } from "@/tema/theme";
+import { ripple, estiloFocoWeb } from "./interacao";
 import * as React from "react";
 
-export function Botao({
+export type { EstiloBotao };
+
+export function BotaoM3({
   rotulo,
   aoPressionar,
-  variante = "secundario",
-  estilo,
+  estilo = "filled",
+  desabilitado = false,
+  icone,
+  style,
 }: {
   readonly rotulo: string;
   readonly aoPressionar: () => void;
-  readonly variante?: "primario" | "secundario";
-  readonly estilo?: ViewStyle;
+  readonly estilo?: EstiloBotao;
+  readonly desabilitado?: boolean;
+  readonly icone?: ReactNode;
+  readonly style?: StyleProp<ViewStyle>;
 }) {
-  const tema = useTema();
-  const primario = variante === "primario";
+  const { papeis } = usePapeis();
+  const e = estiloBotao(papeis, estilo, desabilitado);
+  const c = coresDoBotao(papeis, estilo);
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={rotulo}
-      onPress={aoPressionar}
-      style={({ pressed }) => [
-        estilosDe(tema, primario).base,
-        pressed && { transform: [{ scale: 0.96 }], opacity: 0.85 },
-        estilo,
-      ]}
-    >
-      <Text style={estilosDe(tema, primario).texto}>{rotulo}</Text>
-    </Pressable>
+    <View style={[estilos.area, style]}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={rotulo}
+        accessibilityState={{ disabled: desabilitado }}
+        disabled={desabilitado}
+        onPress={aoPressionar}
+        android_ripple={ripple({ cor: c.ripple, desabilitado, raio: forma.full })}
+        style={[e.container, estiloFocoWeb(papeis.primary)]}
+      >
+        {icone ? <View style={{ opacity: e.rotulo.opacity }}>{icone}</View> : null}
+        <Text numberOfLines={1} maxFontSizeMultiplier={1.3} style={[e.texto, e.rotulo]}>
+          {rotulo}
+        </Text>
+      </Pressable>
+    </View>
   );
 }
 
-function estilosDe(tema: Tema, primario: boolean) {
-  return StyleSheet.create({
-    base: {
-      minHeight: toque.minimo,
-      paddingHorizontal: espaco.g,
-      borderRadius: raioBotao,
-      justifyContent: "center",
-      alignItems: "center",
-      borderWidth: 1,
-      borderColor: primario ? tema.tinta : tema.hairline,
-      backgroundColor: primario ? tema.tinta : tema.papel,
-    },
-    texto: {
-      color: primario ? (tema.escuro ? "#000000" : "#FFFFFF") : tema.tinta,
-      fontSize: 16,
-      fontWeight: "600",
-    },
-  });
-}
+const estilos = StyleSheet.create({
+  area: { minHeight: toque.minimo, justifyContent: "center", alignItems: "flex-start" },
+});
 
-const raioBotao = 8;
+/** Compat: `Botao` (nome antigo) → BotaoM3; variante antiga "primario"
+ * vira filled e "secundario" vira outlined. */
+export function Botao({
+  variante = "secundario",
+  ...props
+}: Omit<React.ComponentProps<typeof BotaoM3>, "estilo"> & {
+  readonly variante?: "primario" | "secundario";
+}) {
+  return <BotaoM3 {...props} estilo={variante === "primario" ? "filled" : "outlined"} />;
+}

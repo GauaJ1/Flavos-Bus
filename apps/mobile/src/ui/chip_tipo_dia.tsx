@@ -1,7 +1,8 @@
 // Chip de tipo de dia (segunda…domingo) — seletor da tela de detalhe.
-// Estado selecionado indicado por fundo invertido + peso (nunca só cor).
+// Estado selecionado indicado por fundo (secondaryContainer) + peso (nunca só
+// cor). Cores de PAPÉIS M3: nenhum hex neste arquivo.
 import { Pressable, StyleSheet, Text } from "react-native";
-import { espaco, fonteNumeros, useTema, type Tema } from "@/tema/theme";
+import { espaco, fonteNumeros, forma, m3_medidas, tiposM3, useTema, type Tema } from "@/tema/theme";
 import type { TipoDia } from "@flavos/shared";
 import * as React from "react";
 
@@ -25,7 +26,7 @@ export function ChipTipoDia({
   readonly aoEscolher: (dia: TipoDia) => void;
 }) {
   const tema = useTema();
-  const corTexto = selecionado ? (tema.escuro ? "#000000" : "#FFFFFF") : tema.tinta;
+  const corTexto = selecionado ? tema.papel : tema.tinta; // contraste garantido no par
   return (
     <Pressable
       accessibilityRole="tab"
@@ -48,18 +49,23 @@ export function ChipTipoDia({
 function estilosDe(tema: Tema) {
   return StyleSheet.create({
     chip: {
-      minHeight: 40,
+      minHeight: m3_medidas.chip.alvo,
       paddingHorizontal: espaco.base,
       justifyContent: "center",
-      borderRadius: 24,
+      borderRadius: forma.pequena,
       borderWidth: 1,
-      borderColor: tema.hairline,
+      borderColor: tema.border,
       backgroundColor: tema.papel,
     },
     selecionado: {
-      backgroundColor: tema.tinta, // claro: pastilha preta · escuro: branca
+      backgroundColor: tema.tinta, // onSurface: pastilha escura no claro · clara no escuro
       borderColor: tema.tinta,
     },
-    texto: { fontSize: 14, letterSpacing: 0.3 },
+    texto: {
+      fontSize: tiposM3.labelLarge.tamanho,
+      lineHeight: tiposM3.labelLarge.linhaAltura,
+      fontWeight: tiposM3.labelLarge.peso,
+      letterSpacing: tiposM3.labelLarge.tracking,
+    },
   });
 }
