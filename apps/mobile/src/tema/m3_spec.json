@@ -1,12 +1,16 @@
 {
   "meta": {
     "nome": "m3_spec_flavos",
+    "versao": 2,
     "data_extracao": "2026-11-01",
+    "portao_a": "APROVADO 2026-11-01 - decisoes do dono aplicadas",
     "versao_tokens": "6_1_0",
     "fonte_A_diretorio": "https://flutter.googlesource.com/mirrors/flutter.git/+/HEAD/dev/tools/gen_defaults/data/",
     "fonte_A_escape_url": "https://raw.githubusercontent.com/flutter/flutter/master/dev/tools/gen_defaults/data/<arquivo>.json",
     "arquivos_lidos": ["navigation_bar.json","top_app_bar_small.json","search_bar.json","button_filled.json","button_filled_tonal.json","button_outlined.json","button_text.json","icon_button.json","chip_assist.json","chip_filter.json","segmented_button_outlined.json","sheet_bottom.json","list.json","divider.json","badge.json","shape.json","state.json","elevation.json","motion.json","typeface.json","text_style.json","color_light.json","color_dark.json"],
-    "regra_conflito": "fonte de menor letra vence; token oficial (A) > docs MCAndroid (B) > material-web (C) > spec m3.material.io (D, shell JS sem valores) > auditoria Callstack (E) > referencia Compose (F). Empate entre oficiais da MESMA altura: menor dimensão, com registro."
+    "regra_conflito": "fonte de menor letra vence; token oficial (A) > docs MCAndroid (B) > material-web (C) > spec m3.material.io (D, shell JS sem valores) > auditoria Callstack (E) > referencia Compose (F). Empate entre oficiais da MESMA altura: menor dimensao, com registro.",
+    "regra_verificacao": "medida usada em codigo exige 'verificado': true OU 'origem': 'projeto' (aprovado no Portao A); o teste de conformidade reprova o resto",
+    "excluidos": ["spinner de carregamento de botao (nao implementar)", "todo o conjunto Expressive (indicador 56x32, connected button group)"]
   },
   "forma": {
     "none": { "valor": 0, "unidade": "dp", "fonte": "A shape.json md.sys.shape.corner.none", "verificado": true },
@@ -15,34 +19,39 @@
     "media": { "valor": 12, "unidade": "dp", "fonte": "A shape.json md.sys.shape.corner.medium", "verificado": true },
     "grande": { "valor": 16, "unidade": "dp", "fonte": "A shape.json md.sys.shape.corner.large", "verificado": true },
     "extraGrande": { "valor": 28, "unidade": "dp", "fonte": "A shape.json md.sys.shape.corner.extra-large", "verificado": true },
-    "extraGrandeTopo": { "valor": 28, "complemento": "somente topo (bottom 0)", "unidade": "dp", "fonte": "A shape.json md.sys.shape.corner.extra-large.top", "verificado": true },
-    "full": { "valor": "circular", "unidade": "-", "fonte": "A shape.json md.sys.shape.corner.full (SHAPE_FAMILY_CIRCULAR); raio = metade da altura", "verificado": true },
-    "valores_20_32_48": { "valor": null, "fonte": "NÃO EXISTEM na escala A v6_1_0", "verificado": false, "obs": "itens do enunciado do dono não encontrados na fonte oficial -> não adotar" }
+    "extraGrandeTopo": { "valor": 28, "complemento": "somente topo (base 0)", "unidade": "dp", "fonte": "A shape.json md.sys.shape.corner.extra-large.top", "verificado": true },
+    "full": { "valor": "circular", "unidade": "-", "fonte": "A shape.json md.sys.shape.corner.full (SHAPE_FAMILY_CIRCULAR); raio = metade da altura", "verificado": true }
   },
   "elevacao": {
     "niveis_dp": [0, 1, 3, 6, 8, 12],
     "fonte": "A elevation.json md.sys.elevation.level0..level5",
     "verificado": true,
-    "uso_flavos": { "sheet": "level1 (A sheet_bottom.json ...docked.standard.container.elevation)", "navigationBar": "level2 (A navigation_bar.json container.elevation)", "demais": "nível 0, elevação TONAL (superfície Container de tom maior)" }
+    "uso_flavos": {
+      "sheet": "level1 (A sheet_bottom.json docked.standard.container.elevation) - unica sombra real do app",
+      "navigationBar": "level2 (A navigation_bar.json container.elevation) - elevacao TONAL (surfaceContainer)",
+      "demais": "nivel 0 - superficie tonal (Container de tom maior)"
+    }
   },
   "estado": {
     "hover": { "valor": 0.08, "unidade": "opacidade", "fonte": "A state.json md.sys.state.hover.state-layer-opacity", "verificado": true },
     "foco": { "valor": 0.1, "unidade": "opacidade", "fonte": "A state.json md.sys.state.focus.state-layer-opacity", "verificado": true },
     "pressionado": { "valor": 0.1, "unidade": "opacidade", "fonte": "A state.json md.sys.state.pressed.state-layer-opacity", "verificado": true },
-    "arrastado": { "valor": 0.16, "unidade": "opacidade", "fonte": "A state.json md.sys.state.dragged.state-layer-opacity", "verificado": true, "obs": "valor do enunciado CONFIRMADO na fonte" },
-    "desabilitado_conteudo": { "valor": 0.38, "unidade": "opacidade", "fonte": "A button_filled.json disabled.label-text.opacity; idem outlined/text/chips/list.json", "verificado": true },
-    "desabilitado_container": { "valor": 0.12, "unidade": "opacidade", "fonte": "A button_filled.json disabled.container.opacity; idem tonal; outlined disabled.outline.opacity 0.12; assist flat disabled.outline.opacity 0.12", "verificado": true, "obs": "CONFLITO RESOLVIDO: alternativas 12%/10% do enunciado - o token A só publica 0.12" }
+    "arrastado": { "valor": 0.16, "unidade": "opacidade", "fonte": "A state.json md.sys.state.dragged.state-layer-opacity", "verificado": true },
+    "desabilitado_conteudo": { "valor": 0.38, "unidade": "opacidade", "fonte": "A button_filled.json disabled.label-text.opacity (idem outlined/text/chips/list)", "verificado": true },
+    "desabilitado_container": { "valor": 0.12, "unidade": "opacidade", "fonte": "A button_filled.json disabled.container.opacity; outlined/assist disabled.outline.opacity", "verificado": true, "obs": "CONFLITO RESOLVIDO: alternativas 12%/10% do enunciado - o token A so publica 0.12" },
+    "foco_web": { "valor": "outline 2px primary, offset 2", "fonte": "A navigation_bar.json focus.indicator.* + decisao do projeto para a web", "verificado": true }
   },
   "movimento": {
     "easing_standard": { "valor": "Cubic(0.2, 0.0, 0.0, 1.0)", "fonte": "A motion.json md.sys.motion.easing.standard", "verificado": true },
     "easing_standard_accelerate": { "valor": "Cubic(0.3, 0.0, 1.0, 1.0)", "fonte": "A motion.json", "verificado": true },
     "easing_standard_decelerate": { "valor": "Cubic(0.0, 0.0, 0.0, 1.0)", "fonte": "A motion.json", "verificado": true },
     "duracoes_ms": { "short": [50, 100, 150, 200], "medium": [250, 300, 350, 400], "long": [450, 500, 550, 600], "extraLong": [700, 800, 900, 1000], "fonte": "A motion.json duration.*", "verificado": true },
-    "regra_flavos": "sem mola (spring), sem morph de forma, sem animação em loop (enunciado do dono); manter 200ms (short4) e 300ms (medium2)"
+    "uso_flavos": { "toque": 200, "transicao": 300, "origem": "projeto (dentro das duracoes oficiais)" },
+    "regra_flavos": "sem mola (spring), sem morph de forma, sem animacao em loop"
   },
   "tipografia": {
     "fonte": "A text_style.json + typeface.json (Roboto; pesos 400 regular / 500 medium / 700 bold)",
-    "fonte_app": "fonte do SISTEMA por plataforma (Processo Flavos: src/tema/fontes.ts; web system-ui/Segoe/Roboto/Arial; Android Roboto; iOS SF) - sem download",
+    "fonte_app": "fonte do SISTEMA por plataforma (src/tema/fontes.ts; web system-ui/Segoe UI/Roboto/Arial; Android Roboto; iOS SF) - sem download",
     "verificado": true,
     "estilos": {
       "displayLarge":    { "tamanho": 57, "alturaLinha": 64, "peso": 400, "tracking": -0.25 },
@@ -61,12 +70,10 @@
       "labelMedium":     { "tamanho": 12, "alturaLinha": 16, "peso": 500, "tracking": 0.5 },
       "labelSmall":      { "tamanho": 11, "alturaLinha": 16, "peso": 500, "tracking": 0.5 }
     },
-    "unidade_tracking": "dp aprox. (letterSpacing 1:1 no RN web em px)",
-    "papéis_domínio_flavos": {
-      "numeralHero": { "tamanho": "28-32", "peso": 700, "tabular": true, "fonte": "enunciado do dono (domínio horários)", "verificado": false, "obs": "papel do FLAVOS, fora do M3; escolher 28 e travar" },
-      "numeralBadge": { "tamanho": ">= 19", "peso": 700, "tabular": true, "fonte": "regra já aprovada (fatia 1-2, DIRECAO.md)", "verificado": true }
-    },
-    "tipografia_verificada_completa": true
+    "papeis_dominio_flavos": {
+      "numeralHero": { "tamanho": 28, "peso": 700, "tabular": true, "fonte": "decisao do projeto (dominio horarios)", "origem": "projeto" },
+      "numeralBadge": { "tamanho": ">= 19", "peso": 700, "tabular": true, "fonte": "regra aprovada nas fatias 1-2 (DIRECAO.md)", "verificado": true }
+    }
   },
   "cores_tonalidade": {
     "fonte": "A color_light.json / color_dark.json (mapa md.sys.color.* -> md.ref.palette.T*)",
@@ -75,37 +82,47 @@
       "claro": { "surface": 98, "surfaceContainerLowest": 100, "surfaceContainerLow": 96, "surfaceContainer": 94, "surfaceContainerHigh": 92, "surfaceContainerHighest": 90, "onSurface": 10, "onSurfaceVariant": "neutral-variant30", "outline": "neutral-variant50", "outlineVariant": "neutral-variant80", "primary": 40, "onPrimary": 100, "primaryContainer": 90, "onPrimaryContainer": 30, "secondary": 40, "onSecondary": 100, "secondaryContainer": 90, "onSecondaryContainer": 30, "error": 40, "onError": 100, "errorContainer": 90, "onErrorContainer": 30, "scrim": 0 },
       "escuro": { "surface": 6, "surfaceContainerLowest": 4, "surfaceContainerLow": 10, "surfaceContainer": 12, "surfaceContainerHigh": 17, "surfaceContainerHighest": 22, "onSurface": 90, "onSurfaceVariant": "neutral-variant80", "outline": "neutral-variant60", "outlineVariant": "neutral-variant30", "primary": 80, "onPrimary": 20, "primaryContainer": 30, "onPrimaryContainer": 90, "secondary": 80, "onSecondary": 20, "secondaryContainer": 30, "onSecondaryContainer": 90, "error": 80, "onError": 20, "errorContainer": 30, "onErrorContainer": 90, "scrim": 0 }
     },
-    "obs_legados": "background/onBackground e surfaceVariant AINDA existem em color_*.json, mas o guia atual usa surface/onSurface e surfaceContainerHighest; decisão: NÃO usar os legados"
+    "desvios_documentados": {
+      "surface_escuro": "#0B0E17 mede L* 4,0 (referencia tonal T6 apenas aproximacao) - MANTIDO (splash/assets dependem); surfaceContainerLowest escuro escurecido p/ L* 2,7 (abaixo do surface)",
+      "onSurface_claro": "L* 6,0 vs T10 - hex aprovado mantido",
+      "onSurface_escuro": "L* 96,4 vs T90 - hex aprovado mantido",
+      "onSurfaceVariant": "claro L* 35,1 vs T30; escuro L* 72,4 vs T80 - hexes aprovados mantidos",
+      "onPrimary_escuro": "L* 5,9 vs T20 - hex aprovado mantido",
+      "primary_escuro": "L* 74,9 vs T80 - hex aprovado mantido",
+      "error_escuro": "L* 70,7 vs T80 - hex aprovado mantido"
+    },
+    "obs_legados": "background/onBackground e surfaceVariant AINDA existem em color_*.json, mas o guia atual usa surface/onSurface e surfaceContainerHighest; decisao: NAO usar os legados"
   },
   "componentes": {
     "navigationBar": {
-      "altura_container": { "valor": 80, "unidade": "dp", "fonte": "A navigation_bar.json container.height", "verificado": true, "obs": "CONFLITO RESOLVIDO: 64 (Callstack E) x 80 (token A) -> 80 vence (fonte A, menor letra)" },
-      "destinos": { "valor": "3 a 5", "fonte": "A/D enunciado; Flavos = 4", "verificado": true },
+      "altura_container": { "valor": 80, "unidade": "dp", "fonte": "A navigation_bar.json container.height", "verificado": true, "obs": "CONFLITO RESOLVIDO: 64 (E) x 80 (A) -> 80. Medidas num UNICO objeto de tokens (m3_medidas) p/ troca facil pelo conjunto compacto no Portao B." },
+      "destinos": { "min": 3, "max": 5, "fonte": "A/D: 3 a 5 destinos; a galeria testa 3, 4 e 5", "verificado": true },
       "icone_tamanho": { "valor": 24, "unidade": "dp", "fonte": "A navigation_bar.json icon.size", "verificado": true },
-      "gap_icone_rotulo": { "valor": 4, "unidade": "dp", "fonte": "não publicado em A v6_1_0", "verificado": false, "obs": "item do enunciado; não entra em código antes de OK" },
-      "indicador": { "largura": { "valor": 64, "fonte": "A navigation_bar.json active-indicator.width", "verificado": true }, "altura": { "valor": 32, "fonte": "A navigation_bar.json active-indicator.height", "verificado": true }, "forma": "corner.full (A)", "cor": "secondaryContainer (A)", "obs": "CONFLITO RESOLVIDO: 56x32 (Expressive) não existe na A v6_1_0 -> base 64x32; conjunto BASE coerente, Expressive não adotado" },
+      "gap_icone_rotulo": { "valor": 4, "unidade": "dp", "fonte": "nao publicado em A v6_1_0", "origem": "projeto", "aprovado_portao_a": true },
+      "indicador": { "largura": { "valor": 64, "fonte": "A navigation_bar.json active-indicator.width", "verificado": true }, "altura": { "valor": 32, "fonte": "A navigation_bar.json active-indicator.height", "verificado": true }, "forma": "corner.full (A)", "cor": "secondaryContainer (A)" },
       "icone_ativo": "onSecondaryContainer (A)",
       "icone_inativo": "onSurfaceVariant (A)",
-      "rotulo_ativo": { "valor": "onSurface", "fonte": "A navigation_bar.json active.label-text.color", "verificado": true, "obs": "CONFLITO RESOLVIDO: enunciado dizia 'token secondary' -> token A = onSurface" },
+      "rotulo_ativo": { "valor": "onSurface", "fonte": "A navigation_bar.json active.label-text.color", "verificado": true, "obs": "reafirmado pelo dono no Portao A" },
       "rotulo_inativo": "onSurfaceVariant (A)",
       "estilo_rotulo": "labelMedium (A)",
       "container_cor": "surfaceContainer (A)",
-      "elevacao": "level2 (A)"
+      "elevacao": "level2 (A) - tonal"
     },
     "topAppBarSmall": {
       "altura": { "valor": 64, "unidade": "dp", "fonte": "A top_app_bar_small.json container.height", "verificado": true },
-      "container": { "valor": "surface", "onScroll": "surfaceContainer", "fonte": "A top_app_bar_small.json (container.color / on-scroll.container.color)", "verificado": true },
+      "container": { "valor": "surface", "onScroll": "surfaceContainer", "fonte": "A top_app_bar_small.json", "verificado": true },
       "titulo": "titleLarge onSurface (A)",
       "icone_lider": "onSurface, 24 (A)",
-      "icone_direita": "onSurfaceVariant, 24 (A)"
+      "icone_direita": "onSurfaceVariant, 24 (A)",
+      "alvo_voltar": { "valor": 48, "unidade": "dp", "fonte": "A MaterialTapTargetSize (api.flutter.dev) + decisao do projeto", "verificado": true }
     },
     "searchBar": {
       "altura": { "valor": 56, "unidade": "dp", "fonte": "A search_bar.json container.height", "verificado": true },
       "raio": { "valor": "full (=28 em 56)", "fonte": "A shape corner.full", "verificado": true },
       "container": { "valor": "surfaceContainerHigh", "fonte": "A search_bar.json container.color", "verificado": true },
       "texto_digitado": "bodyLarge onSurface (A)",
-      "placeholder": "onSurfaceVariant (A supporting-text; equivalência placeholder registrada)",
-      "icone_lider": { "valor": "onSurface", "fonte": "A search_bar.json leading-icon.color", "verificado": true, "obs": "CONFLITO RESOLVIDO: enunciado (via E) dizia onSurfaceVariant -> token A = onSurface" },
+      "placeholder": "onSurfaceVariant (A supporting-text; equivalencia placeholder registrada)",
+      "icone_lider": { "valor": "onSurface", "fonte": "A search_bar.json leading-icon.color", "verificado": true },
       "icone_trailing": "onSurfaceVariant (A)"
     },
     "botao": {
@@ -114,75 +131,84 @@
       "estilo_rotulo": "labelLarge (A)",
       "filled": "container primary / label onPrimary (A)",
       "tonal": "container secondaryContainer / label onSecondaryContainer (A button_filled_tonal.json)",
-      "outlined": { "borda": "outline (A)", "rotulo": { "valor": "primary", "fonte": "A button_outlined.json label-text.color", "verificado": true, "obs": "CONFLITO RESOLVIDO: enunciado que o rótulo podia ser onSurfaceVariant -> token A = primary" } },
+      "outlined": { "borda": "outline (A)", "rotulo": { "valor": "primary", "fonte": "A button_outlined.json label-text.color", "verificado": true } },
       "text": "label primary (A)",
-      "icone": { "valor": 18, "unidade": "dp", "fonte": "A*.json with-icon.icon.size", "verificado": true },
-      "padding_horizontal": { "valor": 16, "unidade": "dp", "fonte": "não publicado em A v6_1_0 (tokens de conteúdo não incluídos)", "verificado": false, "obs": "24 'não recomendado' (enunciado). Adota-se 16 como decisão local na grade de 4 - sujeito ao OK do dono" },
-      "alvo_toque": { "valor": 48, "unidade": "dp", "fonte": "https://api.flutter.dev/flutter/material/MaterialTapTargetSize.html (padded = Material minimum 48x48)", "verificado": true, "obs": "iOS 44pt: enunciado do dono (HIG Apple não verificada nesta extração)" },
-      "desabilitado": "label 0.38; container filled/tonal 0.12 (cor onSurface); outline 0.12 (A)",
-      "carregando": { "valor": null, "fonte": "fora do escopo de tokens A (spinner indeterminado); decisão de UX local", "verificado": false }
+      "icone": { "valor": 18, "unidade": "dp", "fonte": "A with-icon.icon.size", "verificado": true, "obs": "enunciado dizia 20 - token A vence" },
+      "padding_horizontal": { "valor": 16, "unidade": "dp", "fonte": "nao publicado em A v6_1_0", "origem": "projeto", "aprovado_portao_a": true },
+      "alvo_toque": { "valor": 48, "unidade": "dp", "fonte": "A MaterialTapTargetSize (api.flutter.dev); iOS 44pt: HIG Apple", "verificado": true },
+      "desabilitado": "label 0.38; container filled/tonal 0.12 (cor onSurface); outline 0.12 (A)"
     },
     "iconButton": {
       "icone": { "valor": 24, "unidade": "dp", "fonte": "A icon_button.json icon.size", "verificado": true },
-      "selecionado": "primary (A); não selecionado onSurfaceVariant (A); disabled onSurface 0.38 (A)",
-      "alvo_toque": "48 (MaterialTapTargetSize; ver botão)"
+      "selecionado": "primary (A); nao selecionado onSurfaceVariant (A); disabled onSurface 0.38 (A)",
+      "alvo_toque": { "valor": 48, "unidade": "dp", "fonte": "A MaterialTapTargetSize + decisao do projeto", "verificado": true }
     },
     "listItem": {
       "altura_1_linha": { "valor": 56, "unidade": "dp", "fonte": "A list.json one-line.container.height", "verificado": true },
-      "altura_2_linhas": { "valor": 72, "unidade": "dp", "fonte": "A list.json two-line.container.height", "verificado": true, "obs": "enunciado marcava '?' - VERIFICADO" },
+      "altura_2_linhas": { "valor": 72, "unidade": "dp", "fonte": "A list.json two-line.container.height", "verificado": true },
       "altura_3_linhas": { "valor": 88, "unidade": "dp", "fonte": "A list.json three-line.container.height", "verificado": true },
-      "espaco_lider_trailling": { "valor": 16, "fonte": "A list.json leading-space/trailing-space", "verificado": true },
+      "espaco_lider_trailing": { "valor": 16, "fonte": "A list.json leading-space/trailing-space", "verificado": true },
       "titulo": "bodyLarge onSurface (A)",
       "apoio": "bodyMedium onSurfaceVariant (A)",
       "icone_lider": "24 onSurfaceVariant (A)",
-      "selecionado": { "container": { "valor": "secondaryContainer", "fonte": "A list.json selected.container.color", "verificado": true, "obs": "CONFLITO RESOLVIDO: enunciado (E) dizia primaryContainer -> token A = secondaryContainer (coerente com chip/segmented/nav)" }, "titulo": "onSecondaryContainer (A)", "trailing": "primary (A)" }
+      "selecionado": { "container": { "valor": "secondaryContainer", "fonte": "A list.json selected.container.color", "verificado": true }, "titulo": "onSecondaryContainer (A)", "trailing": "primary (A)" }
     },
     "chip": {
       "altura": { "valor": 32, "unidade": "dp", "fonte": "A chip_assist.json / chip_filter.json container.height", "verificado": true },
-      "forma": "corner.small = 8 (A container.shape) -> CONFLITO RESOLVIDO: enunciado 'raio 8' CONFIRMADO; (32 seria círculo - não adotado)",
-      "icone": { "valor": 18, "fonte": "A*.json with-icon.icon.size", "verificado": true },
+      "forma": "corner.small = 8 (A container.shape)",
+      "icone": { "valor": 18, "fonte": "A with-icon.icon.size", "verificado": true },
       "estilo_rotulo": "labelLarge (A)",
       "assist": "sem preenchimento: borda outlineVariant + rotulo onSurface + icon primary (A flat)",
       "filtro_selecionado": "container secondaryContainer + rotulo/leading onSecondaryContainer (A)",
       "filtro_nao_selecionado": "borda outlineVariant + rotulo onSurfaceVariant (A)",
-      "alvo_toque": "o chip M3 tem 32 de altura: alvo 48 cuidado com empacotamento (decisão de layout no Passo 7)"
+      "alvo_toque": { "valor": 48, "unidade": "dp", "fonte": "A MaterialTapTargetSize; garantido por layout (Passo 7)", "verificado": true }
     },
     "segmentedButton": {
       "altura": { "valor": 40, "unidade": "dp", "fonte": "A segmented_button_outlined.json container.height", "verificado": true },
-      "borda": { "cor": "outline (A segmented_button_outlined.json outline.color)", "espessura": { "valor": 1, "unidade": "dp", "fonte": "enunciado do dono (o token A publica só a COR; espessura 1dp é o desenho padrão do componente)", "verificado": false, "obs": "espessura não publicada em A - entra só com OK" }, "verificado_cor": true },
+      "borda": { "cor": "outline (A outline.color)", "espessura": { "valor": 1, "unidade": "dp", "fonte": "nao publicado em A", "origem": "projeto", "aprovado_portao_a": true } },
       "selecionado": "container secondaryContainer + label/icon onSecondaryContainer (A)",
       "nao_selecionado": "label onSurface (A)",
       "estilo_rotulo": "labelLarge (A)",
       "forma": "corner.full nas PONTAS (A shape)",
-      "padding_horizontal_min": { "valor": 12, "fonte": "não publicado em A", "verificado": false },
-      "gap_icone_rotulo": { "valor": 8, "fonte": "não publicado em A", "verificado": false },
-      "descontinuado_expressive": { "fonte": "enunciado do dono (auditoria Callstack)", "verificado": false, "obs": "A v6_1_0 ainda traz o token; decisão do Passo 2: manter baseline + registrar que Expressive o substitui (connected button group), reavaliar depois" }
+      "padding_horizontal_min": { "valor": 12, "fonte": "nao publicado em A", "origem": "projeto", "aprovado_portao_a": true },
+      "gap_icone_rotulo": { "valor": 8, "fonte": "nao publicado em A", "origem": "projeto", "aprovado_portao_a": true },
+      "descontinuado_expressive": { "fonte": "auditoria Callstack (E) / enunciado", "verificado": false, "obs": "EXCLUIDO no Portao A: manter baseline; NAO implementar connected button group nem indicador 56x32" }
     },
     "bottomSheet": {
       "container": { "valor": "surfaceContainerLow", "fonte": "A sheet_bottom.json docked.container.color", "verificado": true },
-      "cantos_superiores": { "valor": 28, "unidade": "dp", "fonte": "A sheet_bottom.json docked.container.shape = corner.extra-large.top (28 top)", "verificado": true },
-      "alca": { "largura": { "valor": 32, "fonte": "A sheet_bottom.json drag-handle.width", "verificado": true }, "altura": { "valor": 4, "fonte": "A sheet_bottom.json drag-handle.height", "verificado": true }, "cor": "onSurfaceVariant (A)", "faixa_48": { "fonte": "enunciado (Callstack/guides)", "verificado": false, "obs": "A não publica a faixa; usar altura de área 48 apenas se o dono aprovar" } },
-      "elevacao": { "valor": "level1", "fonte": "A sheet_bottom.json docked.standard.container.elevation", "verificado": true },
-      "modal_padrao": "Flavos usa docked/standard (NÃO modal) - decisão Passo 2"
+      "cantos_superiores": { "valor": 28, "unidade": "dp", "fonte": "A sheet_bottom.json docked.container.shape = corner.extra-large.top", "verificado": true },
+      "alca": { "largura": { "valor": 32, "fonte": "A sheet_bottom.json drag-handle.width", "verificado": true }, "altura": { "valor": 4, "fonte": "A sheet_bottom.json drag-handle.height", "verificado": true }, "cor": "onSurfaceVariant (A)", "faixa_48": { "valor": 48, "fonte": "nao publicado em A", "origem": "projeto", "aprovado_portao_a": true } },
+      "elevacao": { "valor": "level1", "fonte": "A sheet_bottom.json docked.standard.container.elevation", "verificado": true }
     },
     "divider": {
       "espessura": { "valor": 1, "unidade": "dp", "fonte": "A divider.json thickness", "verificado": true },
-      "cor": "outlineVariant (A divider.json color)",
-      "obs_flavos": "hairline de lista; decorativo (isento de contraste)"
+      "cor": "outlineVariant (A divider.json color)"
     },
-    "badgeM3": {
-      "obs": "badge.json do A é o BADGE de NOTIFICAÇÃO (6/16dp, error/onError) - NÃO é o LineBadge do Flavos (domínio: cor da LINHA do feed, regra >=19/700 tabular, 3:1)"
+    "sectionHeader": {
+      "obs": "componente NOVO do projeto (nao existe no M3)",
+      "estilo": { "valor": "labelLarge 14/20/500/tracking 0,1", "fonte": "A text_style.json labelLarge + precedencia do prompt principal", "verificado": true },
+      "cor": { "valor": "onSurfaceVariant", "fonte": "A color tokens", "verificado": true },
+      "maiusculas": { "valor": false, "fonte": "decisao do dono (nao forcar maiusculas em portugues)", "origem": "projeto" }
+    },
+    "filterChipRow": {
+      "obs": "componente NOVO do projeto, composto de chips filter do M3",
+      "ativo": "preenchido: secondaryContainer + check (A chip_filter.selected)",
+      "inativo": { "valor": "contorno outline", "fonte": "decisao do dono (A chip_filter.flat.unselected.outline = outlineVariant)", "origem": "projeto" },
+      "forma": "corner.small 8 (A) - NAO pilula"
+    },
+    "timelineStop": {
+      "obs": "componente de dominio (nao M3); forma comunica origem/destino",
+      "no_primeira": { "valor": "circulo cheio 20dp", "fonte": "decisao do projeto", "origem": "projeto" },
+      "no_ultima": { "valor": "quadrado cheio 20dp com raio forma.extraPequena", "fonte": "decisao do projeto", "origem": "projeto" },
+      "no_intermediaria": { "valor": "anel pequeno 14dp (borda 2dp)", "fonte": "decisao do projeto", "origem": "projeto" },
+      "conector": { "valor": "2dp na cor da LINHA do feed", "fonte": "decisao do projeto (cor vem do feed)", "origem": "projeto" },
+      "parada_atual": { "valor": "ponto cheio + peso de texto maior", "fonte": "decisao do projeto", "origem": "projeto" }
+    },
+    "tracadoLinha": {
+      "obs": "ESPECIFICADO no DESIGN_SYSTEM.md nesta fatia (implementacao futura; react-native-svg ja instalado)",
+      "raio_cartao": { "valor": 16, "fonte": "A shape corner.large", "verificado": true },
+      "traco": { "valor": "SVG na cor da linha do feed", "fonte": "cor vem do feed (dominio)", "origem": "projeto" },
+      "dissolucao": { "valor": "gradiente SVG na borda inferior (cor da superficie transparente->opaca)", "fonte": "decisao do projeto (referencia Mapbox: principio visual)", "origem": "projeto" }
     }
-  },
-  "nao_verificados_restantes": [
-    "gap ícone-rótulo do NavigationBar (4dp) - não publicado em A",
-    "padding horizontal de botão (16)/não-recomendação do 24 - não publicado em A",
-    "padding horizontal mínimo de SegmentedButton (12) e gap ícone-rótulo (8) - não publicados em A",
-    "faixa superior de 48dp da alça do BottomSheet - não publicada em A",
-    "iOS 44pt (HIG Apple) - fora das fontes desta extração; 48dp verificado via api.flutter.dev",
-    "carregando (spinner) de botão - decisão UX local",
-    "numeralHero 28-32 - papel do domínio Flavos (escolher e travar)",
-    "valores Expressive (indicador 56x32, segmented descontinuado, connected button group) - nao verificados nas fontes (set base adotado)",
-    "animação do on-scroll do TopAppBar (timing) - cor do token verificada; timing segue movimento standard"
-  ]
+  }
 }

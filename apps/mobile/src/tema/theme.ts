@@ -1,21 +1,27 @@
-// Ponte do tema — theme.ts NÃO define mais valores: tokens.ts é a única
-// fonte de cores/escala. Aqui só: reexport + interface/temas de compat
-// com os nomes antigos (papel, tinta, acento…) usados pelas telas atuais.
-// A renomeação dos componentes para os nomes novos acontece nas fatias
-// desse redesign; quando terminar, esta ponte encolhe para `export *`.
-// ok foi REMOVIDO: nenhum componente o usava (grep 2026-10-29) e success
-// é YAGNI no MVP (regra em tokens.ts).
+// Ponte do tema — theme.ts NÃO define valores: tokens.ts é a única fonte
+// de cores/escala. Aqui: acesso ao conjunto de PAPÉIS M3 do tema atual
+// (`usePapeis`), ponte de nomes antigos (`Tema`) e as medidas M3.
+// Nenhum componente lê useColorScheme direto (grep): useTema/usePapeis.
 
 import { useColorScheme } from "react-native";
 import {
   cores,
+  papeis,
+  identidade,
   espaco,
   toque,
   raio,
   tipografia,
   sombra,
   logoTile,
+  m3_medidas,
+  forma,
+  estadoM3,
+  movimento,
+  tiposM3,
+  tiposDominio,
 } from "./tokens";
+import type { PaletaM3, Identidade } from "./tokens";
 export { fonteNumeros } from "./fontes";
 import { useModoTema } from "./tema_provider";
 import { resolverEscuro } from "./modo";
@@ -52,6 +58,23 @@ export interface Tema {
   /** tokens: dangerBg */ readonly erroFundo: string;
 }
 
+/** Conjunto COMPLETO do tema atual: papéis M3 + identidade + medidas.
+ * É o que os componentes M3 consomem (via `usePapeis`). */
+export interface TemaM3 {
+  readonly escuro: boolean;
+  /** papéis M3 (Portão A) */
+  readonly papeis: PaletaM3;
+  /** identidade do Flavos (fora do M3) */
+  readonly identidade: Identidade;
+  readonly medidas: typeof m3_medidas;
+  readonly forma: typeof forma;
+  readonly estado: typeof estadoM3;
+  readonly movimento: typeof movimento;
+  readonly tipos: typeof tiposM3;
+  readonly tiposDominio: typeof tiposDominio;
+  readonly logoTile: string;
+}
+
 function montar(escuro: boolean): Tema {
   const c = escuro ? cores.escuro : cores.claro;
   return {
@@ -83,8 +106,29 @@ function montar(escuro: boolean): Tema {
   };
 }
 
+function montarM3(escuro: boolean): TemaM3 {
+  return {
+    escuro,
+    papeis: escuro ? papeis.escuro : papeis.claro,
+    identidade: escuro ? identidade.escuro : identidade.claro,
+    medidas: m3_medidas,
+    forma,
+    estado: estadoM3,
+    movimento,
+    tipos: tiposM3,
+    tiposDominio,
+    logoTile,
+  };
+}
+
 export const temaClaro: Tema = montar(false);
 export const temaEscuro: Tema = montar(true);
+export const temaM3Claro: TemaM3 = montarM3(false);
+export const temaM3Escuro: TemaM3 = montarM3(true);
+
+function resolveEscuroAtual(modo: ReturnType<typeof useModoTema>["modo"], sistemaEscuro: boolean) {
+  return resolverEscuro(modo, sistemaEscuro);
+}
 
 /** ÚNICO caminho de cor (fatia 3, B4): modo manual (sistema/claro/escuro)
  * persistido em flavos_usuario.db via TemaProvider; sem modo manual, segue
@@ -92,5 +136,12 @@ export const temaEscuro: Tema = montar(true);
 export function useTema(): Tema {
   const { modo } = useModoTema();
   const esquema = useColorScheme();
-  return resolverEscuro(modo, esquema === "dark") ? temaEscuro : temaClaro;
+  return resolveEscuroAtual(modo, esquema === "dark") ? temaEscuro : temaClaro;
+}
+
+/** Mesmo caminho único, expondo o conjunto M3 completo (papéis + medidas). */
+export function usePapeis(): TemaM3 {
+  const { modo } = useModoTema();
+  const esquema = useColorScheme();
+  return resolveEscuroAtual(modo, esquema === "dark") ? temaM3Escuro : temaM3Claro;
 }

@@ -43,3 +43,7 @@ tools/scraper/.tmp/
 # skills de terceiros instaladas localmente + artefatos de medição de marca
 # (o lockfile skills-lock.json É versionado; o conteúdo de .claude não)
 .claude/
+# capturas/arquivos de referência de terceiros (marca, nome, fonte proprietária:
+# não versionar; ver docs/design/REFERENCIA_ESTRUTURA.md)
+docs/design/referencias/
+
