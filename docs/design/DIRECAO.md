@@ -1,6 +1,8 @@
 # Flavos Bus — Direção de design (MVP)
 
 Data: 2026-10-30 · Âncora e tokens travados antes da primeira tela.
+Registro do que foi entregue por fatia (provas, capturas, pendências):
+`docs/design/FATIAS.md`.
 Uso real que guia TODAS as decisões: pessoa **em pé no ponto de ônibus**, sol
 forte, uma mão no celular, pressa, internet ruim. Se uma decisão não melhora a
 leitura nessas condições, ela foi pelo caminho errado.
@@ -73,13 +75,24 @@ tsc até a v1. Decida antes da fatia 3.
 
 | Papel | Família | Uso |
 |---|---|---|
-| display/números | `sans-serif-condensed` (Android) / System Semibold (iOS) | número da linha, horários, contagem |
-| corpo | system-régua (Roboto/SF) 16px | tudo o resto |
+| numerais/segmentos | pilha ÚNICA por plataforma em `src/tema/fontes.ts`: web `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`; nativo: SEM nome inventado (fonte do sistema) | número da linha, horários, contagem, segmented |
+| corpo | a mesma pilha do sistema, 16px | tudo o resto |
 
+- Correção da Parte A do redesign: o token antigo citava
+  `sans-serif-condensed` (nome generalizado do Android), inexistente no
+  desktop — o browser caía no serif padrão (Times). Prova:
+  `apps/mobile/scripts/diag_fontes.mjs` (tabela `getComputedStyle` em
+  `.claude/fontes_resolvidas.txt`): nenhuma família resolve para serif.
+  `fonteNumeros` traz `tabular-nums` + peso 700; NENHUM componente define
+  fontFamily literal (grep por fatia; o único arquivo com fontFamily é
+  `fontes.ts`).
+- tokens.ts NÃO importa react-native (testes node:test leem os tokens
+  direto); o que depende de plataforma vive em `fontes.ts`.
 - Horários e qualquer número que atualiza: `fontVariant: tabular-nums`.
 - Alvos de toque mínimos: 48x48; types spam 4/8/12/16/24/32/48; raio: placa 8,
   cartão 16, filho = pai − padding (concêntrico); separadores = hairline 1px,
-  não sombra (âncora Swiss: bordas estruturam, sombra é ruído).
+  não sombra (âncora Swiss: bordas estruturam, sombra é ruído). Piso de
+  verificação automatizada: 44px (regra das fatias 2–3).
 
 ## Layout
 
