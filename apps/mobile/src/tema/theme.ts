@@ -17,6 +17,8 @@ import {
   logoTile,
 } from "./tokens";
 export { fonteNumeros } from "./fontes";
+import { useModoTema } from "./tema_provider";
+import { resolverEscuro } from "./modo";
 
 export * from "./tokens";
 
@@ -84,7 +86,11 @@ function montar(escuro: boolean): Tema {
 export const temaClaro: Tema = montar(false);
 export const temaEscuro: Tema = montar(true);
 
+/** ÚNICO caminho de cor (fatia 3, B4): modo manual (sistema/claro/escuro)
+ * persistido em flavos_usuario.db via TemaProvider; sem modo manual, segue
+ * o sistema. NENHUM componente novo chama useColorScheme direto (grep). */
 export function useTema(): Tema {
+  const { modo } = useModoTema();
   const esquema = useColorScheme();
-  return esquema === "dark" ? temaEscuro : temaClaro;
+  return resolverEscuro(modo, esquema === "dark") ? temaEscuro : temaClaro;
 }
