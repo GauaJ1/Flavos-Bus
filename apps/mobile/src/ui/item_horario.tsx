@@ -2,7 +2,7 @@
 // horário já passado fica esmaecido (só cor/transparência é insuficiente —
 // junto com opacidade usamos rótulo "passou" no próximo, nunca cor sozinha).
 import { StyleSheet, Text, View } from "react-native";
-import { espaco, fonteNumeros, useTema, type Tema } from "@/tema/theme";
+import { forma, espaco, fonteNumeros, useTema, type Tema } from "@/tema/theme";
 import * as React from "react";
 
 export function ItemHorario({
@@ -31,7 +31,7 @@ function estilosDe(tema: Tema) {
       paddingHorizontal: espaco.s + 2,
       justifyContent: "center",
       alignItems: "center",
-      borderRadius: 8,
+      borderRadius: forma.pequena,
       borderWidth: 1,
       borderColor: tema.hairline,
       backgroundColor: tema.papel2,

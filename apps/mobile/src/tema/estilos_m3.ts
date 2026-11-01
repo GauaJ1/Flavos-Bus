@@ -394,7 +394,7 @@ export function estiloNoTimeline(variante: VarianteNo, atual: boolean, corLinha:
       width: m3_medidas.timelineStop.conector,
       flex: 1,
       backgroundColor: corLinha,
-      borderRadius: 1,
+      borderRadius: forma.full,
     },
     forma: variante === "ultima" ? "quadrado" : grande ? "circulo" : "anel",
     cheio,

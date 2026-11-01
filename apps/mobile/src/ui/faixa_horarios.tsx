@@ -4,7 +4,7 @@
 // Regras dataviz aplicadas: eixo com rótulos de hora legíveis (AA), nunca só
 // cor para codificar, tinta neutra + acento único no marcador "agora".
 import { StyleSheet, Text, View } from "react-native";
-import { espaco, useTema, type Tema } from "@/tema/theme";
+import { forma, espaco, useTema, type Tema } from "@/tema/theme";
 import * as React from "react";
 
 const INICIO_H = 4; // janela 04:00–24:00 cobre as viagens do feed (05:00–17:40+)
@@ -60,7 +60,7 @@ function estilosDe(tema: Tema) {
   return StyleSheet.create({
     trilha: {
       height: 34,
-      borderRadius: 8,
+      borderRadius: forma.pequena,
       backgroundColor: tema.papel2,
       borderWidth: 1,
       borderColor: tema.hairline,
@@ -72,7 +72,7 @@ function estilosDe(tema: Tema) {
       bottom: 6,
       width: 3,
       marginLeft: -1.5,
-      borderRadius: 2,
+      borderRadius: forma.full,
       backgroundColor: tema.tinta,
       opacity: 0.8,
     },

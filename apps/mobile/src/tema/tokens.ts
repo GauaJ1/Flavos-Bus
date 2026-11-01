@@ -28,6 +28,12 @@
  * Fixo e imune à troca de tema por design. */
 export const logoTile = "#FFFFFF";
 
+/** Máximos neutros usados SÓ pela regra 3:1 do LineBadge: quando o par de
+ * cores do feed não alcança 3:1, o app troca o TEXTO para preto ou branco
+ * puro (o fundo continua sendo a cor da linha no feed). Não são papéis M3 —
+ * são constantes de correção de contraste (medidas em contraste_badge.ts). */
+export const contrasteBadge = { preto: "#000000", branco: "#FFFFFF" } as const;
+
 /** Marca de origem para medidas aprovadas como "decisão do projeto"
  * (sem fonte M3) no Portão A. */
 export const ORIGEM_PROJETO = "projeto" as const;

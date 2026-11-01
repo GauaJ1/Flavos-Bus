@@ -290,11 +290,13 @@ export function SegmentedButton<T extends string>({
             accessibilityLabel={op.acessivel ?? op.rotulo}
             onPress={() => aoEscolher(op.chave)}
             android_ripple={ripple({ cor: ativo ? papeis.onSecondaryContainer : papeis.onSurface, raio: forma.full })}
-            style={estiloSegmento(papeis, ativo, i === 0, i === opcoes.length - 1)}
+            style={estilos.segmentoAlvo}
           >
-            <Text numberOfLines={1} maxFontSizeMultiplier={1.3} style={estiloTextoSegmento(papeis, ativo)}>
-              {op.rotulo}
-            </Text>
+            <View style={estiloSegmento(papeis, ativo, i === 0, i === opcoes.length - 1)}>
+              <Text numberOfLines={1} maxFontSizeMultiplier={1.3} style={estiloTextoSegmento(papeis, ativo)}>
+                {op.rotulo}
+              </Text>
+            </View>
           </Pressable>
         );
       })}
@@ -326,16 +328,17 @@ export function Chip({
   const { papeis } = usePapeis();
   const e = estiloChip(papeis, tipo, selecionado, desabilitado);
   return (
-    <View style={[estilos.chipArea, style]}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={rotulo}
-        accessibilityState={{ selected: tipo === "filter" ? selecionado : undefined, disabled: desabilitado }}
-        disabled={desabilitado}
-        onPress={aoPressionar}
-        android_ripple={ripple({ cor: e.ripple, desabilitado, raio: forma.pequena })}
-        style={e.container}
-      >
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={rotulo}
+      accessibilityState={{ selected: tipo === "filter" ? selecionado : undefined, disabled: desabilitado }}
+      disabled={desabilitado}
+      onPress={aoPressionar}
+      android_ripple={ripple({ cor: e.ripple, desabilitado, raio: forma.pequena })}
+      style={[estilos.chipAlvo, style]}
+    >
+      {/* desenho de 32dp (A) dentro do alvo de 48 */}
+      <View style={e.container}>
         {tipo === "filter" && selecionado ? (
           <Check size={m3_medidas.chip.icone} weight="bold" color={e.corIcone} />
         ) : icone ? (
@@ -344,8 +347,8 @@ export function Chip({
         <Text numberOfLines={1} maxFontSizeMultiplier={1.3} style={e.texto}>
           {rotulo}
         </Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   );
 }
 
@@ -387,7 +390,6 @@ export function FilterChipRow<T extends string>({
           selecionado={selecionados.includes(op.chave)}
           aoPressionar={() => aoAlternar(op.chave)}
           {...(op.icone ? { icone: op.icone } : {})}
-          style={estilos.chipLinhaItem}
         />
       ))}
     </View>
@@ -398,8 +400,10 @@ const estilos = StyleSheet.create({
   itemTextos: { flex: 1, gap: 2 },
   barraLado: { flexDirection: "row", alignItems: "center" },
   barraAcoes: { flexDirection: "row", alignItems: "center" },
-  chipArea: { minHeight: toque.minimo, justifyContent: "center" },
-  chipLinhaItem: { minHeight: toque.minimo },
+  // alvo de toque 48 no PRÓPRIO elemento clicável (chip desenha 32)
+  chipAlvo: { minHeight: toque.minimo, justifyContent: "center", alignSelf: "flex-start" },
+  // segmento: desenho de 40 dentro de alvo de 48
+  segmentoAlvo: { flex: 1, minHeight: toque.minimo, justifyContent: "center" },
 });
 
 export type { EstiloBotao, TipoChip };

@@ -6,6 +6,7 @@
 // - propriedade de segurança: para qualquer fundo, max(preto, branco) >= 4.583,
 //   logo o override automático sempre passa até o AA de texto normal (4.5).
 // Cores chegam como vêm do feed ("0000FF") ou com "#" — aceito os dois.
+import { contrasteBadge } from "../tema/tokens.ts";
 
 function canalSrgb(hexPar: string): number {
   const c = parseInt(hexPar, 16) / 255;
@@ -29,9 +30,11 @@ export function contraste(frente: string, fundo: string): number {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-/** Cor de texto que dá o MAIOR contraste sobre o fundo: preto ou branco. */
-export function melhorPretoOuBranco(fundo: string): "#000000" | "#FFFFFF" {
-  return contraste("#000000", fundo) >= contraste("#FFFFFF", fundo) ? "#000000" : "#FFFFFF";
+/** Cor de texto que dá o MAIOR contraste sobre o fundo: preto ou branco.
+ * As duas constantes vêm de tokens (contrasteBadge) — nenhum hex solto. */
+export function melhorPretoOuBranco(fundo: string): string {
+  const { preto, branco } = contrasteBadge;
+  return contraste(preto, fundo) >= contraste(branco, fundo) ? preto : branco;
 }
 
 export interface PaletaBadge {

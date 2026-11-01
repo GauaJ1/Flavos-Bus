@@ -3,7 +3,7 @@
 // para preencher; o texto diz o que acontece e o que fazer.
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { Icon } from "phosphor-react-native";
-import { espaco, raio, toque, useTema, type Tema } from "@/tema/theme";
+import { forma, espaco, raio, toque, useTema, type Tema } from "@/tema/theme";
 import * as React from "react";
 
 export function EmptyState({
@@ -52,7 +52,7 @@ function estilos(tema: Tema) {
     circulo: {
       width: 56,
       height: 56,
-      borderRadius: 28,
+      borderRadius: forma.extraGrande,
       borderWidth: 1,
       borderColor: tema.border,
       backgroundColor: tema.surfaceAlt,

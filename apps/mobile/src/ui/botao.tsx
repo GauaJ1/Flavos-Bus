@@ -1,11 +1,13 @@
 // Botão Material 3 (Passo 6) — filled / tonal / outlined / text.
-// Altura 40, forma full, labelLarge, ícone 18, alvo de toque 48.
-// Estilo em src/tema/estilos_m3.ts (puro e testado). Sem spinner (excluído
-// no Portão A) e sem hex aqui.
+// DESENHO: altura 40, forma full, labelLarge, ícone 18 (A button_*.json).
+// ALVO DE TOQUE: 48 — o M3 desenha 40 e exige 48 de área (MaterialTapTargetSize,
+// api.flutter.dev/flutter/material/MaterialTapTargetSize.html). Por isso o
+// PRESSABLE tem minHeight 48 e centraliza o botão de 40 dentro: o alvo fica
+// no próprio elemento clicável (medido pelo Playwright), não na View pai.
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { StyleProp, ViewStyle } from "react-native";
 import type { ReactNode } from "react";
-import { forma, toque } from "@/tema/tokens";
+import { forma, m3_medidas, toque } from "@/tema/tokens";
 import { coresDoBotao, estiloBotao, type EstiloBotao } from "@/tema/estilos_m3";
 import { usePapeis } from "@/tema/theme";
 import { ripple, estiloFocoWeb } from "./interacao";
@@ -32,27 +34,28 @@ export function BotaoM3({
   const e = estiloBotao(papeis, estilo, desabilitado);
   const c = coresDoBotao(papeis, estilo);
   return (
-    <View style={[estilos.area, style]}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={rotulo}
-        accessibilityState={{ disabled: desabilitado }}
-        disabled={desabilitado}
-        onPress={aoPressionar}
-        android_ripple={ripple({ cor: c.ripple, desabilitado, raio: forma.full })}
-        style={[e.container, estiloFocoWeb(papeis.primary)]}
-      >
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={rotulo}
+      accessibilityState={{ disabled: desabilitado }}
+      disabled={desabilitado}
+      onPress={aoPressionar}
+      android_ripple={ripple({ cor: c.ripple, desabilitado, raio: forma.full })}
+      style={[estilos.alvo, estiloFocoWeb(papeis.primary), style]}
+    >
+      {/* o DESENHO de 40dp (A) vive dentro do alvo de 48 */}
+      <View style={e.container}>
         {icone ? <View style={{ opacity: e.rotulo.opacity }}>{icone}</View> : null}
         <Text numberOfLines={1} maxFontSizeMultiplier={1.3} style={[e.texto, e.rotulo]}>
           {rotulo}
         </Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   );
 }
 
 const estilos = StyleSheet.create({
-  area: { minHeight: toque.minimo, justifyContent: "center", alignItems: "flex-start" },
+  alvo: { minHeight: toque.minimo, justifyContent: "center", alignItems: "flex-start" },
 });
 
 /** Compat: `Botao` (nome antigo) → BotaoM3; variante antiga "primario"
@@ -65,3 +68,6 @@ export function Botao({
 }) {
   return <BotaoM3 {...props} estilo={variante === "primario" ? "filled" : "outlined"} />;
 }
+
+/** Altura desenhada do botão (para a galeria/teste) — não usar em layout. */
+export const ALTURA_DESENHO_BOTAO = m3_medidas.botao.altura;

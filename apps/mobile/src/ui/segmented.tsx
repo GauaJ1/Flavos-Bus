@@ -1,7 +1,7 @@
 // Segmented genérico (fatia 3, B4): largura total, opções flex:1, >=44,
 // ativo primary+onPrimary+peso 800. DaySegmented é wrapper fino deste.
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { useTema, type Tema } from "@/tema/theme";
+import { forma, useTema, type Tema } from "@/tema/theme";
 import * as React from "react";
 
 export interface OpcaoSegmented<T extends string> {
@@ -50,14 +50,14 @@ function estilos(tema: Tema) {
       flexDirection: "row",
       borderWidth: 1,
       borderColor: tema.border,
-      borderRadius: 12,
+      borderRadius: forma.media,
       backgroundColor: tema.surfaceAlt,
       padding: 2,
     },
     item: {
       flex: 1,
       minHeight: 44,
-      borderRadius: 10,
+      borderRadius: forma.pequena,
       justifyContent: "center",
       alignItems: "center",
       margin: 1,

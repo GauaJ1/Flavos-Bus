@@ -84,7 +84,11 @@ export function NavigationBar({
             android_ripple={ripple({ cor: papeis.onSurface, raio: forma.full })}
             style={estilos.destino}
           >
-            <View style={e.indicador}>{ICONES[d.icone](e.corIcone, m3_medidas.navigationBar.icone, selecionado)}</View>
+            {/* indicador 64×32 (A); a conformidade é medida por geometria nas
+                capturas (width/height inline, o RN-Web não repassa data-*) */}
+            <View style={e.indicador}>
+              {ICONES[d.icone](e.corIcone, m3_medidas.navigationBar.icone, selecionado)}
+            </View>
             <Text numberOfLines={1} maxFontSizeMultiplier={1.3} allowFontScaling style={e.rotulo}>
               {d.rotulo}
             </Text>

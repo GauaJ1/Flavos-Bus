@@ -2,7 +2,7 @@
 // com alça CLICÁVEL que cicla peek -> meia -> expandida. O gesto real no
 // celular vive em bottom_sheet.native.tsx. Visual M3 (Passo 6): container
 // surfaceContainerLow, cantos 28, alça 32×4 onSurfaceVariant, elevação level1.
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { sombra, usePapeis } from "@/tema/theme";
 import { estiloBottomSheet } from "@/tema/estilos_sheet";
 import { alturasDeEncaixe, ENCAIXES_PADRAO, type PropsBottomSheet } from "./bottom_sheet_tipos";

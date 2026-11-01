@@ -81,7 +81,7 @@ export function estiloNoTimeline(
       width: m3_medidas.timelineStop.conector,
       flex: 1,
       backgroundColor: cor,
-      borderRadius: 1,
+      borderRadius: forma.full,
     },
     nome: {
       flex: 1,

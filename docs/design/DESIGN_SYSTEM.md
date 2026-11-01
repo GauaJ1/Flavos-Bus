@@ -152,13 +152,44 @@ Início. Detalhe da linha: TopAppBar (voltar, LineBadge + nome, estrela), faixa 
 SegmentedButton Útil/Sáb/Dom, TimelineStop, painel fixo "Horário teórico" **sem dispensar para
 sempre**.
 
+### 6.1 O feed tem mais de uma operadora? — VERIFICADO na tabela `agencies`
+
+Consulta ao `apps/mobile/assets/flavos.sqlite` (somente leitura):
+
+| Verificação | Resultado |
+|---|---|
+| Tabela | **`agencies`** (não `agency`) — 8 linhas |
+| Agências | MANDACARUENSE, MARCOS_DA_SILVA, NAVEGANTES, REUNIDAS, SANTA_MARIA, **SEM_OPERADORA** ("SEMOB - operadora não publicada"), SÃO JORGE, TRANSNACIONAL |
+| Rotas | 84 em `routes`; `routes` **não tem** `agency_id` — a operadora vem em `descricao` ("operadora declarada 2024: SANTA MARIA") |
+| Operadoras distintas nas rotas | **7**, cobrindo 63 rotas; **21 rotas sem operadora declarada** |
+| Distribuição | REUNIDAS 17 · TRANSNACIONAL 17 · SÃO JORGE 10 · SANTA MARIA 9 · MARCOS DA SILVA 6 · NAVEGANTES 2 · MANDACARUENSE 2 |
+
+**Conclusão:** sim — o feed tem >1 agência, então o filtro por operadora e o `SectionHeader`
+agrupado **fazem sentido e devem existir**. Duas ressalvas registradas: (a) 25% das rotas não
+declara operadora (precisam de um grupo próprio, ex. "Operadora não declarada"); (b) uma das 8
+agências é `SEM_OPERADORA`, que é uma linha sentinela e **não** deve virar um chip de filtro.
+
 ## 7. Acessibilidade (Passo 7)
 
 - Alvo de toque ≥ **48** nos controles (piso 44 só onde a spec manda: rótulo de aba).
+  **O alvo vive no próprio elemento clicável**: botão desenha 40 mas o `Pressable` tem
+  `minHeight: 48`; chip desenha 32 com alvo 48; segmento desenha 40 com alvo 48. Medido
+  pelo Playwright nas capturas (`toque=ok (>=44)` em todas as 28 páginas).
 - `accessibilityRole`/`State` (selected, disabled) e rótulos em português.
 - Seleção nunca só por cor (indicador + ícone preenchido + peso).
 - `maxFontSizeMultiplier` 1,3 nos rótulos de aba e no LineBadge; sem truncar rótulo de aba em 130%.
 - Ordem de leitura: topo → conteúdo → ação.
+- `src/tema/acessibilidade.ts`: `MAX_FONTE`, `ALVO_MINIMO`, `hitSlopAlvo`, `rotuloSelecao`,
+  `rotuloAba`, `estadoAcessivel` — um só lugar para as regras.
+
+### 7.1 Defeito encontrado e corrigido nesta fatia
+
+A 1ª rodada de capturas mediu os botões/chips/segmentos pelo rect do elemento com
+`role=button` e achou **40dp** (botões) e **32dp** (chips): o alvo de 48 estava na `View`
+pai, que não é clicável. Corrigido movendo o `minHeight: 48` para dentro do `Pressable`
+(com o desenho M3 centralizado dentro). Antes: 28 falhas; depois: 0.
+
+
 
 ## 8. Rupturas visuais aprovadas (Portão A §4)
 
@@ -231,7 +262,27 @@ ativa** e **verde (`secondary`/containers) só como seleção e identidade do ap
 estado semântico (erro/aviso/sucesso). Se o verde do indicador competir visualmente com os selos
 coloridos das linhas nas capturas, isso é reportado no Portão B (não corrigido às cegas).
 
-## 11. Pendências de verificação
+## 11. Comparativo VERDE × AZUL no indicador da NavigationBar (para o Portão B)
+
+Decisão do dono no Portão A: **verde (`secondaryContainer`)** no indicador da aba ativa. O M3
+oficial usa `secondaryContainer` para o indicador, então o verde não é desvio — é o token certo
+com a paleta da marca. O azul foi implementado **apenas como comparativo** (`varianteIndicador="azul"`).
+
+| | Verde (aprovado) | Azul (comparativo) |
+|---|---|---|
+| Claro — indicador | `#C5ECCF` (secondaryContainer) | `#D9E3F4` (primaryContainer) |
+| Claro — ícone | `#09200F` (onSecondaryContainer) 13,28:1 | `#121B2C` (onPrimaryContainer) 13,33:1 |
+| Escuro — indicador | `#22502E` | `#29467A` |
+| Escuro — ícone | `#C9EAD2` 7,18:1 | `#D9E3F3` 7,21:1 |
+| Rótulo ativo (igual nos dois) | `onSurface` 15,83:1 / 14,97:1 | idem |
+| Prova por pixel na captura | `#c5eccf` / `#22502e` ✓ | `#d9e3f4` / `#29467a` ✓ |
+
+Leitura: o **azul carrega o peso da marca** (é a cor de ação do app) e num ícone pequeno compete
+com os próprios selos de linha azuis do feed (`#0000FF` das linhas 0002/0003). O **verde é mais
+leve** e não colide com nenhuma cor de linha do feed. Não alterei nada — a escolha continua sendo
+a do dono; os números e as capturas estão prontos para decidir.
+
+## 12. Pendências de verificação
 
 1. **Nada do M3 foi testado em aparelho real** (Android/iOS). Ripple Android, opacidade iOS e
    safe areas só com o dono no aparelho. Web é provada por Playwright.

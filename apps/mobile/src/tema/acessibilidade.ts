@@ -4,7 +4,7 @@
 //  - seleção NUNCA só por cor (ícone preenchido + peso + texto);
 //  - escala de fonte limitada a 1,3 em rótulos críticos (aba, badge);
 //  - rótulos sempre em português e legíveis por leitor de tela.
-import { toque } from "./tokens";
+import { toque } from "./tokens.ts";
 
 /** Escala máxima de fonte em rótulos que não podem quebrar o layout. */
 export const MAX_FONTE = 1.3;
