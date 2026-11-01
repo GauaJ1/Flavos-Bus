@@ -12,18 +12,22 @@ export function SearchBar({
   texto,
   aoMudarTexto,
   aoAbrirBusca,
+  autoFocar = false,
 }: {
   readonly variante?: "botao" | "campo";
   readonly texto?: string;
   readonly aoMudarTexto?: (t: string) => void;
   /** variante botao: ação de navegar p/ a tela de busca. */
   readonly aoAbrirBusca?: () => void;
+  /** campo: foco automático (tela Buscar). */
+  readonly autoFocar?: boolean;
 }) {
   const tema = useTema();
   if (variante === "botao") {
     return (
       <Pressable
-        accessibilityRole="search"
+        // role button (abre a tela de busca) — entra na checagem de toque
+        accessibilityRole="button"
         accessibilityLabel="Buscar linha ou parada"
         onPress={aoAbrirBusca}
         style={({ pressed }) => [estilos(tema).casco, pressed && { opacity: 0.85 }]}
@@ -42,6 +46,7 @@ export function SearchBar({
         placeholderTextColor={tema.textMuted}
         value={texto}
         onChangeText={aoMudarTexto}
+        autoFocus={autoFocar}
         autoCapitalize="none"
         autoCorrect={false}
         style={estilos(tema).campoTexto}

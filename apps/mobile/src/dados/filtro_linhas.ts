@@ -49,13 +49,16 @@ export function classificarTermo(termoBruto: string, linha: LinhaConsultavel): F
 
 const PESO: Record<Forca, number> = { exato: 0, prefixo: 1, contem: 2 };
 
-/** Filtra + ordena. Termo vazio devolve TODAS (na ordem natural da lista). */
-export function filtrarLinhas(termoBruto: string, linhas: readonly LinhaConsultavel[]): LinhaConsultavel[] {
+/** Filtra + ordena. Termo vazio devolve TODAS (na ordem natural da lista).
+ * Genérico: preserva o tipo de entrada (ex.: LinhaComCores da lista). */
+export function filtrarLinhas<T extends LinhaConsultavel>(termoBruto: string, linhas: readonly T[]): T[] {
   const termo = normalizar(termoBruto);
   if (termo.length === 0) return [...linhas];
-  const marcadas = linhas
-    .map((linha) => ({ linha, forca: classificarTermo(termoBruto, linha) }))
-    .filter((m): m is { linha: LinhaConsultavel; forca: Forca } => m.forca !== null);
+  const marcadas: { linha: T; forca: Forca }[] = [];
+  for (const linha of linhas) {
+    const forca = classificarTermo(termoBruto, linha);
+    if (forca !== null) marcadas.push({ linha, forca });
+  }
   return marcadas
     .sort(
       (a, b) =>

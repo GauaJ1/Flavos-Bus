@@ -125,3 +125,29 @@ biblioteca pesada — os quatro bastem para o MVP.
 Só o essencial: escala no toque (0,96, ≤120 ms) e transição de empilhar do
 navegador. Zero animação contínua (sem relógio pulsando; sem "atraso" fictício
 pensada — RT não existe e não inventamos dado).
+
+## Estado após a fatia 3 (consciente — para a fatia 4)
+
+- **Início e Favoritos são PROVISÓRIOS** (EmptyState com texto honesto
+  "chega na próxima etapa"): arquivos `app/(tabs)/inicio.tsx` e
+  `favoritos.tsx` + os textos todos se REMOVEM junto quando as telas
+  reais entrarem. Enquanto provisórios, a rota inicial `/` é a LISTA de
+  linhas (aba "Linhas"): no expo-router a rota vazia do grupo é sempre o
+  arquivo `index.tsx`, então a lista mora em `(tabs)/index.tsx` e a Home
+  provisória em `inicio.tsx` (rota `/inicio`). A ordem visual da tab bar
+  segue o dono: Início, Linhas, Favoritos, Sobre.
+- **Rótulo de ordem da lista**: "Primeiro as do MVP (mais viagens no dia
+  útil); as demais por número." Só o top-12 têm contagem real
+  (`linhas_mvp.ts`); afirmar "por número de viagens" para TODA a lista
+  seria inventado.
+- **Hairline informativa** (1.22:1 claro / 1.26:1 escuro, borda decorativa
+  de listas/trilha — abaixo do 3:1 não-texto): fica como está porque os
+  estados que identificam o controle passam com folga (opção ativa do
+  Segmented 11.89/9.38:1; ícones ≥ 9.74:1). Se o dono quiser 3:1 nas
+  bordas, trocar o token `border` para um cinza-azulado médio muda o
+  visual aprovado.
+- **Detalhe (tela antiga) fora do escopo**: os alvos de toque < 44 (chips
+  de dia, 40 px) e o "←" no texto do botão são dívida da tela antiga —
+  entra no refate da fatia 4.
+- **Lista virtualizada**: FlatList com janela (RN default); o smoke conta
+  os itens da JANELA visível (≥ 10, primeiro = MVP 0507).
